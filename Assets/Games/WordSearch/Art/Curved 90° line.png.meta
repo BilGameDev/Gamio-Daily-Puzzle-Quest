@@ -1,0 +1,1053 @@
+fileFormatVersion: 2
+guid: 5163b377a2858384d955c94c8bef5112
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5502934495429042637
+    second: "Curved 90\xB0 line_0"
+  - first:
+      213: 6190118902455204602
+    second: "Curved 90\xB0 line_1"
+  - first:
+      213: 6189407372236981896
+    second: "Curved 90\xB0 line_2"
+  - first:
+      213: 3325102205289878002
+    second: "Curved 90\xB0 line_3"
+  - first:
+      213: 2553868943612610213
+    second: "Curved 90\xB0 line_4"
+  - first:
+      213: 4423384248449955028
+    second: "Curved 90\xB0 line_5"
+  - first:
+      213: 7673686021646487461
+    second: "Curved 90\xB0 line_6"
+  - first:
+      213: 2749772144950880492
+    second: "Curved 90\xB0 line_7"
+  - first:
+      213: 8304642867650738290
+    second: "Curved 90\xB0 line_8"
+  - first:
+      213: -603897221239264645
+    second: "Curved 90\xB0 line_9"
+  - first:
+      213: 6245397311628784916
+    second: "Curved 90\xB0 line_10"
+  - first:
+      213: -4584005526417942795
+    second: "Curved 90\xB0 line_11"
+  - first:
+      213: -6025651672867688551
+    second: "Curved 90\xB0 line_12"
+  - first:
+      213: 7907290616400663283
+    second: "Curved 90\xB0 line_13"
+  - first:
+      213: -4378258628092394075
+    second: "Curved 90\xB0 line_14"
+  - first:
+      213: -3467299213365068324
+    second: "Curved 90\xB0 line_15"
+  - first:
+      213: -1768593305633927562
+    second: "Curved 90\xB0 line_16"
+  - first:
+      213: 8629641743586486387
+    second: "Curved 90\xB0 line_17"
+  - first:
+      213: 2190658098047236389
+    second: "Curved 90\xB0 line_18"
+  - first:
+      213: -7187419124582385469
+    second: "Curved 90\xB0 line_19"
+  - first:
+      213: -8347326104258363689
+    second: "Curved 90\xB0 line_20"
+  - first:
+      213: -1791773064441463587
+    second: "Curved 90\xB0 line_21"
+  - first:
+      213: -1843227272065253890
+    second: "Curved 90\xB0 line_22"
+  - first:
+      213: 2617300107815185729
+    second: "Curved 90\xB0 line_23"
+  - first:
+      213: -5380742396844032898
+    second: "Curved 90\xB0 line_24"
+  - first:
+      213: -6413831392776124402
+    second: "Curved 90\xB0 line_25"
+  - first:
+      213: 5710001444437579011
+    second: "Curved 90\xB0 line_26"
+  - first:
+      213: 3033789536535612058
+    second: "Curved 90\xB0 line_27"
+  - first:
+      213: 4319973679623488112
+    second: "Curved 90\xB0 line_28"
+  - first:
+      213: -7889171349061210037
+    second: "Curved 90\xB0 line_29"
+  - first:
+      213: -4414772348784801448
+    second: "Curved 90\xB0 line_30"
+  - first:
+      213: 8419856053461564216
+    second: "Curved 90\xB0 line_31"
+  - first:
+      213: -5653324677990053328
+    second: "Curved 90\xB0 line_32"
+  - first:
+      213: -65883481694687301
+    second: "Curved 90\xB0 line_33"
+  - first:
+      213: -2091234796791853417
+    second: "Curved 90\xB0 line_34"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_0"
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 789
+        width: 57
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33e55b17b36a1a3b0800000000000000
+      internalID: -5502934495429042637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_1"
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 789
+        width: 96
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afaf54a5858b7e550800000000000000
+      internalID: 6190118902455204602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_2"
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 789
+        width: 60
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8868e50563135e550800000000000000
+      internalID: 6189407372236981896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_3"
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 789
+        width: 60
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f1db2ca6d2252e20800000000000000
+      internalID: 3325102205289878002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_4"
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 789
+        width: 66
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a68ee2f54a217320800000000000000
+      internalID: 2553868943612610213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_5"
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 788
+        width: 52
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d4fae1b984036d30800000000000000
+      internalID: 4423384248449955028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_6"
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 789
+        width: 62
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5af8e1e97c86e7a60800000000000000
+      internalID: 7673686021646487461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_7"
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 644
+        width: 51
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce8af096237292620800000000000000
+      internalID: 2749772144950880492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_8"
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 644
+        width: 57
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 278bdc030b4004370800000000000000
+      internalID: 8304642867650738290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_9"
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 644
+        width: 96
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7a20374da68e97f0800000000000000
+      internalID: -603897221239264645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_10"
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 643
+        width: 72
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41530d0f3cb1ca650800000000000000
+      internalID: 6245397311628784916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_11"
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 644
+        width: 59
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f65e65c2475260c0800000000000000
+      internalID: -4584005526417942795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_12"
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 644
+        width: 67
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99fab729ab5906ca0800000000000000
+      internalID: -6025651672867688551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_13"
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 644
+        width: 62
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f25756cbe65cbd60800000000000000
+      internalID: 7907290616400663283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_14"
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 499
+        width: 50
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a583c989fc4d33c0800000000000000
+      internalID: -4378258628092394075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_15"
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 498
+        width: 59
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdd32696cbda1efc0800000000000000
+      internalID: -3467299213365068324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_16"
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 499
+        width: 54
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67e4e8942c1b477e0800000000000000
+      internalID: -1768593305633927562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_17"
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 499
+        width: 73
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 378ea59a175a2c770800000000000000
+      internalID: 8629641743586486387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_18"
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 499
+        width: 59
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 529307efee7c66e10800000000000000
+      internalID: 2190658098047236389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_19"
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 498
+        width: 67
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c8fa630368214c90800000000000000
+      internalID: -7187419124582385469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_20"
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 499
+        width: 65
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7deb55b5227582c80800000000000000
+      internalID: -8347326104258363689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_21"
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 354
+        width: 96
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddc7adf14e75227e0800000000000000
+      internalID: -1791773064441463587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_22"
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 354
+        width: 57
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efdfc38df8a8b66e0800000000000000
+      internalID: -1843227272065253890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_23"
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 353
+        width: 72
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14d6aecb494825420800000000000000
+      internalID: 2617300107815185729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_24"
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 353
+        width: 53
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c3a386c43c355b0800000000000000
+      internalID: -5380742396844032898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_25"
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 354
+        width: 18
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e088458845e7df6a0800000000000000
+      internalID: -6413831392776124402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_26"
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 335
+        width: 72
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3055ba29f000e3f40800000000000000
+      internalID: 5710001444437579011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_27"
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 354
+        width: 50
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9a8080828f2a1a20800000000000000
+      internalID: 3033789536535612058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_28"
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 209
+        width: 73
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 072cef46c21a3fb30800000000000000
+      internalID: 4319973679623488112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_29"
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 209
+        width: 96
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b407407e478048290800000000000000
+      internalID: -7889171349061210037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_30"
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 209
+        width: 50
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 859077270f39bb2c0800000000000000
+      internalID: -4414772348784801448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_31"
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 208
+        width: 67
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83bbf76687659d470800000000000000
+      internalID: 8419856053461564216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_32"
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 209
+        width: 66
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03a0470782b5b81b0800000000000000
+      internalID: -5653324677990053328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_33"
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 208
+        width: 52
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbfa50d825fe51ff0800000000000000
+      internalID: -65883481694687301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "Curved 90\xB0 line_34"
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 209
+        width: 60
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e094b38017af2e0800000000000000
+      internalID: -2091234796791853417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "Curved 90\xB0 line_0": -5502934495429042637
+      "Curved 90\xB0 line_1": 6190118902455204602
+      "Curved 90\xB0 line_10": 6245397311628784916
+      "Curved 90\xB0 line_11": -4584005526417942795
+      "Curved 90\xB0 line_12": -6025651672867688551
+      "Curved 90\xB0 line_13": 7907290616400663283
+      "Curved 90\xB0 line_14": -4378258628092394075
+      "Curved 90\xB0 line_15": -3467299213365068324
+      "Curved 90\xB0 line_16": -1768593305633927562
+      "Curved 90\xB0 line_17": 8629641743586486387
+      "Curved 90\xB0 line_18": 2190658098047236389
+      "Curved 90\xB0 line_19": -7187419124582385469
+      "Curved 90\xB0 line_2": 6189407372236981896
+      "Curved 90\xB0 line_20": -8347326104258363689
+      "Curved 90\xB0 line_21": -1791773064441463587
+      "Curved 90\xB0 line_22": -1843227272065253890
+      "Curved 90\xB0 line_23": 2617300107815185729
+      "Curved 90\xB0 line_24": -5380742396844032898
+      "Curved 90\xB0 line_25": -6413831392776124402
+      "Curved 90\xB0 line_26": 5710001444437579011
+      "Curved 90\xB0 line_27": 3033789536535612058
+      "Curved 90\xB0 line_28": 4319973679623488112
+      "Curved 90\xB0 line_29": -7889171349061210037
+      "Curved 90\xB0 line_3": 3325102205289878002
+      "Curved 90\xB0 line_30": -4414772348784801448
+      "Curved 90\xB0 line_31": 8419856053461564216
+      "Curved 90\xB0 line_32": -5653324677990053328
+      "Curved 90\xB0 line_33": -65883481694687301
+      "Curved 90\xB0 line_34": -2091234796791853417
+      "Curved 90\xB0 line_4": 2553868943612610213
+      "Curved 90\xB0 line_5": 4423384248449955028
+      "Curved 90\xB0 line_6": 7673686021646487461
+      "Curved 90\xB0 line_7": 2749772144950880492
+      "Curved 90\xB0 line_8": 8304642867650738290
+      "Curved 90\xB0 line_9": -603897221239264645
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

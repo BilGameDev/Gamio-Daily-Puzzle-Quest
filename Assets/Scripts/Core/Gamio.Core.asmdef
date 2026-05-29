@@ -1,0 +1,16 @@
+{
+    "name": "Gamio.Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:236174c95283dcc4dac1003d5d816c49"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

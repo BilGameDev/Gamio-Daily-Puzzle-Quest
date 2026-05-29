@@ -1,0 +1,25 @@
+{
+    "name": "Gamio.Games.Arrows",
+    "rootNamespace": "Gamio.Games.Arrows",
+    "references": [
+        "Gamio.Core",
+        "Gamio.Features",
+        "Gamio.Utils",
+        "Lofelt.NiceVibrations",
+        "DOTween.Modules",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "DOTween"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

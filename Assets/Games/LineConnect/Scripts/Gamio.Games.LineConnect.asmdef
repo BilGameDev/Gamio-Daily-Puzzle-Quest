@@ -1,0 +1,25 @@
+{
+    "name": "Gamio.Games.LineConnect",
+    "rootNamespace": "Gamio.Games.LineConnect",
+    "references": [
+        "Gamio.Core",
+        "Gamio.Utils",
+        "Gamio.Features",
+        "Lofelt.NiceVibrations",
+        "DOTween.Modules",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "DOTween"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,21 @@
+{
+    "name": "Gamio.Features",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d1f0d436126237e479eef2afe7eb7691",
+        "GUID:236174c95283dcc4dac1003d5d816c49",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:57a0b9bc628ab4740af4b6f1f0b2e134",
+        "GUID:9a6dc393155abb3459529ef59656383c",
+        "GUID:bff71ff7b04310744876309f7ce34829"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

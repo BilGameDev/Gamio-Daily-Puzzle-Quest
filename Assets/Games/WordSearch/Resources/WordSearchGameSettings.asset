@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14eef12bd4cd3cb4fa875e1798d8c530, type: 3}
+  m_Name: WordSearchGameSettings
+  m_EditorClassIdentifier: Gamio.Games.WordSearch::Gamio.Games.WordSearch.WordSearchGameSettingsSO
+  easy:
+    gridSize: 6
+    wordCount: 6
+    cellSize: {x: 120, y: 120}
+  medium:
+    gridSize: 8
+    wordCount: 6
+    cellSize: {x: 100, y: 100}
+  hard:
+    gridSize: 10
+    wordCount: 6
+    cellSize: {x: 80, y: 90}
+  _wordList: {fileID: 4900000, guid: 4fd7b2f1056a3404dabd6948841c508e, type: 3}

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 432afb1b6b0fd0246a780cf18a9d3f56, type: 3}
+  m_Name: SudokuGameSettings
+  m_EditorClassIdentifier: Gamio.Games.Sudoku::Gamio.Games.Sudoku.SudokuGameSettingsSO
+  _gridSize: 9
+  _boxSize: 3
+  _cellsToRemove: 45

@@ -1,0 +1,258 @@
+using System;
+using System.Collections.Generic;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Gamio.Features.UI
+{
+    [ExecuteAlways]
+    public class Carousel : LayoutGroup
+    {
+        [SerializeField] private float _spacing = 350f;
+        [SerializeField] private Vector3 _centerScale = Vector3.one;
+        [SerializeField] private Vector3 _sideScale = new Vector3(0.75f, 0.75f, 1f);
+        [SerializeField] private float _sideAlpha = 0.5f;
+        [SerializeField] private float _transitionDuration = 0.35f;
+        [SerializeField] private Ease _transitionEase = Ease.OutCubic;
+        [SerializeField] private bool _wrapAround;
+        [SerializeField] private bool _autoScroll;
+        [SerializeField] private float _autoScrollInterval = 3f;
+
+        private readonly Dictionary<RectTransform, CanvasGroup> _cache = new();
+        private readonly Dictionary<RectTransform, SlotPos> _targetSlots = new();
+        private int _currentIndex;
+        private bool _layoutApplied;
+        private bool _isTransitioning;
+
+        public int CurrentIndex => _currentIndex;
+        public int ItemCount => rectChildren.Count;
+
+        public event Action<int> OnIndexChanged;
+
+        public override void CalculateLayoutInputHorizontal()
+        {
+            base.CalculateLayoutInputHorizontal();
+            var totalWidth = 2f * _spacing + padding.horizontal;
+            SetLayoutInputForAxis(totalWidth, totalWidth, -1, 0);
+        }
+
+        public override void CalculateLayoutInputVertical()
+        {
+            var totalHeight = padding.vertical;
+            SetLayoutInputForAxis(totalHeight, totalHeight, -1, 1);
+        }
+
+        public override void SetLayoutHorizontal()
+        {
+            EnsureCanvasGroups();
+            CalculateSlots();
+            ApplyLayout(false);
+            if (!_layoutApplied)
+            {
+                _layoutApplied = true;
+                StartAutoScroll();
+            }
+        }
+
+        public override void SetLayoutVertical() { }
+
+        public void Next()
+        {
+            if (_isTransitioning || rectChildren.Count == 0) return;
+            var next = _currentIndex + 1;
+            if (next >= rectChildren.Count)
+            {
+                if (!_wrapAround) return;
+                next = 0;
+            }
+            GoTo(next);
+        }
+
+        public void Previous()
+        {
+            if (_isTransitioning || rectChildren.Count == 0) return;
+            var prev = _currentIndex - 1;
+            if (prev < 0)
+            {
+                if (!_wrapAround) return;
+                prev = rectChildren.Count - 1;
+            }
+            GoTo(prev);
+        }
+
+        public void GoTo(int index)
+        {
+            if (_isTransitioning || rectChildren.Count == 0) return;
+            index = Mathf.Clamp(index, 0, rectChildren.Count - 1);
+            if (index == _currentIndex) return;
+            _currentIndex = index;
+            CalculateSlots();
+            ApplyLayout(true);
+            ResetAutoScroll();
+            OnIndexChanged?.Invoke(_currentIndex);
+        }
+
+        private void EnsureCanvasGroups()
+        {
+            foreach (var child in rectChildren)
+            {
+                if (!_cache.ContainsKey(child))
+                {
+                    if (!child.TryGetComponent(out CanvasGroup cg))
+                        cg = child.gameObject.AddComponent<CanvasGroup>();
+                    _cache[child] = cg;
+                }
+            }
+        }
+
+        private void CalculateSlots()
+        {
+            _targetSlots.Clear();
+            for (int i = 0; i < rectChildren.Count; i++)
+            {
+                _targetSlots[rectChildren[i]] = GetSlot(i);
+            }
+        }
+
+        private SlotPos GetSlot(int itemIndex)
+        {
+            if (itemIndex == _currentIndex) return SlotPos.Center;
+
+            bool isPrev;
+            bool isNext;
+            if (_wrapAround)
+            {
+                var prev = _currentIndex - 1;
+                if (prev < 0) prev = rectChildren.Count - 1;
+                var next = _currentIndex + 1;
+                if (next >= rectChildren.Count) next = 0;
+                isPrev = itemIndex == prev;
+                isNext = itemIndex == next;
+            }
+            else
+            {
+                isPrev = itemIndex == _currentIndex - 1;
+                isNext = itemIndex == _currentIndex + 1;
+            }
+
+            if (isPrev) return SlotPos.Left;
+            if (isNext) return SlotPos.Right;
+
+            return itemIndex < _currentIndex ? SlotPos.LeftExit : SlotPos.RightExit;
+        }
+
+        private void ApplyLayout(bool animated)
+        {
+            if (animated) _isTransitioning = true;
+
+            foreach (var child in rectChildren)
+            {
+                if (!_targetSlots.TryGetValue(child, out var slot)) continue;
+                if (!_cache.TryGetValue(child, out var cg)) continue;
+
+                var targetPos = GetSlotPosition(slot);
+                var targetScale = GetSlotScale(slot);
+                var targetAlpha = GetSlotAlpha(slot);
+
+                if (animated)
+                {
+                    child.DOKill(true);
+                    child.DOAnchorPos(targetPos, _transitionDuration).SetEase(_transitionEase);
+                    child.DOScale(targetScale, _transitionDuration).SetEase(_transitionEase);
+                    cg.DOFade(targetAlpha, _transitionDuration).SetEase(_transitionEase);
+                }
+                else
+                {
+                    child.anchoredPosition = targetPos;
+                    child.localScale = targetScale;
+                    cg.alpha = targetAlpha;
+                }
+            }
+
+            if (animated)
+                DOVirtual.DelayedCall(_transitionDuration, () => _isTransitioning = false);
+        }
+
+        private Vector2 GetSlotPosition(SlotPos slot)
+        {
+            switch (slot)
+            {
+                case SlotPos.Left:
+                    return new Vector2(-_spacing, 0f);
+                case SlotPos.LeftExit:
+                    return new Vector2(-_spacing * 1.8f, 0f);
+                case SlotPos.Center:
+                    return Vector2.zero;
+                case SlotPos.Right:
+                    return new Vector2(_spacing, 0f);
+                case SlotPos.RightExit:
+                    return new Vector2(_spacing * 1.8f, 0f);
+                default:
+                    return Vector2.zero;
+            }
+        }
+
+        private Vector3 GetSlotScale(SlotPos slot)
+        {
+            switch (slot)
+            {
+                case SlotPos.Center: return _centerScale;
+                case SlotPos.Left:
+                case SlotPos.Right: return _sideScale;
+                default: return Vector3.zero;
+            }
+        }
+
+        private float GetSlotAlpha(SlotPos slot)
+        {
+            switch (slot)
+            {
+                case SlotPos.Center: return 1f;
+                case SlotPos.Left:
+                case SlotPos.Right: return _sideAlpha;
+                default: return 0f;
+            }
+        }
+
+        protected override void OnTransformChildrenChanged()
+        {
+            base.OnTransformChildrenChanged();
+            _cache.Clear();
+            _currentIndex = Mathf.Clamp(_currentIndex, 0, Mathf.Max(0, rectChildren.Count - 1));
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            StopAutoScroll();
+        }
+
+        private void StartAutoScroll()
+        {
+            StopAutoScroll();
+            if (!_autoScroll || rectChildren.Count < 2) return;
+            InvokeRepeating(nameof(TickAutoScroll), _autoScrollInterval, _autoScrollInterval);
+        }
+
+        private void StopAutoScroll()
+        {
+            CancelInvoke(nameof(TickAutoScroll));
+        }
+
+        private void TickAutoScroll()
+        {
+            if (!_isTransitioning && rectChildren.Count >= 2 && isActiveAndEnabled)
+                Next();
+        }
+
+        private void ResetAutoScroll()
+        {
+            if (!_autoScroll) return;
+            StopAutoScroll();
+            StartAutoScroll();
+        }
+
+        private enum SlotPos { LeftExit, Left, Center, Right, RightExit }
+    }
+}

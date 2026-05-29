@@ -1,0 +1,25 @@
+{
+    "name": "Gamio.Games.WordGrid",
+    "rootNamespace": "Gamio.Games.WordGrid",
+    "references": [
+        "Gamio.Core",
+        "Gamio.Features",
+        "UnityEngine.UI",
+        "Lofelt.NiceVibrations",
+        "DOTween.Modules",
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "Gamio.Utils"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "DOTween"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

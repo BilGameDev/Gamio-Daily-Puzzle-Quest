@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5064221092216510804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7045110834214930552}
+  - component: {fileID: 6903212383486201858}
+  - component: {fileID: 5610500739685196217}
+  - component: {fileID: 5144211507727201330}
+  m_Layer: 0
+  m_Name: PipesCellItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7045110834214930552
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064221092216510804}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6903212383486201858
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064221092216510804}
+  m_CullTransparentMesh: 1
+--- !u!114 &5610500739685196217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064221092216510804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5144211507727201330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5064221092216510804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f175159f249efa4419e8062e8c4159df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Games.Pipes::Gamio.Games.Pipes.PipesCellItem
+  _pipeColor: {r: 0.3, g: 0.6, b: 0.9, a: 1}
+  _correctColor: {r: 0.2, g: 0.8, b: 0.3, a: 1}
+  _wrongColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
+  _portColor: {r: 0.9, g: 0.7, b: 0.2, a: 1}
+  _straightPrefab: {fileID: 3482609351068884736, guid: 5d7caef4880a6434ab6263a4189861c1, type: 3}
+  _bendPrefab: {fileID: 5113756364629166972, guid: df8aa05a869babb4591a0d6e5f312771, type: 3}
+  _crossPrefab: {fileID: 3433984604339566733, guid: 7d28eeeefaacd6a48b16fff144bde3e5, type: 3}
+  _tJunctionPrefab: {fileID: 2961390492488762388, guid: 696f7d4ab8f56a84e92bee58fe016adf, type: 3}
+  _portPrefab: {fileID: 5986840595996635942, guid: 4a39e02993276fa42b3e124fbf73fc77, type: 3}
+  _portConnectedPrefab: {fileID: 5986840595996635942, guid: fd3ee9699e9e16b4081449f115ba2aac, type: 3}
