@@ -226,9 +226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c775b8f425acc9459751841f48f4ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Kings::Gamio.Games.Kings.KingsCellItem
-  _iconText: {fileID: 2752211321742215133}
-  _nullChar: \uf508
-  _kingChar: \uecb3
-  _nullColor: {r: 0, g: 0, b: 0, a: 1}
-  _kingColor: {r: 0, g: 0, b: 0, a: 1}
-  _holdDuration: 0.35
+  iconText: {fileID: 2752211321742215133}
+  nullChar: "\u25CF"
+  kingChar: "\u2654"
+  nullColor: {r: 0.25, g: 0.25, b: 0.3, a: 0.8}
+  kingColor: {r: 0.95, g: 0.75, b: 0.15, a: 1}
+  holdDuration: 0.35

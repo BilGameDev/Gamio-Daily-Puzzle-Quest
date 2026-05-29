@@ -8,7 +8,7 @@ using DG.Tweening;
 
 namespace Gamio.Games.LineConnect
 {
-    public class LineConnectGridUI : MonoBehaviour
+    public class LineConnectGridUI : GameUI
     {
         [Header("References")]
         [SerializeField] private GridLayoutGroup gridLayout;
@@ -38,6 +38,14 @@ namespace Gamio.Games.LineConnect
             LineConnectGame.OnControllerCreated -= OnControllerCreated;
             GamioEvents.OnResetRequested -= ResetPuzzle;
             GamioEvents.OnHintRequested -= Hint;
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new LineConnectGame());
+            }
         }
 
         public void Setup(LineConnectGridController controller)

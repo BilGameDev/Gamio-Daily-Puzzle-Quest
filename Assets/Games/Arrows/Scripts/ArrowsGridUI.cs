@@ -8,12 +8,11 @@ using Gamio.Features.UI;
 
 namespace Gamio.Games.Arrows
 {
-    public class ArrowsGridUI : MonoBehaviour
+    public class ArrowsGridUI : GameUI
     {
         [Header("References")]
         [SerializeField] private CenteredGridLayout gridLayout;
         [SerializeField] private ArrowsCellItem cellPrefab;
-        [SerializeField] private Vector2 cellSize = new Vector2(105, 105);
 
         private ArrowsGridController grid;
         private ArrowsCellItem[,] cells;
@@ -43,6 +42,14 @@ namespace Gamio.Games.Arrows
                 grid.OnTileRestored -= OnTileRestored;
                 grid.OnSolved -= HandleSolved;
                 grid.OnPuzzleReset -= HandleReset;
+            }
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new ArrowsGame());
             }
         }
 
@@ -83,7 +90,7 @@ namespace Gamio.Games.Arrows
         private void BuildGrid()
         {
             gridLayout.constraintCount = cols;
-            gridLayout.cellSize = ArrowsGame.ActiveSettings != null ? ArrowsGame.CurrentCellSize : cellSize;
+            gridLayout.cellSize = ArrowsGame.CurrentCellSize;
 
             cells = new ArrowsCellItem[rows, cols];
 

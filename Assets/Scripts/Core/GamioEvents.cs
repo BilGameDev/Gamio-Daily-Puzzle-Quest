@@ -4,6 +4,7 @@ namespace Gamio.Core
 {
     public static class GamioEvents
     {
+        public static IGame currentGame;
         public static event Action OnTutorialRequested;
         public static event Action OnSkipTutorialRequested;
         public static event Action OnBackRequested;

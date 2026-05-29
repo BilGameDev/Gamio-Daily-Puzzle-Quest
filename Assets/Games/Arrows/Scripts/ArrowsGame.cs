@@ -42,7 +42,7 @@ namespace Gamio.Games.Arrows
         {
             CurrentDifficulty = difficulty;
             CurrentSeed = seed;
-
+            
             if (TutorialDeferred)
                 yield break;
 

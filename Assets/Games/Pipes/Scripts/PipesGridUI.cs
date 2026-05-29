@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 
 namespace Gamio.Games.Pipes
 {
-    public class PipesGridUI : MonoBehaviour
+    public class PipesGridUI : GameUI
     {
         [Header("References")]
         [SerializeField] private GridLayoutGroup gridLayout;
@@ -18,8 +18,7 @@ namespace Gamio.Games.Pipes
         [Header("Visual")]
         [SerializeField] private Color cellBackground = new Color(0.12f, 0.12f, 0.14f);
         [SerializeField] private float gapRatio = 0.08f;
-        [Header("Tutorial")]
-        [SerializeField] private TutorialUI tutorialUIPrefab;
+
 
         private PipesGridController grid;
         private PipesCellItem[,] cells;
@@ -28,11 +27,6 @@ namespace Gamio.Games.Pipes
         private bool showSolution;
 
         public event Action OnSolved;
-
-        private void Awake()
-        {
-            PipesGame.TutorialUIPrefab = tutorialUIPrefab;
-        }
 
         private void OnEnable()
         {
@@ -48,6 +42,14 @@ namespace Gamio.Games.Pipes
             PipesGame.OnControllerCreated -= OnControllerCreated;
             GamioEvents.OnResetRequested -= ResetPuzzle;
             GamioEvents.OnHintRequested -= OnHint;
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new PipesGame());
+            }
         }
 
         public void Setup(PipesGridController controller)
@@ -77,18 +79,18 @@ namespace Gamio.Games.Pipes
             cells = new PipesCellItem[size, size];
 
             for (int r = 0; r < size; r++)
-            for (int c = 0; c < size; c++)
-            {
-                var cell = Instantiate(cellPrefab, gridLayout.transform);
-                cell.Row = r;
-                cell.Col = c;
-                cell.GetComponent<Image>().color = cellBackground;
-                cell.transform.localScale = Vector3.zero;
-                float delay = (r * size + c) * 0.025f;
-                cell.transform.DOScale(Vector3.one, 0.3f).SetDelay(delay).SetEase(Ease.OutBack);
-                cell.OnClick += OnCellClick;
-                cells[r, c] = cell;
-            }
+                for (int c = 0; c < size; c++)
+                {
+                    var cell = Instantiate(cellPrefab, gridLayout.transform);
+                    cell.Row = r;
+                    cell.Col = c;
+                    cell.GetComponent<Image>().color = cellBackground;
+                    cell.transform.localScale = Vector3.zero;
+                    float delay = (r * size + c) * 0.025f;
+                    cell.transform.DOScale(Vector3.one, 0.3f).SetDelay(delay).SetEase(Ease.OutBack);
+                    cell.OnClick += OnCellClick;
+                    cells[r, c] = cell;
+                }
 
             RefreshAll();
         }
@@ -133,11 +135,11 @@ namespace Gamio.Games.Pipes
 
             float delay = 0f;
             for (int r = 0; r < size; r++)
-            for (int c = 0; c < size; c++)
-            {
-                cells[r, c].PlaySolvedAnimation(delay);
-                delay += 0.03f;
-            }
+                for (int c = 0; c < size; c++)
+                {
+                    cells[r, c].PlaySolvedAnimation(delay);
+                    delay += 0.03f;
+                }
         }
 
         private void OnControllerCreated(PipesGridController controller)
@@ -184,34 +186,34 @@ namespace Gamio.Games.Pipes
         private void OnHint()
         {
             for (int r = 0; r < size; r++)
-            for (int c = 0; c < size; c++)
-            {
-                var cell = grid.Puzzle.Cells[r, c];
-                if (cell.IsPort || cell.IsFixed) continue;
-                if (!grid.Puzzle.IsRotationCorrect(r, c))
+                for (int c = 0; c < size; c++)
                 {
-                    grid.Puzzle.SetRotation(r, c, grid.Puzzle.GetTargetRotation(r, c));
-                    cells[r, c].PlayTapAnimation();
-                    RefreshAll();
-                    grid.Check();
-                    return;
+                    var cell = grid.Puzzle.Cells[r, c];
+                    if (cell.IsPort || cell.IsFixed) continue;
+                    if (!grid.Puzzle.IsRotationCorrect(r, c))
+                    {
+                        grid.Puzzle.SetRotation(r, c, grid.Puzzle.GetTargetRotation(r, c));
+                        cells[r, c].PlayTapAnimation();
+                        RefreshAll();
+                        grid.Check();
+                        return;
+                    }
                 }
-            }
         }
 
         private void RefreshAll()
         {
             for (int r = 0; r < size; r++)
-            for (int c = 0; c < size; c++)
-            {
-                var cell = grid.Puzzle.Cells[r, c];
-                int currentRot = grid.Puzzle.GetRotation(r, c);
+                for (int c = 0; c < size; c++)
+                {
+                    var cell = grid.Puzzle.Cells[r, c];
+                    int currentRot = grid.Puzzle.GetRotation(r, c);
 
-                if (showSolution)
-                    currentRot = grid.Puzzle.GetTargetRotation(r, c);
+                    if (showSolution)
+                        currentRot = grid.Puzzle.GetTargetRotation(r, c);
 
-                cells[r, c].SetVisual(cell.Type, currentRot, cell.IsPort, cell.PortDirection);
-            }
+                    cells[r, c].SetVisual(cell.Type, currentRot, cell.IsPort, cell.PortDirection);
+                }
         }
 
         private void OnDestroy()

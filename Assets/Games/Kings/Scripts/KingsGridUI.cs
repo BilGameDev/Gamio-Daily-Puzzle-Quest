@@ -8,10 +8,8 @@ using DG.Tweening;
 using Gamio.Core;
 namespace Gamio.Games.Kings
 {
-    public class KingsGridUI : MonoBehaviour
+    public class KingsGridUI : GameUI
     {
-        public enum DifficultyOption { Random, Easy, Medium, Hard }
-
         [Header("References")]
         [SerializeField] private GridLayoutGroup gridLayout;
         [SerializeField] private KingsCellItem cellPrefab;
@@ -41,6 +39,14 @@ namespace Gamio.Games.Kings
             KingsGame.OnControllerCreated -= OnControllerCreated;
             GamioEvents.OnResetRequested -= ResetPuzzle;
             GamioEvents.OnHintRequested -= Hint;
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new KingsGame());
+            }
         }
 
         public void Setup(KingsGridController controller)

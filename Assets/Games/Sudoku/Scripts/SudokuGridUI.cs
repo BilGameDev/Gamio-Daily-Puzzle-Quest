@@ -8,7 +8,7 @@ using Gamio.Core;
 
 namespace Gamio.Games.Sudoku
 {
-    public class SudokuGridUI : MonoBehaviour
+    public class SudokuGridUI : GameUI
     {
         [Header("References")]
         [SerializeField] private GridLayoutGroup gridLayout;
@@ -43,6 +43,14 @@ namespace Gamio.Games.Sudoku
             GamioEvents.OnResetRequested -= ResetPuzzle;
             GamioEvents.OnHintRequested -= RevealHint;
             SudokuGame.OnControllerCreated -= OnControllerCreated;
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new SudokuGame());
+            }
         }
 
         public void Setup(SudokuGridController controller)
@@ -191,12 +199,12 @@ namespace Gamio.Games.Sudoku
 
             int hintCount = 0;
             for (int r = 0; r < size; r++)
-            for (int c = 0; c < size; c++)
-            {
-                if (hintRevealCount > 0 && !grid.Puzzle.Cells[r, c].IsGiven &&
-                    grid.Puzzle.Cells[r, c].Value != grid.Puzzle.Solution[r, c])
-                    hintCount++;
-            }
+                for (int c = 0; c < size; c++)
+                {
+                    if (hintRevealCount > 0 && !grid.Puzzle.Cells[r, c].IsGiven &&
+                        grid.Puzzle.Cells[r, c].Value != grid.Puzzle.Solution[r, c])
+                        hintCount++;
+                }
 
             int hintIdx = 0;
             for (int r = 0; r < size; r++)

@@ -10,7 +10,7 @@ using System;
 
 namespace Gamio.Games.Shikaku
 {
-    public class ShikakuGridUI : MonoBehaviour
+    public class ShikakuGridUI : GameUI
     {
         [Header("References")]
         [SerializeField] private GridLayoutGroup gridLayout;
@@ -58,6 +58,14 @@ namespace Gamio.Games.Shikaku
             ShikakuGame.OnControllerCreated -= OnControllerCreated;
             GamioEvents.OnHintRequested -= OnHint;
             GamioEvents.OnResetRequested -= OnReset;
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new ShikakuGame());
+            }
         }
 
         public void Setup(ShikakuGridController controller)
@@ -292,7 +300,7 @@ namespace Gamio.Games.Shikaku
         private void ClearPlacedOverlays()
         {
             if (placedOverlays == null) return;
-            
+
             foreach (var o in placedOverlays)
             {
                 if (o != null)
@@ -375,7 +383,8 @@ namespace Gamio.Games.Shikaku
                 {
                     selectionOverlay.DOKill();
                     overlayImg?.DOFade(0f, 0.12f);
-                    selectionOverlay.DOScale(Vector3.one * 0.8f, 0.12f).OnComplete(() => {
+                    selectionOverlay.DOScale(Vector3.one * 0.8f, 0.12f).OnComplete(() =>
+                    {
                         if (selectionOverlay != null) selectionOverlay.gameObject.SetActive(false);
                     });
                 }

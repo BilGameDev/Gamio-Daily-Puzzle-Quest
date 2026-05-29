@@ -7,7 +7,7 @@ namespace Gamio.Core
     {
         string GameId { get; }
         string DisplayName { get; }
-        event Action OnSolved;
+        public event Action OnSolved;
         void Initialize();
         IEnumerator Run(int seed, Difficulty difficulty);
         void Cleanup();

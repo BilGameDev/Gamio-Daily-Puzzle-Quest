@@ -10,7 +10,7 @@ using Gamio.Core;
 
 namespace Gamio.Games.WordGrid
 {
-    public class WordGridUI : MonoBehaviour
+    public class WordGridUI : GameUI
     {
         [Header("References")]
         [SerializeField] private RectTransform wordTilesParent;
@@ -48,6 +48,14 @@ namespace Gamio.Games.WordGrid
         {
             WordGridGame.OnControllerCreated -= OnControllerCreated;
             GamioEvents.OnResetRequested -= OnResetRequested;
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new WordGridGame());
+            }
         }
 
         public void Setup(WordGridController controller)
