@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Gamio.Core;
+using Gamio.Core.Services;
 using Gamio.Services;
 using Google;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class GoogleLoginManager : MonoBehaviour
     private GoogleSignInConfiguration configuration;
     string webClientId = "872728126352-hcr19509f88ne1cga5im912ph8k0td9n.apps.googleusercontent.com";
     private ILoginEvents loginEvents;
+    private AuthService authService;
 
     private void Awake()
     {
@@ -31,11 +33,13 @@ public class GoogleLoginManager : MonoBehaviour
     private void OnEnable()
     {
         loginEvents = GamioAppContext.Get<ILoginEvents>();
+        authService = GamioAppContext.Get<AuthService>();
 
         if (loginEvents != null)
         {
             loginEvents.OnSilentLoginRequested += OnSignInSilently;
             loginEvents.OnLoginRequested += OnSignIn;
+            loginEvents.OnLogoutRequested += OnSignOut;
         }
     }
 
@@ -45,6 +49,7 @@ public class GoogleLoginManager : MonoBehaviour
         {
             loginEvents.OnSilentLoginRequested -= OnSignInSilently;
             loginEvents.OnLoginRequested -= OnSignIn;
+            loginEvents.OnLogoutRequested += OnSignOut;
         }
     }
 
@@ -53,7 +58,7 @@ public class GoogleLoginManager : MonoBehaviour
 #if UNITY_EDITOR
         GoogleAuthManager.OnGoogleAuthTokenReceived += OnEditorAuthenticationFinished;
         googleAuthManager.StartLogin();
-        
+
 #else
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
@@ -85,12 +90,18 @@ public class GoogleLoginManager : MonoBehaviour
 
     public void OnSignOut()
     {
+#if UNITY_EDITOR
+        GoogleAuthManager.ClearStoredSession();
+#else
         GoogleSignIn.DefaultInstance.SignOut();
+#endif
+        authService?.ClearSession();
     }
 
     public void OnDisconnect()
     {
         GoogleSignIn.DefaultInstance.Disconnect();
+        authService?.ClearSession();
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -106,6 +117,7 @@ public class GoogleLoginManager : MonoBehaviour
         else
         {
             loginEvents?.LoginSuccessful(task.Result);
+            authService?.AuthenticateWithGoogle(task.Result.IdToken);
         }
     }
 
@@ -117,6 +129,8 @@ public class GoogleLoginManager : MonoBehaviour
             DisplayName = "Editor User",
             Email = "editor@example.com"
         });
+
+        authService?.AuthenticateWithGoogle(token);
 
         GoogleAuthManager.OnGoogleAuthTokenReceived -= OnEditorAuthenticationFinished;
     }
@@ -132,11 +146,12 @@ public class GoogleLoginManager : MonoBehaviour
     {
         if (task.IsFaulted || task.IsCanceled)
         {
-            loginEvents?.LoginFailed("");
+            HandleSignInError(task);
         }
         else
         {
             loginEvents?.LoginSuccessful(task.Result);
+            authService?.AuthenticateWithGoogle(task.Result.IdToken);
         }
     }
 

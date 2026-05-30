@@ -25,16 +25,22 @@ namespace Gamio.Core.Services
         public AuthService(CloudAPIService api)
         {
             cloudApiService = api;
-            LoadSession();
         }
 
         public void AuthenticateWithGoogle(string idToken)
         {
-            cloudApiService.VerifyGoogleToken(idToken, OnAuthSuccess, error =>
+            if (LoadSession())
             {
-                Debug.LogError($"[Auth] Verification failed: {error}");
-                OnAuthError?.Invoke(error);
-            });
+                cloudApiService.SetSessionToken(sessionToken);
+            }
+            else
+            {
+                cloudApiService.VerifyGoogleToken(idToken, OnAuthSuccess, error =>
+           {
+               Debug.LogError($"[Auth] Verification failed: {error}");
+               OnAuthError?.Invoke(error);
+           });
+            }
         }
 
         public void UpdateUsername(string username)
@@ -81,14 +87,13 @@ namespace Gamio.Core.Services
             OnAuthChanged?.Invoke();
         }
 
-        private void LoadSession()
+        private bool LoadSession()
         {
             sessionToken = PlayerPrefs.GetString(SessionTokenKey, "");
             userId = PlayerPrefs.GetString(UserIdKey, "");
             Username = PlayerPrefs.GetString(UsernameKey, "");
 
-            if (!string.IsNullOrEmpty(sessionToken))
-                cloudApiService.SetSessionToken(sessionToken);
+            return !string.IsNullOrEmpty(sessionToken);
         }
     }
 }

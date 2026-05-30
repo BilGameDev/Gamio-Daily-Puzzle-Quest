@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: TopBarCanvasGame Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1940780388164736378, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1940780388164736378, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1940780388164736378, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1940780388164736378, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5627008150712244039, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
       propertyPath: m_IsActive
       value: 0

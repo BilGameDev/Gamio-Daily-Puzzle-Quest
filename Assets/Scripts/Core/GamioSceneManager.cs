@@ -20,6 +20,7 @@ public class GamioSceneManager : MonoBehaviour
         {
             loginEvents.OnLoginSuccess += LoginSuccessful;
             loginEvents.OnLoginFailed += LoginFailed;
+            loginEvents.OnLogoutRequested += Logout;
         }
     }
 
@@ -29,6 +30,7 @@ public class GamioSceneManager : MonoBehaviour
         {
             loginEvents.OnLoginSuccess -= LoginSuccessful;
             loginEvents.OnLoginFailed -= LoginFailed;
+            loginEvents.OnLogoutRequested -= Logout;
         }
     }
 
@@ -47,6 +49,14 @@ public class GamioSceneManager : MonoBehaviour
         {
             SceneLoader.LoadScene(loginScene);
             return;
+        }
+    }
+
+    private void Logout()
+    {
+        if (GetActiveScene() != loginScene)
+        {
+            SceneLoader.LoadScene(loginScene);
         }
     }
 

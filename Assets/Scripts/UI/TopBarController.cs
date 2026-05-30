@@ -1,5 +1,7 @@
 using System.Collections;
 using Gamio.Core;
+using Gamio.Core.Services;
+using Gamio.Features.Leaderboard;
 using Gamio.Features.Popup;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,6 +16,7 @@ namespace Gamio.Features.UI
         [SerializeField] private Button tutorialButton;
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button avatarButton;
+        [SerializeField] private Button leaderBoardButton;
         [SerializeField] private RawImage avatarPreview;
 
         [Header("Popup Strings")]
@@ -38,6 +41,9 @@ namespace Gamio.Features.UI
 
             if (settingsButton != null)
                 settingsButton.onClick.AddListener(OnSettingsClicked);
+
+            if (leaderBoardButton != null)
+                leaderBoardButton.onClick.AddListener(OnLeaderboardClicked);
 
             if (avatarButton == null || avatarPreview == null)
             {
@@ -94,6 +100,11 @@ namespace Gamio.Features.UI
             ProfilePopupUI.Show();
         }
 
+        private void OnLeaderboardClicked()
+        {
+            LeaderboardPopupUI.Show(new LeaderboardManager(GamioAppContext.Get<CloudAPIService>()), 1, LeaderboardMode.Preview);
+        }
+
         private void LoadAvatarPreview()
         {
             if (avatarPreview == null) return;
@@ -129,6 +140,9 @@ namespace Gamio.Features.UI
 
             if (avatarButton != null)
                 avatarButton.onClick.RemoveListener(OnAvatarClicked);
+
+            if (leaderBoardButton != null)
+                leaderBoardButton.onClick.RemoveListener(OnLeaderboardClicked);
 
             AvatarService.OnAvatarSeedChanged -= LoadAvatarPreview;
         }
