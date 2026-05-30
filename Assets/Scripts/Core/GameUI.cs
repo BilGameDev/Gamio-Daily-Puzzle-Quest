@@ -69,7 +69,7 @@ namespace Gamio.Core
         }
 
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             uIEvents = GamioAppContext.Get<IUIEvents>();
 
@@ -80,7 +80,7 @@ namespace Gamio.Core
             }
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (uIEvents != null)
             {

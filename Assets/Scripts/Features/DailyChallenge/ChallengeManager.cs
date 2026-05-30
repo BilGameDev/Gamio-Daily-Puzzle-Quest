@@ -97,12 +97,14 @@ namespace Gamio.Root
 
         void OnChallengeSolved(float solveTime)
         {
-            Debug.Log(solveTime);
+            gamioManager.SetStreakPending(true);
             _ = SubmitDaily(solveTime);
         }
 
         async Task SubmitDaily(float solveTime)
         {
+            await Task.Delay(2000);
+
             try
             {
                 var dailySublit = await cloudAPIService.SubmitDaily(gamioManager.ChallengeId, solveTime);
@@ -113,6 +115,9 @@ namespace Gamio.Root
                 GamioAppContext.Get<AuthService>()),
                 gamioManager.ChallengeId,
                 LeaderboardMode.Result);
+
+                    gamioManager.SetStreak(dailySublit.streak);
+                    gamioManager.SetDailyCompleted(true);
                 }
             }
             catch (Exception error)

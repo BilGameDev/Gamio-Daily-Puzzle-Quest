@@ -29,15 +29,17 @@ namespace Gamio.Games.Sudoku
         private bool showSolution;
         private int hintRevealCount;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             SudokuGame.OnControllerCreated += OnControllerCreated;
             if (SudokuGame.CurrentController != null)
                 Setup(SudokuGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             SudokuGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -128,7 +130,7 @@ namespace Gamio.Games.Sudoku
 
         private void OnCellClicked(int row, int col)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
             grid?.SelectCell(row, col);
             cells?[row, col]?.StopViolationAnimation();
         }
@@ -145,7 +147,8 @@ namespace Gamio.Games.Sudoku
                     if (cells[r, c] != null)
                     {
                         cells[r, c].transform.DOPunchScale(Vector3.one * 0.08f, 0.4f, 2, 0.3f)
-                            .SetDelay(delay).SetEase(Ease.OutQuad);
+                            .SetDelay(delay).SetEase(Ease.OutQuad)
+                            .OnPlay(() => HapticsHelper.PlayEmphasis(0.15f, 0.3f));
                     }
                     delay += 0.02f;
                 }

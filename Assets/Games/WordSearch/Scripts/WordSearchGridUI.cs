@@ -31,15 +31,17 @@ namespace Gamio.Games.WordSearch
 
         public event System.Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             WordSearchGame.OnControllerCreated += OnControllerCreated;
             if (WordSearchGame.CurrentController != null)
                 Setup(WordSearchGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             WordSearchGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -105,7 +107,8 @@ namespace Gamio.Games.WordSearch
 
         private void OnCellDown(int row, int col)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
+            HapticsHelper.PlayConstant(0.1f, 0.1f, 10f);
             grid.StartDrag(row, col);
             RefreshHighlights();
         }
@@ -114,19 +117,24 @@ namespace Gamio.Games.WordSearch
         {
             if (!grid.IsDragging) return;
             grid.UpdateDrag(row, col);
+            float dr = Mathf.Abs(grid.DragEndRow - grid.DragStartRow);
+            float dc = Mathf.Abs(grid.DragEndCol - grid.DragStartCol);
+            float t = Mathf.Clamp01(Mathf.Max(dr, dc) / size);
+            HapticsHelper.UpdateContinuous(0.1f + t * 0.1f, t * 0.35f);
             RefreshHighlights();
         }
 
         private void OnCellUp()
         {
             if (!grid.IsDragging) return;
+            HapticsHelper.StopContinuous();
             grid.EndDrag();
             RefreshHighlights();
         }
 
         private void HandleWordFound(string word)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.LightImpact);
+            HapticsHelper.PlayEmphasis(0.6f, 0.7f);
             for (int i = 0; i < grid.Puzzle.Placements.Count; i++)
             {
                 if (grid.Puzzle.Placements[i].Word == word)
@@ -159,7 +167,8 @@ namespace Gamio.Games.WordSearch
                     cell.transform.DOKill();
                     cell.transform.localScale = Vector3.one;
                     cell.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
-                        .SetDelay(delay).SetEase(Ease.OutQuad);
+                        .SetDelay(delay).SetEase(Ease.OutQuad)
+                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.15f + (r + c) % 3 * 0.1f, 0.3f));
                     delay += 0.02f;
                 }
         }

@@ -1356,8 +1356,8 @@ MonoBehaviour:
   _animationAsset: {fileID: -6750239444755058063, guid: 2dc273fa2badb3941a626b295e820b13, type: 3}
   _autoPlay: 2
   _loop: 0
-  _width: 128
-  _height: 128
+  _width: 1024
+  _height: 1024
   _keepAspect: 1
 --- !u!1 &4951251459689918414
 GameObject:

@@ -23,14 +23,16 @@ namespace Gamio.Games.Arrows
 
         public event System.Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             if (ArrowsGame.CurrentController != null)
                 Setup(ArrowsGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             if (grid != null)
             {
                 grid.OnTileRemoved -= OnTileRemoved;
@@ -90,13 +92,13 @@ namespace Gamio.Games.Arrows
         private void OnCellClicked(int row, int col)
         {
             if (grid == null || grid.IsSolved) return;
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
             grid.TrySlideTile(row, col);
         }
 
         private void OnTileRemoved(int row, int col)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.LightImpact);
+            HapticsHelper.PlayEmphasis(0.5f, 0.4f);
             var cellItem = cells[row, col];
             var dir = cellItem.Direction;
 
@@ -121,10 +123,12 @@ namespace Gamio.Games.Arrows
 
             cellItem.RectTransform.DOAnchorPos(cellItem.RectTransform.anchoredPosition + slideDir * distance, dur)
                 .SetEase(ease)
+                .OnPlay(() => HapticsHelper.PlayEmphasis(0.1f, 0.2f))
                 .OnComplete(() =>
                 {
                     cellItem.SetVisible(false);
                     cellItem.RectTransform.anchoredPosition = Vector2.zero;
+                    HapticsHelper.PlayEmphasis(0.3f, 0.5f);
                     grid.NotifyAnimationComplete();
                 });
         }
@@ -163,7 +167,8 @@ namespace Gamio.Games.Arrows
                     if (cell != null && cell.IsVisible() && grid.Puzzle.HasTile(r, c))
                     {
                         cell.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
-                            .SetDelay(delay).SetEase(Ease.OutQuad);
+                            .SetDelay(delay).SetEase(Ease.OutQuad)
+                            .OnPlay(() => HapticsHelper.PlayEmphasis(0.2f, 0.4f));
                         delay += 0.015f;
                     }
                 }

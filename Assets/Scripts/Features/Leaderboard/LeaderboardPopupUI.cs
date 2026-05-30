@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Threading.Tasks;
 using DG.Tweening;
+using Gamio.Core;
 using Gamio.Core.Services;
+using Gamio.Features.Streaks;
 using Lofelt.NiceVibrations;
 using TMPro;
 using UnityEngine;
@@ -38,6 +40,7 @@ namespace Gamio.Features.Leaderboard
         private bool hasEntries;
         private Sequence animSeq;
         private VerticalLayoutGroup layoutGroup;
+        private GamioManager gamioManager;
 
         public static async Task<LeaderboardPopupUI> Show(LeaderboardManager manager, int seedId, LeaderboardMode mode)
         {
@@ -62,9 +65,11 @@ namespace Gamio.Features.Leaderboard
             if (myRankButton != null) myRankButton.gameObject.SetActive(false);
             if (closeButton != null) closeButton.gameObject.SetActive(false);
 
-            closeButton?.onClick.AddListener(() => Destroy(gameObject));
+            closeButton?.onClick.AddListener(CloseLeaderboard);
             topButton?.onClick.AddListener(GoToTop);
             myRankButton?.onClick.AddListener(GoToMyRank);
+
+            gamioManager = GamioAppContext.Get<GamioManager>();
         }
 
         private async Task Initialize(LeaderboardManager managerRef, int seedId, LeaderboardMode newMode)
@@ -197,7 +202,7 @@ namespace Gamio.Features.Leaderboard
                 panelGroup.DOFade(1f, 0.25f).SetDelay(1f);
                 panelGroup.transform.DOScale(1f, 0.35f).SetDelay(1f).SetEase(Ease.OutBack);
             }
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.MediumImpact);
+            HapticsHelper.PlayEmphasis(0.7f, 0.5f);
 
             ShowButtons();
 
@@ -205,7 +210,7 @@ namespace Gamio.Features.Leaderboard
 
             if (myRank > 0 && entries != null && entries.Length > 0)
             {
-                HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+                HapticsHelper.PlaySoftImpact();
                 SmoothScrollTo(myRank - 1, true);
             }
         }
@@ -245,7 +250,7 @@ namespace Gamio.Features.Leaderboard
         {
             if (myRank > 0)
             {
-                HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+                HapticsHelper.PlaySoftImpact();
                 SmoothScrollTo(myRank - 1, true);
             }
         }
@@ -297,6 +302,17 @@ namespace Gamio.Features.Leaderboard
             }
         }
 
+        private void CloseLeaderboard()
+        {
+            if (gamioManager.StreakPending)
+            {
+                StreakOverlay.Show(gamioManager.StreakInfo.current, GamioAppContext.Get<IUIEvents>().RequestBack);
+                gamioManager.SetStreakPending(false);
+            }
+
+            Destroy(gameObject);
+        }
+
         private void OnDestroy()
         {
             animSeq?.Kill();
@@ -305,6 +321,11 @@ namespace Gamio.Features.Leaderboard
                 manager.OnLeaderboardUpdated -= OnDataUpdated;
                 manager.OnError -= OnError;
             }
+
+            closeButton?.onClick.RemoveAllListeners();
+            topButton?.onClick.RemoveAllListeners();
+            myRankButton?.onClick.RemoveAllListeners();
+
             DOTween.Kill(this);
             StopAllCoroutines();
         }

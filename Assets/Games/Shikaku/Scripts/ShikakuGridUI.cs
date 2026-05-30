@@ -44,15 +44,17 @@ namespace Gamio.Games.Shikaku
 
         public event Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             ShikakuGame.OnControllerCreated += OnControllerCreated;
             if (ShikakuGame.CurrentController != null)
                 Setup(ShikakuGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             ShikakuGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -171,7 +173,8 @@ namespace Gamio.Games.Shikaku
 
         private void OnCellDown(int row, int col)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
+            HapticsHelper.PlayConstant(0.1f, 0.1f, 10f);
             currentDragColor = Color.HSVToRGB(UnityEngine.Random.value, 0.28f, 0.92f);
             grid.StartDrag(row, col);
             grid.RemoveOverlappingDuringDrag(removedBuffer);
@@ -184,6 +187,12 @@ namespace Gamio.Games.Shikaku
         {
             if (!grid.IsDragging) return;
             grid.UpdateDrag(row, col);
+            int w = Mathf.Abs(grid.DragEndCol - grid.DragStartCol) + 1;
+            int h = Mathf.Abs(grid.DragEndRow - grid.DragStartRow) + 1;
+            float area = w * h;
+            float maxArea = rows * cols;
+            float t = Mathf.Clamp01(area / maxArea);
+            HapticsHelper.UpdateContinuous(0.1f + t * 0.1f, t * 0.3f);
             grid.RemoveOverlappingDuringDrag(removedBuffer);
             for (int i = 0; i < removedBuffer.Count; i++)
                 RemovePlacedOverlayAt(removedBuffer[i]);
@@ -193,10 +202,12 @@ namespace Gamio.Games.Shikaku
         private void OnCellUp()
         {
             if (!grid.IsDragging) return;
+            HapticsHelper.StopContinuous();
 
             bool placed = grid.EndDrag(currentDragColor);
             if (placed)
             {
+                HapticsHelper.PlayEmphasis(0.5f, 0.6f);
                 var rects = grid.Puzzle.PlayerRects;
                 AddPlacedOverlay(rects[rects.Count - 1]);
                 RefreshVisuals();
@@ -214,16 +225,20 @@ namespace Gamio.Games.Shikaku
             RefreshVisuals();
 
             float delay = 0.5f;
+            int i = 0;
             foreach (var overlay in placedOverlays)
             {
+                int idx = i;
                 if (overlay != null)
                 {
                     overlay.DOKill();
                     overlay.localScale = Vector3.one;
                     overlay.DOPunchScale(Vector3.one * 0.08f, 0.6f, 3, 0.3f)
-                        .SetDelay(delay).SetEase(Ease.OutQuad);
+                        .SetDelay(delay).SetEase(Ease.OutQuad)
+                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.2f + idx * 0.05f, 0.4f));
                 }
                 delay += 0.05f;
+                i++;
             }
         }
 

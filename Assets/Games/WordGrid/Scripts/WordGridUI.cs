@@ -28,15 +28,17 @@ namespace Gamio.Games.WordGrid
 
         public event System.Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             WordGridGame.OnControllerCreated += OnControllerCreated;
             if (WordGridGame.CurrentController != null)
                 Setup(WordGridGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             WordGridGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -98,7 +100,7 @@ namespace Gamio.Games.WordGrid
         private void OnLetterClicked(char letter)
         {
             if (isAnimating || grid == null || grid.IsSolved) return;
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
             for (int i = 0; i < wordLength; i++)
             {
                 if (!wordCells[i].HasLetter && !wordCells[i].IsLocked)
@@ -114,7 +116,7 @@ namespace Gamio.Games.WordGrid
         {
             if (isAnimating || grid == null || grid.IsSolved) return;
             if (!wordCells[index].HasLetter || wordCells[index].IsLocked) return;
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
             wordCells[index].ClearLetter();
             grid.RemoveLetter(index);
         }
@@ -140,7 +142,7 @@ namespace Gamio.Games.WordGrid
                 return;
             }
 
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.LightImpact);
+            HapticsHelper.PlayEmphasis(0.5f, 0.5f);
             isAnimating = true;
             if (submitButton != null)
                 submitButton.interactable = false;
@@ -152,12 +154,14 @@ namespace Gamio.Games.WordGrid
             float delay = 0;
             for (int i = 0; i < wordLength; i++)
             {
+                int idx = i;
                 var cell = wordCells[i];
                 var state = results[i];
 
                 DOVirtual.DelayedCall(delay, () =>
                 {
-                    cell.transform.DOPunchScale(Vector3.one * 0.15f, 0.2f, 2, 0.5f);
+                    cell.transform.DOPunchScale(Vector3.one * 0.15f, 0.2f, 2, 0.5f)
+                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.25f + idx * 0.05f, 0.4f));
                     cell.SetState(state);
                 });
                 delay += 0.15f;
@@ -169,6 +173,11 @@ namespace Gamio.Games.WordGrid
                 if (submitButton != null)
                     submitButton.interactable = true;
                 UpdateAttempts();
+                foreach (var tile in letterTiles)
+                {
+                    if (grid.IsLetterWrong(tile.Letter))
+                        tile.SetWrong(WordGridGame.ActiveSettings.WrongColor);
+                }
             });
         }
 
@@ -180,13 +189,15 @@ namespace Gamio.Games.WordGrid
             float delay = 0;
             for (int i = 0; i < wordLength; i++)
             {
+                int idx = i;
                 var cell = wordCells[i];
                 DOVirtual.DelayedCall(delay, () =>
                 {
                     cell.transform.DOKill();
                     cell.transform.localScale = Vector3.one;
                     cell.transform.DOPunchScale(Vector3.one * 0.3f, 0.4f, 6, 0.5f)
-                        .SetEase(Ease.OutQuad);
+                        .SetEase(Ease.OutQuad)
+                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.3f + idx * 0.1f, 0.5f));
                 });
                 delay += 0.1f;
             }

@@ -12,11 +12,13 @@ public class GamioManager : MonoBehaviour
     public bool ChallengeActive => challengeActive;
     public string ChallengeSeed => challengeSeed;
     public int ChallengeId => challengeId;
+    public bool StreakPending => streakPending;
     private StreakInfo streakInfo;
     private bool dailyCompleted;
     private bool challengeActive;
     private string challengeSeed;
     private int challengeId;
+    private bool streakPending;
 
     CloudAPIService cloudAPIService;
     ILoginEvents loginEvents;
@@ -56,6 +58,21 @@ public class GamioManager : MonoBehaviour
     public void SetChallengeActive(bool active)
     {
         challengeActive = active;
+    }
+
+    public void SetStreakPending(bool pending)
+    {
+        streakPending = pending;
+    }
+
+    public void SetStreak(StreakInfo streak)
+    {
+        streakInfo = streak;
+    }
+
+    public void SetDailyCompleted(bool completed)
+    {
+        dailyCompleted = completed;
     }
 
     public async void FetchData()

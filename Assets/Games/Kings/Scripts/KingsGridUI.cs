@@ -25,15 +25,17 @@ namespace Gamio.Games.Kings
 
         public event Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             KingsGame.OnControllerCreated += OnControllerCreated;
             if (KingsGame.CurrentController != null)
                 OnControllerCreated(KingsGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             KingsGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -96,17 +98,22 @@ namespace Gamio.Games.Kings
         private void OnCellTap(int row, int col)
         {
             if (grid.IsSolved) return;
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
             if (grid.TapCell(row, col))
+            {
+                HapticsHelper.PlayEmphasis(0.3f, 0.5f);
                 cells[row, col].PlayTapAnimation();
+            }
         }
 
         private void OnCellHold(int row, int col)
         {
             if (grid.IsSolved) return;
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.LightImpact);
             if (grid.HoldCell(row, col))
+            {
+                HapticsHelper.PlayEmphasis(0.5f, 0.7f);
                 cells[row, col].PlayTapAnimation();
+            }
         }
 
         private void HandleCellChanged(int row, int col)
@@ -132,7 +139,9 @@ namespace Gamio.Games.Kings
             {
                 for (int c = 0; c < size; c++)
                 {
+                    int row = r, col = c;
                     cells[r, c].PlaySolvedAnimation(delay);
+                    DOVirtual.DelayedCall(delay, () => HapticsHelper.PlayEmphasis(0.2f + (row + col) % 3 * 0.1f, 0.4f));
                     delay += 0.03f;
                 }
             }

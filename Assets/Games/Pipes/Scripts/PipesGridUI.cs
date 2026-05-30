@@ -26,15 +26,17 @@ namespace Gamio.Games.Pipes
 
         public event Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             PipesGame.OnControllerCreated += OnControllerCreated;
             if (PipesGame.CurrentController != null)
                 Setup(PipesGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             PipesGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -93,7 +95,8 @@ namespace Gamio.Games.Pipes
 
         private void OnCellClick(int row, int col)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
+            HapticsHelper.PlayEmphasis(0.3f, 0.6f);
             grid.TapCell(row, col);
             cells[row, col].PlayTapAnimation();
             RefreshAll();
@@ -114,7 +117,9 @@ namespace Gamio.Games.Pipes
             for (int r = 0; r < size; r++)
                 for (int c = 0; c < size; c++)
                 {
+                    int row = r, col = c;
                     cells[r, c].PlaySolvedAnimation(delay);
+                    DOVirtual.DelayedCall(delay, () => HapticsHelper.PlayEmphasis(0.2f + (row + col) % 3 * 0.1f, 0.4f));
                     delay += 0.03f;
                 }
         }

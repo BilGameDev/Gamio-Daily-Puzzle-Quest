@@ -24,15 +24,17 @@ namespace Gamio.Games.Hitori
 
         public event Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             HitoriGame.OnControllerCreated += OnControllerCreated;
             if (HitoriGame.CurrentController != null)
                 Setup(HitoriGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             HitoriGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -74,7 +76,7 @@ namespace Gamio.Games.Hitori
 
         private void OnCellClick(int row, int col)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
             grid.TapCell(row, col);
             cells[row, col].PlayTapAnimation();
             RefreshAll();
@@ -92,12 +94,12 @@ namespace Gamio.Games.Hitori
             {
                 for (int c = 0; c < size; c++)
                 {
-                    int row = r, col = c;
                     var cell = cells[r, c];
                     cell.transform.DOKill();
                     cell.transform.localScale = Vector3.one;
                     cell.transform.DOPunchScale(Vector3.one * 0.25f, 0.4f, 6, 0.5f)
-                        .SetDelay(delay).SetEase(Ease.OutQuad);
+                        .SetDelay(delay).SetEase(Ease.OutQuad)
+                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.2f, 0.4f));
                     delay += 0.03f;
                 }
             }

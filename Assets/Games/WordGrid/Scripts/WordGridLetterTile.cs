@@ -65,6 +65,13 @@ namespace Gamio.Games.WordGrid
             Image.color = WordGridGame.ActiveSettings != null ? WordGridGame.ActiveSettings.TileDefaultColor : Color.gray;
         }
 
+        public void SetWrong(Color wrongColor)
+        {
+            Image.DOColor(wrongColor, 0.3f);
+            if (letterText != null)
+                letterText.color = new Color(0.5f, 0.5f, 0.5f);
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
             transform.DOKill();

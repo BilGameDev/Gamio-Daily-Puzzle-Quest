@@ -24,15 +24,17 @@ namespace Gamio.Games.LineConnect
 
         public event System.Action OnSolved;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             LineConnectGame.OnControllerCreated += OnControllerCreated;
             if (LineConnectGame.CurrentController != null)
                 Setup(LineConnectGame.CurrentController);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             LineConnectGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -121,7 +123,8 @@ namespace Gamio.Games.LineConnect
 
         private void OnCellDown(int row, int col)
         {
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Selection);
+            HapticsHelper.PlaySoftImpact();
+            HapticsHelper.PlayConstant(0.12f, 0.1f, 10f);
             grid.StartDrag(row, col);
         }
 
@@ -129,10 +132,13 @@ namespace Gamio.Games.LineConnect
         {
             if (!grid.IsDragging) return;
             grid.UpdateDrag(row, col);
+            float t = Mathf.Clamp01(grid.ActivePath.Count / (float)(size * size));
+            HapticsHelper.UpdateContinuous(0.12f + t * 0.08f, t * 0.4f);
         }
 
         private void OnCellUp()
         {
+            HapticsHelper.StopContinuous();
             grid.EndDrag();
         }
 
@@ -220,10 +226,12 @@ namespace Gamio.Games.LineConnect
             for (int r = 0; r < size; r++)
                 for (int c = 0; c < size; c++)
                 {
+                    int row = r, col = c;
                     cells[r, c].transform.DOKill();
                     cells[r, c].transform.localScale = Vector3.one;
                     cells[r, c].transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
-                        .SetDelay(delay).SetEase(Ease.OutQuad);
+                        .SetDelay(delay).SetEase(Ease.OutQuad)
+                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.2f + (row + col) % 3 * 0.1f, 0.4f));
                     delay += 0.015f;
                 }
         }
