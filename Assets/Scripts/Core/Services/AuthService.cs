@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Gamio.Core.Services
@@ -10,6 +11,7 @@ namespace Gamio.Core.Services
         private const string UsernameKey = "Gamio_Username";
 
         private readonly CloudAPIService cloudApiService;
+        private readonly ILoginEvents loginEvents;
         private string sessionToken;
         private string userId;
 
@@ -19,43 +21,48 @@ namespace Gamio.Core.Services
         public string DisplayName { get; private set; } = "Player";
         public string Username { get; private set; } = "";
 
-        public event Action OnAuthChanged;
-        public event Action<string> OnAuthError;
-
-        public AuthService(CloudAPIService api)
+        public AuthService(CloudAPIService api, ILoginEvents login)
         {
             cloudApiService = api;
+            loginEvents = login;
         }
 
-        public void AuthenticateWithGoogle(string idToken)
+        public async Task AuthenticateWithGoogle(string idToken)
         {
             if (LoadSession())
             {
                 cloudApiService.SetSessionToken(sessionToken);
+                loginEvents?.AuthSuccess();
             }
             else
             {
-                cloudApiService.VerifyGoogleToken(idToken, OnAuthSuccess, error =>
-           {
-               Debug.LogError($"[Auth] Verification failed: {error}");
-               OnAuthError?.Invoke(error);
-           });
+                try
+                {
+                    OnAuthSuccess(await cloudApiService.VerifyGoogleToken(idToken));
+                }
+                catch (Exception e)
+                {
+                    loginEvents?.AuthFailed(e.Message);
+                }
             }
         }
 
-        public void UpdateUsername(string username)
+        public async Task UpdateUsername(string username)
         {
-            cloudApiService.UpdateUsername(username, result =>
+            try
             {
+                var result = await cloudApiService.UpdateUsername(username);
                 Username = result.username;
                 PlayerPrefs.SetString(UsernameKey, Username);
                 PlayerPrefs.Save();
-                OnAuthChanged?.Invoke();
-            }, error =>
+                loginEvents?.AuthSuccess();
+            }
+            catch (Exception error)
             {
-                Debug.LogError($"[Auth] Username update failed: {error}");
-                OnAuthError?.Invoke(error);
-            });
+                Debug.LogError($"[Auth] Username update failed: {error.Message}");
+                loginEvents?.AuthFailed(error.Message);
+                throw;
+            }
         }
 
         private void OnAuthSuccess(AuthResult result)
@@ -71,7 +78,8 @@ namespace Gamio.Core.Services
             PlayerPrefs.Save();
 
             cloudApiService.SetSessionToken(sessionToken);
-            OnAuthChanged?.Invoke();
+            Debug.Log("Verified " + sessionToken);
+            loginEvents?.AuthSuccess();
         }
 
         public void ClearSession()
@@ -84,7 +92,7 @@ namespace Gamio.Core.Services
             PlayerPrefs.DeleteKey(UsernameKey);
             PlayerPrefs.Save();
 
-            OnAuthChanged?.Invoke();
+            loginEvents?.AuthSuccess();
         }
 
         private bool LoadSession()

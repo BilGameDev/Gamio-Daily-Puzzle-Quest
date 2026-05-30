@@ -11,16 +11,22 @@ public class GamioSceneManager : MonoBehaviour
     [SerializeField, Scene] string homeScene;
 
     private ILoginEvents loginEvents;
+    private ICloudDataEvents cloudDataEvents;
 
     private void OnEnable()
     {
         loginEvents = GamioAppContext.Get<ILoginEvents>();
+        cloudDataEvents = GamioAppContext.Get<ICloudDataEvents>();
 
         if (loginEvents != null)
         {
-            loginEvents.OnLoginSuccess += LoginSuccessful;
-            loginEvents.OnLoginFailed += LoginFailed;
+            loginEvents.OnAuthFailed += LoginFailed;
             loginEvents.OnLogoutRequested += Logout;
+        }
+
+        if (cloudDataEvents != null)
+        {
+            cloudDataEvents.OnAllDataFetched += LoadHomeScene;
         }
     }
 
@@ -28,13 +34,17 @@ public class GamioSceneManager : MonoBehaviour
     {
         if (loginEvents != null)
         {
-            loginEvents.OnLoginSuccess -= LoginSuccessful;
-            loginEvents.OnLoginFailed -= LoginFailed;
+            loginEvents.OnAuthFailed -= LoginFailed;
             loginEvents.OnLogoutRequested -= Logout;
+        }
+
+         if (cloudDataEvents != null)
+        {
+            cloudDataEvents.OnAllDataFetched -= LoadHomeScene;
         }
     }
 
-    private void LoginSuccessful(GoogleSignInUser signInUser)
+    private void LoadHomeScene()
     {
         if (GetActiveScene() == bootstrapScene || GetActiveScene() == loginScene)
         {

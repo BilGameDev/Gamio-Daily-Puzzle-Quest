@@ -58,7 +58,7 @@ namespace Gamio.Features.DailyChallenge
             UpdateTimer();
             if (streakText != null)
             {
-                streakText.text = $"Streak: {GamioAppContext.Get<GamioManager>().StreakCount}";
+                streakText.text = $"Streak: {GamioAppContext.Get<GamioManager>().GetStreak()}";
             }
             if (animateIn)
                 StartCoroutine(ShowAnimation());
@@ -90,7 +90,7 @@ namespace Gamio.Features.DailyChallenge
             UpdateTimer();
             if (streakText != null)
             {
-                streakText.text = $"Streak: {GamioAppContext.Get<GamioManager>().StreakCount}";
+                streakText.text = $"Streak: {GamioAppContext.Get<GamioManager>().GetStreak()}";
             }
         }
 
@@ -103,7 +103,7 @@ namespace Gamio.Features.DailyChallenge
                 var iconImage = gameIcon.GetComponent<Image>();
                 if (iconImage != null)
                 {
-                    if (GamioAppContext.Get<GamioManager>().DailyCompleted)
+                    if (GamioAppContext.Get<GamioManager>().GetChallengeCompleted())
                         iconImage.color = Color.white;
                     else
                         iconImage.color = new Color(0.6f, 0.6f, 0.6f);

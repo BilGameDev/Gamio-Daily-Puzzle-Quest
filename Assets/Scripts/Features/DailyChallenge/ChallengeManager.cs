@@ -1,5 +1,6 @@
 using System.Collections;
 using Gamio.Core;
+using Gamio.Core.Services;
 using Gamio.Features.DailyChallenge;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,39 @@ namespace Gamio.Root
         public event System.Action<string, float> OnGameLaunchRequested;
         public event System.Action<float> OnChallengeCompleted;
         public event System.Action OnChallengeCancelled;
+
+        ICloudDataEvents cloudDataEvents;
+
+        void Awake()
+        {
+            GamioAppContext.Register(this);
+        }
+
+        void OnEnable()
+        {
+            cloudDataEvents = GamioAppContext.Get<ICloudDataEvents>();
+
+            if (cloudDataEvents != null)
+            {
+                cloudDataEvents.OnSeedFetched += SeedFetched;
+            }
+        }
+
+        void OnDisable()
+        {
+            if (cloudDataEvents != null)
+            {
+                cloudDataEvents.OnSeedFetched -= SeedFetched;
+            }
+        }
+
+        void SeedFetched(SeedResponse seedResponse)
+        {
+            if (!seedResponse.dailyCompleted && !string.IsNullOrEmpty(seedResponse.gameType))
+            {
+                SetChallengeData(seedResponse.gameType, seedResponse.totalTimeSeconds ?? 0);
+            }
+        }
 
         public void SetChallengeData(string type, float totalTimeSeconds)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Gamio.Core.Services;
 
 namespace Gamio.Features.Leaderboard
@@ -16,35 +17,43 @@ namespace Gamio.Features.Leaderboard
         public event Action OnLeaderboardUpdated;
         public event Action<string> OnError;
 
-        public LeaderboardManager(CloudAPIService cloudApi)
+        public LeaderboardManager(CloudAPIService cloudApi, AuthService authService)
         {
             api = cloudApi;
+            MyUserId = authService?.UserId;
         }
 
-        public void FetchLeaderboard(int seedId)
+        public async Task FetchLeaderboard(int seedId)
         {
             CurrentSeedId = seedId;
-            api.GetLeaderboard(seedId, response =>
+
+            try
             {
-                CurrentEntries = response.entries;
-                TotalParticipants = response.totalParticipants;
+                var leaderboard = await api.GetLeaderboard(seedId);
+                CurrentEntries = leaderboard.entries;
+                TotalParticipants = leaderboard.totalParticipants;
                 OnLeaderboardUpdated?.Invoke();
-            }, error =>
+            }
+            catch (Exception error)
             {
-                OnError?.Invoke(error);
-            });
+                OnError?.Invoke(error.Message);
+            }
+
         }
 
-        public void FetchMyRank()
+        public async Task FetchMyRank()
         {
-            api.GetMyRank(rankResponse =>
+            try
             {
-                MyRanks = rankResponse;
+                var rank = await api.GetMyRank();
+                MyRanks = rank;
                 OnLeaderboardUpdated?.Invoke();
-            }, error =>
+            }
+            catch (Exception error)
             {
-                OnError?.Invoke(error);
-            });
+                OnError?.Invoke(error.Message);
+                throw;
+            }
         }
 
         public void SetTestData(LeaderboardEntry[] entries, int myRank, int seedId)

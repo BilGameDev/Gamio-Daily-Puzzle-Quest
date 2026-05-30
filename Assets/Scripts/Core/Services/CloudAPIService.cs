@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Text;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -20,164 +20,91 @@ namespace Gamio.Core.Services
         public void SetSessionToken(string token) => _sessionToken = token;
         public void SetBaseUrl(string url) => _baseUrl = url;
 
-        public Coroutine VerifyGoogleToken(string idToken, Action<AuthResult> onSuccess, Action<string> onError)
+        // --- Core API Methods ---
+        public async UniTask<AuthResult> VerifyGoogleToken(string idToken)
         {
             var json = $"{{\"idToken\":\"{EscapeJson(idToken)}\"}}";
-            return Post("/api/auth/verify", json, false, onSuccess, onError);
+            return await PostAsync<AuthResult>("/api/auth/verify", json, false);
         }
 
-        public Coroutine GetSeeds(Action<SeedResponse> onSuccess, Action<string> onError)
-        {
-            return Get("/api/seeds", onSuccess, onError);
-        }
+        public async UniTask<SeedResponse> GetSeeds() => await GetAsync<SeedResponse>("/api/seeds");
 
-        public Coroutine SubmitDaily(int challengeId, float timeSeconds,
-            Action<DailySubmitResult> onSuccess, Action<string> onError)
+        public async UniTask<DailySubmitResult> SubmitDaily(int challengeId, float timeSeconds)
         {
             var json = $"{{\"challengeId\":{challengeId},\"timeSeconds\":{timeSeconds}}}";
-            return Post("/api/daily/submit", json, true, onSuccess, onError);
+            return await PostAsync<DailySubmitResult>("/api/daily/submit", json, true);
         }
 
-        public Coroutine SyncOffline(int challengeId, float timeSeconds,
-            Action<DailySubmitResult> onSuccess, Action<string> onError)
+        public async UniTask<DailySubmitResult> SyncOffline(int challengeId, float timeSeconds)
         {
             var json = $"{{\"challengeId\":{challengeId},\"timeSeconds\":{timeSeconds}}}";
-            return Post("/api/daily/sync", json, true, onSuccess, onError);
+            return await PostAsync<DailySubmitResult>("/api/daily/sync", json, true);
         }
 
-        public Coroutine GetStreaks(Action<StreakResponse> onSuccess, Action<string> onError)
-        {
-            return Get("/api/streaks", onSuccess, onError);
-        }
+        public async UniTask<StreakResponse> GetStreaks() => await GetAsync<StreakResponse>("/api/streaks");
 
-        public Coroutine GetLeaderboard(int seedId, Action<LeaderboardResponse> onSuccess, Action<string> onError)
-        {
-            return Get($"/api/leaderboard/{seedId}", onSuccess, onError);
-        }
+        public async UniTask<LeaderboardResponse> GetLeaderboard(int seedId) => await GetAsync<LeaderboardResponse>($"/api/leaderboard/{seedId}");
 
-        public Coroutine GetMyRank(Action<MyRankResponse> onSuccess, Action<string> onError)
-        {
-            return Get("/api/leaderboard/me", onSuccess, onError);
-        }
+        public async UniTask<MyRankResponse> GetMyRank() => await GetAsync<MyRankResponse>("/api/leaderboard/me");
 
-        public Coroutine UpdateUsername(string username, Action<UsernameResult> onSuccess, Action<string> onError)
+        public async UniTask<UsernameResult> UpdateUsername(string username)
         {
             var json = $"{{\"username\":\"{EscapeJson(username)}\"}}";
-            return Post("/api/users/username", json, true, onSuccess, onError);
+            return await PostAsync<UsernameResult>("/api/users/username", json, true);
         }
 
-        public Coroutine DeleteCompletions(Action<ApiError> onSuccess, Action<string> onError)
-        {
-            return Delete("/api/user/completions", onSuccess, onError);
-        }
+        public async UniTask<ApiError> DeleteCompletions() => await DeleteAsync<ApiError>("/api/user/completions");
 
-        public Coroutine GetConfig(Action<ConfigResponse> onSuccess, Action<string> onError)
-        {
-            return Get("/api/config", onSuccess, onError);
-        }
+        public async UniTask<ConfigResponse> GetConfig() => await GetAsync<ConfigResponse>("/api/config");
 
-        private Coroutine Get<T>(string path, Action<T> onSuccess, Action<string> onError) where T : class
-        {
-            return CoroutineRunner.Instance.StartCoroutine(GetRoutine(path, onSuccess, onError));
-        }
+        // --- Generic Request Handlers ---
 
-        private Coroutine Post<T>(string path, string json, bool requiresAuth,
-            Action<T> onSuccess, Action<string> onError) where T : class
+        private async UniTask<T> GetAsync<T>(string path) where T : class
         {
-            return CoroutineRunner.Instance.StartCoroutine(PostRoutine(path, json, requiresAuth, onSuccess, onError));
-        }
-
-        private Coroutine Delete<T>(string path, Action<T> onSuccess, Action<string> onError) where T : class
-        {
-            return CoroutineRunner.Instance.StartCoroutine(DeleteRoutine(path, onSuccess, onError));
-        }
-
-        private IEnumerator DeleteRoutine<T>(string path, Action<T> onSuccess, Action<string> onError) where T : class
-        {
-            var url = _baseUrl + path;
-            using var req = new UnityWebRequest(url, "DELETE");
-            req.downloadHandler = new DownloadHandlerBuffer();
+            using var req = UnityWebRequest.Get(_baseUrl + path);
             AddHeaders(req);
-
-            yield return req.SendWebRequest();
-
-            if (req.result == UnityWebRequest.Result.ConnectionError)
-            {
-                onError?.Invoke(req.error);
-                yield break;
-            }
-
-            if (req.responseCode >= 400)
-            {
-                var msg = TryParseApiError(req.downloadHandler.text) ?? $"HTTP {req.responseCode}";
-                onError?.Invoke(msg);
-                yield break;
-            }
-
-            ProcessResponse(req.downloadHandler.text, onSuccess, onError);
+            await req.SendWebRequest();
+            return HandleResponse<T>(req);
         }
 
-        private IEnumerator GetRoutine<T>(string path, Action<T> onSuccess, Action<string> onError) where T : class
+        private async UniTask<T> PostAsync<T>(string path, string json, bool requiresAuth) where T : class
         {
-            var url = _baseUrl + path;
-            using var req = UnityWebRequest.Get(url);
-            AddHeaders(req);
-
-            yield return req.SendWebRequest();
-
-            if (req.result == UnityWebRequest.Result.ConnectionError)
-            {
-                onError?.Invoke(req.error);
-                yield break;
-            }
-
-            if (req.responseCode >= 400)
-            {
-                var msg = TryParseApiError(req.downloadHandler.text) ?? $"HTTP {req.responseCode}";
-                onError?.Invoke(msg);
-                yield break;
-            }
-
-            ProcessResponse(req.downloadHandler.text, onSuccess, onError);
-        }
-
-        private IEnumerator PostRoutine<T>(string path, string json, bool requiresAuth,
-            Action<T> onSuccess, Action<string> onError) where T : class
-        {
-            var url = _baseUrl + path;
-            using var req = new UnityWebRequest(url, "POST");
-            var bodyRaw = Encoding.UTF8.GetBytes(json);
+            using var req = new UnityWebRequest(_baseUrl + path, "POST");
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
             req.uploadHandler = new UploadHandlerRaw(bodyRaw);
             req.downloadHandler = new DownloadHandlerBuffer();
             req.SetRequestHeader("Content-Type", "application/json");
 
             if (requiresAuth) AddHeaders(req);
 
-            yield return req.SendWebRequest();
-
-            if (req.result == UnityWebRequest.Result.ConnectionError)
-            {
-                onError?.Invoke(req.error);
-                yield break;
-            }
-
-            if (req.responseCode >= 400)
-            {
-                var msg = TryParseApiError(req.downloadHandler.text) ?? $"HTTP {req.responseCode}";
-                onError?.Invoke(msg);
-                yield break;
-            }
-
-            ProcessResponse(req.downloadHandler.text, onSuccess, onError);
+            await req.SendWebRequest();
+            return HandleResponse<T>(req);
         }
 
-        private void ProcessResponse<T>(string text, Action<T> onSuccess, Action<string> onError) where T : class
+        private async UniTask<T> DeleteAsync<T>(string path) where T : class
         {
-            var result = JsonUtility.FromJson<T>(text);
-            if (result != null)
-                onSuccess?.Invoke(result);
-            else
-                onError?.Invoke("Failed to parse response");
+            using var req = new UnityWebRequest(_baseUrl + path, "DELETE");
+            req.downloadHandler = new DownloadHandlerBuffer();
+            AddHeaders(req);
+
+            await req.SendWebRequest();
+            return HandleResponse<T>(req);
+        }
+
+        // --- Helpers ---
+
+        private T HandleResponse<T>(UnityWebRequest req) where T : class
+        {
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                var errorMsg = TryParseApiError(req.downloadHandler.text) ?? $"HTTP {req.responseCode}: {req.error}";
+                throw new Exception(errorMsg);
+            }
+
+            var result = JsonUtility.FromJson<T>(req.downloadHandler.text);
+            if (result == null) throw new Exception("Failed to parse response JSON");
+            
+            return result;
         }
 
         private void AddHeaders(UnityWebRequest req)
@@ -186,23 +113,16 @@ namespace Gamio.Core.Services
                 req.SetRequestHeader("Authorization", $"Bearer {_sessionToken}");
         }
 
-        private static string EscapeJson(string s)
-        {
-            return s.Replace("\\", "\\\\").Replace("\"", "\\\"");
-        }
+        private static string EscapeJson(string s) => s.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
         private static string TryParseApiError(string text)
         {
             if (string.IsNullOrEmpty(text)) return null;
             try
             {
-                var err = JsonUtility.FromJson<ApiError>(text);
-                return err?.error;
+                return JsonUtility.FromJson<ApiError>(text)?.error;
             }
-            catch
-            {
-                return null;
-            }
+            catch { return null; }
         }
     }
 }

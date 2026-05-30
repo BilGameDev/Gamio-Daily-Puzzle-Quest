@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Gamio.Core.Services
@@ -33,13 +34,13 @@ namespace Gamio.Core.Services
             Save();
         }
 
-        public void SyncAll()
+        public async Task SyncAll()
         {
             if (PendingCount == 0) return;
-            SyncNext();
+            await SyncNext();
         }
 
-        private void SyncNext()
+        private async Task SyncNext()
         {
             if (pendingSubmits.Count == 0)
             {
@@ -48,17 +49,10 @@ namespace Gamio.Core.Services
             }
 
             var submit = pendingSubmits[0];
-            cloudAPIService.SyncOffline(submit.challengeId, submit.timeSeconds,
-                _ =>
-                {
-                    pendingSubmits.RemoveAt(0);
-                    Save();
-                    SyncNext();
-                },
-                _ =>
-                {
-                    OnSyncError?.Invoke("Some items could not be synced. Retry later.");
-                });
+            await cloudAPIService.SyncOffline(submit.challengeId, submit.timeSeconds);
+            pendingSubmits.RemoveAt(0);
+            Save();
+            await SyncNext();
         }
 
         public void Clear()

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using DG.Tweening;
 using Gamio.Core.Services;
 using Lofelt.NiceVibrations;
@@ -38,7 +39,7 @@ namespace Gamio.Features.Leaderboard
         private Sequence animSeq;
         private VerticalLayoutGroup layoutGroup;
 
-        public static LeaderboardPopupUI Show(LeaderboardManager manager, int seedId, LeaderboardMode mode)
+        public static async Task<LeaderboardPopupUI> Show(LeaderboardManager manager, int seedId, LeaderboardMode mode)
         {
             var prefab = Resources.Load<LeaderboardPopupUI>("Popups/LeaderboardPopupCanvas");
             if (prefab == null)
@@ -47,7 +48,7 @@ namespace Gamio.Features.Leaderboard
                 return null;
             }
             var popup = Instantiate(prefab);
-            popup.Initialize(manager, seedId, mode);
+            await popup.Initialize(manager, seedId, mode);
             return popup;
         }
 
@@ -66,7 +67,7 @@ namespace Gamio.Features.Leaderboard
             myRankButton?.onClick.AddListener(GoToMyRank);
         }
 
-        private void Initialize(LeaderboardManager managerRef, int seedId, LeaderboardMode newMode)
+        private async Task Initialize(LeaderboardManager managerRef, int seedId, LeaderboardMode newMode)
         {
             manager = managerRef;
             mode = newMode;
@@ -87,8 +88,8 @@ namespace Gamio.Features.Leaderboard
             }
 
             ShowLoading(true);
-            managerRef.FetchMyRank();
-            managerRef.FetchLeaderboard(seedId);
+            await managerRef.FetchMyRank();
+            await managerRef.FetchLeaderboard(seedId);
         }
 
         private void OnDataUpdated()

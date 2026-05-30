@@ -66,8 +66,8 @@ namespace Gamio.Features.UI
 
         private void OnBackClicked()
         {
-            string title = gamioManager.IsChallengeActive ? "End Challenge?" : backPopupTitle;
-            string message = gamioManager.IsChallengeActive
+            string title = gamioManager.GetChallengeActive() ? "End Challenge?" : backPopupTitle;
+            string message = gamioManager.GetChallengeActive()
                 ? "Are you sure you wish to end the challenge?"
                 : backPopupMessage;
 
@@ -80,7 +80,7 @@ namespace Gamio.Features.UI
 
         private void OnTutorialClicked()
         {
-            if (gamioManager.IsChallengeActive)
+            if (gamioManager.GetChallengeActive())
                 return;
 
             PopupUI.Show(tutorialPopupTitle, tutorialPopupMessage,
@@ -102,7 +102,11 @@ namespace Gamio.Features.UI
 
         private void OnLeaderboardClicked()
         {
-            LeaderboardPopupUI.Show(new LeaderboardManager(GamioAppContext.Get<CloudAPIService>()), 1, LeaderboardMode.Preview);
+            LeaderboardPopupUI.Show(
+                new LeaderboardManager(GamioAppContext.Get<CloudAPIService>(),
+                GamioAppContext.Get<AuthService>()),
+                1,
+                LeaderboardMode.Preview);
         }
 
         private void LoadAvatarPreview()

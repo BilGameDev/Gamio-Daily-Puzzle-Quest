@@ -1,0 +1,20 @@
+name = "gamio-api"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+
+# D1 database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "gamio-db"
+database_id = "51558c34-9e63-47be-bcf5-59df801c0b11"
+
+# Cron job: generate 3 daily seeds at midnight UTC
+[triggers]
+crons = ["0 0 * * *"]
+
+# Environment variables (dev only — use `wrangler secret put` for production)
+[vars]
+SEED_HMAC_KEY = "20c9d814e5c92569f71810899c7983dddf7fa0f257e1de64b057fa947b0d1d10"
+GOOGLE_CLIENT_ID = "236896011039-t6m1garuf6n2lntb8gugl8lll2i6qcqf.apps.googleusercontent.com"
+JWT_SECRET = "4bc5400f21b5c6d7c8f74be862b00ddb17adbb514d9d5435ecbfdfe3e51b55d0"
+CHALLENGE_GAME_TYPES = "Kings,Arrows,Shikaku,Pipes,LineConnect,WordGrid,WordSearch"

@@ -22,15 +22,15 @@ namespace Gamio.Features.HomeHub
 
         private void Start()
         {
-            Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
-
             gamioManager = GamioAppContext.Get<GamioManager>();
             RefreshUI();
         }
 
         private void RefreshUI()
         {
-            var streak = gamioManager.StreakCount;
+            var streak = gamioManager.GetStreak();
+
+            Debug.Log(streak);
 
             if (streakText != null)
             {
@@ -47,7 +47,7 @@ namespace Gamio.Features.HomeHub
 
             if (challengeButton != null && challengeButtonLabel != null)
             {
-                bool completed = gamioManager.DailyCompleted;
+                bool completed = gamioManager.GetChallengeCompleted();
                 challengeButton.interactable = !completed;
                 challengeButtonLabel.text = completed ? "New challenge tomorrow" : "Begin Challenge";
                 var colors = challengeButton.colors;
