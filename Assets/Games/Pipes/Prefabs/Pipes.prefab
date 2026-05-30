@@ -1496,9 +1496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f5d55b8d539cd44ae778843ba3206f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Pipes::Gamio.Games.Pipes.PipesGridUI
-  launchOnStart: 0
-  difficulty: 0
-  seed: 0
+  launchOnStart: 1
+  testMode: 0
+  testDifficulty: 0
+  testSeed: 1234
   gridLayout: {fileID: 1941622626871250472}
   cellPrefab: {fileID: 5144211507727201330, guid: 06558edf898af584eabf37a5f38eef19, type: 3}
   cellBackground: {r: 0.12, g: 0.12, b: 0.14, a: 1}

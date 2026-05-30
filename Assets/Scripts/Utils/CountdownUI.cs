@@ -58,6 +58,7 @@ namespace Gamio.Features.UI
             countdown._numberText = numberText;
             countdown._group = overlayGroup;
 
+            yield return new WaitForSeconds(1f);
             yield return countdown.PlayRoutine();
 
             overlayGroup.DOFade(0f, 0.2f);

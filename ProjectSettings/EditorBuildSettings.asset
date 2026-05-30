@@ -14,6 +14,33 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Login.unity
     guid: 67bbaa3289ff9614193deacf161b0e2a
+  - enabled: 1
+    path: Assets/Games/Arrows/Arrows.unity
+    guid: 2762db21d29f4d2458feb5ca882de383
+  - enabled: 1
+    path: Assets/Games/Hitori/Hitori.unity
+    guid: 4196702b538c41e44b5735fbc03063b9
+  - enabled: 1
+    path: Assets/Games/Kings/Kings.unity
+    guid: 60087a6f6b3b4d34b9187dd900583719
+  - enabled: 1
+    path: Assets/Games/LineConnect/LineConnect.unity
+    guid: f91b5ae5a9316374999c6053c3fd19af
+  - enabled: 1
+    path: Assets/Games/Pipes/Pipes.unity
+    guid: bdc45d9d1972e9f44963b4fd84d1580a
+  - enabled: 1
+    path: Assets/Games/Shikaku/Shikaku.unity
+    guid: d94a223b38228a349aaae39bc867815a
+  - enabled: 1
+    path: Assets/Games/Sudoku/Sudoku.unity
+    guid: 030bd2a2b6ebd744fbc158ce3ddcf5b4
+  - enabled: 1
+    path: Assets/Games/WordGrid/Word Grid.unity
+    guid: 813f095a1f99d48418fc3a8921166ae9
+  - enabled: 1
+    path: Assets/Games/WordSearch/Word Search.unity
+    guid: ea04c12eca60fe84a876d677460c5fcb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

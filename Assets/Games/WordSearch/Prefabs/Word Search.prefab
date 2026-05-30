@@ -431,6 +431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782cb2e229c63cd48b556cd05951f681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.WordSearch::Gamio.Games.WordSearch.WordSearchGridUI
+  launchOnStart: 1
+  testMode: 0
+  testDifficulty: 0
+  testSeed: 1234
   gridLayout: {fileID: 1177260606791100866}
   cellPrefab: {fileID: 5518654538675802448, guid: 3c386f61bb2403547b3006dd16aa3bd2, type: 3}
   wordListContainer: {fileID: 7446323245476008922}
@@ -438,7 +442,6 @@ MonoBehaviour:
   cellColor: {r: 1, g: 1, b: 1, a: 1}
   highlightColor: {r: 0.3, g: 0.8, b: 1, a: 0.6}
   foundColor: {r: 0.6, g: 0.9, b: 0.6, a: 0.5}
-  maxCellSize: 120
 --- !u!1 &2106900831742820784
 GameObject:
   m_ObjectHideFlags: 0

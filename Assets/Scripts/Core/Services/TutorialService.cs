@@ -6,11 +6,13 @@ namespace Gamio.Core
     {
         private const string Prefix = "Gamio_Tutorial_";
 
-        public static bool ChallengeModeActive { get; set; }
-
         public bool IsCompleted(string gameId)
         {
-            if (ChallengeModeActive) return true;
+            if (GamioAppContext.Get<GamioManager>().ChallengeActive)
+            {
+                return true;
+            }
+
             return PlayerPrefs.GetInt(Prefix + gameId, 0) == 1;
         }
 

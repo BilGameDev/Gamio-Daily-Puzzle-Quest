@@ -37,11 +37,13 @@ namespace Gamio.Games.Kings
             KingsGame.OnControllerCreated -= OnControllerCreated;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (launchOnStart)
             {
-                TestGame(new KingsGame());
+                LaunchGame(new KingsGame());
             }
         }
 

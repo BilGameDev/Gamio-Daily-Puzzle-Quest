@@ -1402,8 +1402,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Kings::Gamio.Games.Kings.KingsGridUI
   launchOnStart: 1
-  difficulty: 1
-  seed: 14
+  testMode: 0
+  testDifficulty: 0
+  testSeed: 1234
   gridLayout: {fileID: 8381591338430004737}
   cellPrefab: {fileID: 3361239565904301973, guid: 2f3bbe4d09ca2ad48abdbe643d8bc3cc, type: 3}
   desiredCellSize: {x: 120, y: 130}

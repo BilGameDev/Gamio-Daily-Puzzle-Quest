@@ -17,9 +17,7 @@ namespace Gamio.Core
             GamioAppContext.Register(cloudAPIService = new CloudAPIService());
             GamioAppContext.Register(new AuthService(cloudAPIService, loginEvents));
             GamioAppContext.Register(new OfflineQueue(cloudAPIService));
-            GamioAppContext.Register<IGameSeedProvider>(new DefaultSeedProvider());
             GamioAppContext.Register(new ConnectivityService());
-            GamioAppContext.Register(new TutorialService());
         }
     }
 }

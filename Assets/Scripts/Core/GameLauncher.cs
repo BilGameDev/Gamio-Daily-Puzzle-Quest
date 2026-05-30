@@ -1,22 +1,40 @@
 using Gamio.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Gamio.Root
 {
     public class GameLauncher : MonoBehaviour
     {
-        enum CurrentGames
+        [SerializeField] Games game;
+        Button thisGameButton;
+
+        IUIEvents uIEvents;
+        GamesLibrary gamesLibrary;
+
+        void Start()
         {
-            Kings
+            uIEvents = GamioAppContext.Get<IUIEvents>();
+            gamesLibrary = GamioAppContext.Get<GamesLibrary>();
+
+            if (TryGetComponent(out Button gameButton))
+            {
+                thisGameButton = gameButton;
+                thisGameButton.onClick.AddListener(LaunchGame);
+            }
         }
-        [Header("Game")]
-        [SerializeField] CurrentGames game;
 
-        [Header("Test")]
-        [SerializeField] bool launchOnStart;
-        [SerializeField] Difficulty difficulty;
-        [SerializeField] int seed;
+        void OnDestroy()
+        {
+            if (thisGameButton != null)
+            {
+                thisGameButton.onClick.RemoveAllListeners();
+            }
+        }
 
-        IGame currentGame;
+        public void LaunchGame()
+        {
+            uIEvents?.RequestGameScene(gamesLibrary.GetGameScene(game));
+        }
     }
 }

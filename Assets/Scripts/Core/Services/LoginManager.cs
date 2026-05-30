@@ -10,12 +10,13 @@ public class LoginManager : MonoBehaviour
 {
     GoogleAuthManager googleAuthManager;
     private GoogleSignInConfiguration configuration;
-    string webClientId = "872728126352-hcr19509f88ne1cga5im912ph8k0td9n.apps.googleusercontent.com";
+    string webClientId = "236896011039-t6m1garuf6n2lntb8gugl8lll2i6qcqf.apps.googleusercontent.com";
     private ILoginEvents loginEvents;
     private AuthService authService;
 
     private void Awake()
     {
+        googleAuthManager = GamioAppContext.Get<GoogleAuthManager>();
         configuration = new GoogleSignInConfiguration
         {
             WebClientId = webClientId,
@@ -23,11 +24,6 @@ public class LoginManager : MonoBehaviour
             RequestEmail = true,
             RequestProfile = true
         };
-    }
-
-    void Start()
-    {
-        googleAuthManager = GamioAppContext.Get<GoogleAuthManager>();
     }
 
     private void OnEnable()

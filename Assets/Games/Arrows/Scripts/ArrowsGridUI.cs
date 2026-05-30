@@ -40,11 +40,13 @@ namespace Gamio.Games.Arrows
             }
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (launchOnStart)
             {
-                TestGame(new ArrowsGame());
+                LaunchGame(new ArrowsGame());
             }
         }
 

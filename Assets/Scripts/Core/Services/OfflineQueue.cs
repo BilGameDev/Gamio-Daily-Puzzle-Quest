@@ -14,7 +14,6 @@ namespace Gamio.Core.Services
         public int PendingCount => pendingSubmits.Count;
 
         public event Action OnSyncCompleted;
-        public event Action<string> OnSyncError;
 
         public OfflineQueue(CloudAPIService api)
         {
@@ -31,6 +30,7 @@ namespace Gamio.Core.Services
                 timeSeconds = timeSeconds,
                 queuedAt = DateTime.Now,
             });
+            
             Save();
         }
 

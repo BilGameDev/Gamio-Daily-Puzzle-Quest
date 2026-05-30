@@ -5,9 +5,9 @@ namespace Gamio.Games.LineConnect
 {
     public class LineConnectGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
 
-        public LineConnectGenerator(int seedValue)
+        public LineConnectGenerator(string seedValue)
         {
             seed = seedValue;
         }
@@ -34,7 +34,7 @@ namespace Gamio.Games.LineConnect
 
         public LineConnectPuzzle Generate(int gridSize)
         {
-            var rng = new Random(seed);
+            var rng = new Random(seed.GetHashCode());
             int total = gridSize * gridSize;
 
             var path = GenerateWindingPath(gridSize, rng);

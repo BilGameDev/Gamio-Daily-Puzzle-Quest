@@ -41,11 +41,13 @@ namespace Gamio.Games.Sudoku
             SudokuGame.OnControllerCreated -= OnControllerCreated;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (launchOnStart)
             {
-                TestGame(new SudokuGame());
+                LaunchGame(new SudokuGame());
             }
         }
 

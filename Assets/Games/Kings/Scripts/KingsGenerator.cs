@@ -5,20 +5,20 @@ namespace Gamio.Games.Kings
 {
     public class KingsGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
         private Random rng;
 
         private static readonly int[] GDR = { -1, 0, 1, 0 };
         private static readonly int[] GDC = { 0, 1, 0, -1 };
 
-        public KingsGenerator(int inputSeed)
+        public KingsGenerator(string inputSeed)
         {
             seed = inputSeed;
         }
 
         public KingsPuzzle Generate(int gridSize)
         {
-            rng = new Random(seed);
+            rng = new Random(seed.GetHashCode());
             int regionCount = gridSize;
             int[,] regionIds = GenerateRegions(gridSize, regionCount);
 

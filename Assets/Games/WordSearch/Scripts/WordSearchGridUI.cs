@@ -43,11 +43,13 @@ namespace Gamio.Games.WordSearch
             WordSearchGame.OnControllerCreated -= OnControllerCreated;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (launchOnStart)
             {
-                TestGame(new WordSearchGame());
+                LaunchGame(new WordSearchGame());
             }
         }
 
@@ -160,22 +162,6 @@ namespace Gamio.Games.WordSearch
                         .SetDelay(delay).SetEase(Ease.OutQuad);
                     delay += 0.02f;
                 }
-        }
-
-        private void Update()
-        {
-            if (grid == null) return;
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-            {
-                showSolution = false;
-                hintRevealCount++;
-                RefreshHighlights();
-            }
-            if (Keyboard.current.pKey.wasPressedThisFrame)
-            {
-                showSolution = !showSolution;
-                RefreshHighlights();
-            }
         }
 
         private void OnControllerCreated(WordSearchGridController controller)

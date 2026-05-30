@@ -1,161 +1,121 @@
-using System.Collections;
 using Gamio.Core;
 using Gamio.Core.Services;
 using Gamio.Features.DailyChallenge;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Gamio.Root
 {
     public class ChallengeManager : MonoBehaviour
     {
+        private ChallengePopupUI popup;
         private string gameType;
-        private float gameStartTime;
         private float totalTime;
         private bool active;
-        private bool timerActive;
-        private ChallengePopupUI popup;
-
         public bool IsActive => active;
-        public bool HasChallenge => !string.IsNullOrEmpty(gameType);
-        public float TotalTime => active && timerActive
-            ? totalTime + (Time.time - gameStartTime)
-            : totalTime;
-
-        public event System.Action<string, float> OnGameLaunchRequested;
-        public event System.Action<float> OnChallengeCompleted;
-        public event System.Action OnChallengeCancelled;
 
         ICloudDataEvents cloudDataEvents;
+        IUIEvents uiEvents;
+        GamioManager gamioManager;
+        GamesLibrary gamesLibrary;
 
         void Awake()
         {
             GamioAppContext.Register(this);
         }
 
+        void Start()
+        {
+            gamioManager = GamioAppContext.Get<GamioManager>();
+            gamesLibrary = GamioAppContext.Get<GamesLibrary>();
+        }
+
         void OnEnable()
         {
             cloudDataEvents = GamioAppContext.Get<ICloudDataEvents>();
+            uiEvents = GamioAppContext.Get<IUIEvents>();
 
             if (cloudDataEvents != null)
+                cloudDataEvents.OnSeedFetched += OnSeedFetched;
+
+            if (uiEvents != null)
             {
-                cloudDataEvents.OnSeedFetched += SeedFetched;
+                uiEvents.OnChallengeRequested += ShowPopup;
+                uiEvents.OnBackRequested += OnBackRequested;
+                uiEvents.OnChallengeSolved += OnChallengeSolved;
             }
+
         }
 
         void OnDisable()
         {
             if (cloudDataEvents != null)
+                cloudDataEvents.OnSeedFetched -= OnSeedFetched;
+
+            if (uiEvents != null)
             {
-                cloudDataEvents.OnSeedFetched -= SeedFetched;
+                uiEvents.OnChallengeRequested -= ShowPopup;
+                uiEvents.OnBackRequested -= OnBackRequested;
+                uiEvents.OnChallengeSolved -= OnChallengeSolved;
             }
         }
 
-        void SeedFetched(SeedResponse seedResponse)
+        void OnSeedFetched(SeedResponse seedResponse)
         {
             if (!seedResponse.dailyCompleted && !string.IsNullOrEmpty(seedResponse.gameType))
             {
-                SetChallengeData(seedResponse.gameType, seedResponse.totalTimeSeconds ?? 0);
+                gameType = seedResponse.gameType;
+                totalTime = seedResponse.totalTimeSeconds ?? 0;
             }
         }
 
-        public void SetChallengeData(string type, float totalTimeSeconds)
-        {
-            gameType = type;
-            totalTime = totalTimeSeconds;
-        }
-
-        public void OnGameStarted()
-        {
-            gameStartTime = Time.time;
-            timerActive = true;
-        }
-
-        public void OnPuzzleSolved(string gameId)
-        {
-            if (!active || string.IsNullOrEmpty(gameType)) return;
-
-            float elapsed = Time.time - gameStartTime;
-            timerActive = false;
-            totalTime += elapsed;
-
-            active = false;
-            TutorialService.ChallengeModeActive = false;
-            ClosePopup();
-
-            var asyncOp = SceneManager.LoadSceneAsync("Home");
-            StartCoroutine(CompleteAfterLoad(asyncOp, elapsed));
-        }
-
-        private IEnumerator CompleteAfterLoad(AsyncOperation asyncOp, float elapsed)
-        {
-            yield return asyncOp;
-            yield return null;
-            OnChallengeCompleted?.Invoke(elapsed);
-        }
-
-        public void Start()
+        void ShowPopup()
         {
             if (string.IsNullOrEmpty(gameType)) return;
             active = true;
-            TutorialService.ChallengeModeActive = true;
-            ShowPopup();
+
+            popup = ChallengePopupUI.Show(transform, gameType, totalTime);
+            popup.OnBeginRequested += OnBeginGame;
+            popup.OnCloseRequested += OnClosePopup;
         }
 
-        public void BeginChallengeGame(string type, float time)
+        void OnBeginGame()
         {
-            totalTime = time;
-            OnGameLaunchRequested?.Invoke(type, time);
+            gamioManager?.SetChallengeActive(true);
+            uiEvents.RequestGameScene(gamesLibrary?.GetGameScene(gameType));
+            popup = null;
         }
 
-        public void Cancel()
+        void OnClosePopup()
         {
-            active = false;
-            timerActive = false;
-            TutorialService.ChallengeModeActive = false;
-            ClosePopup();
-            OnChallengeCancelled?.Invoke();
+            popup = null;
         }
 
-        public void Reset()
+        void OnChallengeSolved(string solveTime)
         {
-            gameType = null;
-            totalTime = 0;
-            active = false;
-            TutorialService.ChallengeModeActive = false;
-            ClosePopup();
+            Debug.Log(solveTime);
         }
 
-        private void ShowPopup()
+        void OnBackRequested()
         {
-            if (string.IsNullOrEmpty(gameType)) return;
-            ChallengePopupUI.OnBeginRequested = BeginChallengeGame;
-            System.Func<float> timeProvider = () => TotalTime;
-            if (popup == null)
+            if (gamioManager.ChallengeActive)
             {
-                popup = ChallengePopupUI.Create(transform, gameType, totalTime, timeProvider);
-                popup.AnimateToFull();
+                gamioManager.SetChallengeActive(false);
             }
-            else
-            {
-                popup.Refresh(gameType, totalTime, true, timeProvider);
-            }
-            popup.OnCloseRequested -= OnPopupClose;
-            popup.OnCloseRequested += OnPopupClose;
         }
 
-        private void OnPopupClose()
+        public void OnChallengeCompleted()
         {
-            Cancel();
-        }
+            if (!active) return;
+            active = false;
 
-        private void ClosePopup()
-        {
             if (popup != null)
             {
-                popup.Close();
+                popup.OnCloseRequested -= OnClosePopup;
+                popup.Dismiss();
                 popup = null;
             }
+
+            gamioManager?.SetChallengeActive(false);
         }
     }
 }

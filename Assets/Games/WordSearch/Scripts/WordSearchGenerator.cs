@@ -7,7 +7,7 @@ namespace Gamio.Games.WordSearch
 {
     public class WordSearchGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
         private System.Random rng;
 
         private static readonly (int dr, int dc)[] Directions = new[]
@@ -17,14 +17,14 @@ namespace Gamio.Games.WordSearch
             (1, -1),  (1, 0),  (1, 1)
         };
 
-        public WordSearchGenerator(int seedValue)
+        public WordSearchGenerator(string seedValue)
         {
             seed = seedValue;
         }
 
         public WordSearchPuzzle Generate(int gridSize, int wordCount, List<string> allWords)
         {
-            rng = new System.Random(seed);
+            rng = new System.Random(seed.GetHashCode());
 
             var candidates = allWords
                 .Where(w => w.Length >= 3 && w.Length <= gridSize)

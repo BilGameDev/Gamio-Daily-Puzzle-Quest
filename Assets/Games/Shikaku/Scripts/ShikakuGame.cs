@@ -11,7 +11,7 @@ namespace Gamio.Games.Shikaku
         public static ShikakuGridController CurrentController { get; private set; }
         public static ShikakuGameSettingsSO ActiveSettings { get; private set; }
         public static Difficulty CurrentDifficulty { get; private set; }
-        public static int CurrentSeed { get; private set; }
+        public static string CurrentSeed { get; private set; }
         public static event Action<ShikakuGridController> OnControllerCreated;
         public static bool TutorialDeferred { get; set; }
 
@@ -40,7 +40,7 @@ namespace Gamio.Games.Shikaku
             Instance = this;
         }
 
-        public IEnumerator Run(int seed, Difficulty difficulty)
+        public IEnumerator Run(string seed, Difficulty difficulty)
         {
             CurrentDifficulty = difficulty;
             CurrentSeed = seed;

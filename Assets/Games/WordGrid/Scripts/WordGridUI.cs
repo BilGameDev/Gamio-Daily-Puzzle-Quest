@@ -28,14 +28,6 @@ namespace Gamio.Games.WordGrid
 
         public event System.Action OnSolved;
 
-        private void Update()
-        {
-            if (Keyboard.current.pKey.wasPressedThisFrame && grid != null && !grid.IsSolved)
-            {
-                grid.ForceSolve();
-            }
-        }
-
         private void OnEnable()
         {
             WordGridGame.OnControllerCreated += OnControllerCreated;
@@ -48,11 +40,13 @@ namespace Gamio.Games.WordGrid
             WordGridGame.OnControllerCreated -= OnControllerCreated;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (launchOnStart)
             {
-                TestGame(new WordGridGame());
+                LaunchGame(new WordGridGame());
             }
         }
 
@@ -223,7 +217,7 @@ namespace Gamio.Games.WordGrid
                 submitButton.gameObject.SetActive(true);
                 submitButton.interactable = true;
             }
-            
+
             UpdateAttempts();
         }
 

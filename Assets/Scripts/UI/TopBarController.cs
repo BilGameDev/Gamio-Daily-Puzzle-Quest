@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading.Tasks;
 using Gamio.Core;
 using Gamio.Core.Services;
 using Gamio.Features.Leaderboard;
@@ -66,8 +67,8 @@ namespace Gamio.Features.UI
 
         private void OnBackClicked()
         {
-            string title = gamioManager.GetChallengeActive() ? "End Challenge?" : backPopupTitle;
-            string message = gamioManager.GetChallengeActive()
+            string title = gamioManager.ChallengeActive ? "End Challenge?" : backPopupTitle;
+            string message = gamioManager.ChallengeActive
                 ? "Are you sure you wish to end the challenge?"
                 : backPopupMessage;
 
@@ -80,7 +81,7 @@ namespace Gamio.Features.UI
 
         private void OnTutorialClicked()
         {
-            if (gamioManager.GetChallengeActive())
+            if (gamioManager.ChallengeActive)
                 return;
 
             PopupUI.Show(tutorialPopupTitle, tutorialPopupMessage,
@@ -102,7 +103,12 @@ namespace Gamio.Features.UI
 
         private void OnLeaderboardClicked()
         {
-            LeaderboardPopupUI.Show(
+            _ = ShowLeaderboard();
+        }
+
+        async Task ShowLeaderboard()
+        {
+            await LeaderboardPopupUI.Show(
                 new LeaderboardManager(GamioAppContext.Get<CloudAPIService>(),
                 GamioAppContext.Get<AuthService>()),
                 1,

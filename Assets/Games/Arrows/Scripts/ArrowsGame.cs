@@ -13,7 +13,7 @@ namespace Gamio.Games.Arrows
         public static event Action<ArrowsGridController> OnControllerCreated;
         public static bool TutorialDeferred { get; set; }
         public static Difficulty CurrentDifficulty { get; private set; }
-        public static int CurrentSeed { get; private set; }
+        public static string CurrentSeed { get; private set; }
         public static Vector2 CurrentCellSize => ActiveSettings?.GetConfig(CurrentDifficulty).cellSize ?? new Vector2(105, 105);
 
         public static void FireControllerCreated(ArrowsGridController controller)
@@ -38,7 +38,7 @@ namespace Gamio.Games.Arrows
             Instance = this;
         }
 
-        public IEnumerator Run(int seed, Difficulty difficulty)
+        public IEnumerator Run(string seed, Difficulty difficulty)
         {
             CurrentDifficulty = difficulty;
             CurrentSeed = seed;

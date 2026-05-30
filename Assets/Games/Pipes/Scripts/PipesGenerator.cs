@@ -5,17 +5,17 @@ namespace Gamio.Games.Pipes
 {
     public class PipesGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
         private Random rng;
 
-        public PipesGenerator(int seedValue)
+        public PipesGenerator(string seedValue)
         {
             seed = seedValue;
         }
 
         public PipesPuzzle Generate(int gridSize)
         {
-            rng = new Random(seed);
+            rng = new Random(seed.GetHashCode());
             var adj = new List<int>[gridSize, gridSize];
 
             for (int r = 0; r < gridSize; r++)

@@ -12,7 +12,7 @@ namespace Gamio.Games.WordSearch
         public static WordSearchGridController CurrentController { get; private set; }
         public static WordSearchGameSettingsSO ActiveSettings { get; private set; }
         public static Difficulty CurrentDifficulty { get; private set; }
-        public static int CurrentSeed { get; private set; }
+        public static string CurrentSeed { get; private set; }
         public static event Action<WordSearchGridController> OnControllerCreated;
         public static bool TutorialDeferred { get; set; }
 
@@ -41,7 +41,7 @@ namespace Gamio.Games.WordSearch
             Instance = this;
         }
 
-        public IEnumerator Run(int seed, Difficulty difficulty)
+        public IEnumerator Run(string seed, Difficulty difficulty)
         {
             CurrentDifficulty = difficulty;
             CurrentSeed = seed;

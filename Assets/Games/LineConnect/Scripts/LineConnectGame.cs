@@ -13,7 +13,7 @@ namespace Gamio.Games.LineConnect
         public static event Action<LineConnectGridController> OnControllerCreated;
         public static bool TutorialDeferred { get; set; }
         public static Difficulty CurrentDifficulty { get; private set; }
-        public static int CurrentSeed { get; private set; }
+        public static string CurrentSeed { get; private set; }
 
         public static void FireControllerCreated(LineConnectGridController controller)
         {
@@ -42,7 +42,7 @@ namespace Gamio.Games.LineConnect
             Instance = this;
         }
 
-        public IEnumerator Run(int seed, Difficulty difficulty)
+        public IEnumerator Run(string seed, Difficulty difficulty)
         {
             CurrentDifficulty = difficulty;
             CurrentSeed = seed;

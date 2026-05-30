@@ -15,7 +15,7 @@ namespace Gamio.Core.Services
 
         public static void LoadScene(string sceneName, System.Action onCompleted = null)
         {
-            EnsureInstance();
+            CreateInstance();
             if (_instance._isLoading) return;
             
             _instance.StartCoroutine(_instance.LoadSceneRoutine(sceneName, onCompleted));
@@ -46,7 +46,7 @@ namespace Gamio.Core.Services
             onCompleted?.Invoke();
         }
 
-        private static void EnsureInstance()
+        private static void CreateInstance()
         {
             if (_instance != null) return;
 

@@ -11,7 +11,7 @@ namespace Gamio.Games.Hitori
         public static HitoriGridController CurrentController { get; private set; }
         public static HitoriGameSettingsSO ActiveSettings { get; private set; }
         public static Difficulty CurrentDifficulty { get; private set; }
-        public static int CurrentSeed { get; private set; }
+        public static string CurrentSeed { get; private set; }
         public static event Action<HitoriGridController> OnControllerCreated;
         public static bool TutorialDeferred { get; set; }
 
@@ -39,7 +39,7 @@ namespace Gamio.Games.Hitori
             Instance = this;
         }
 
-        public IEnumerator Run(int seed, Difficulty difficulty)
+        public IEnumerator Run(string seed, Difficulty difficulty)
         {
             CurrentDifficulty = difficulty;
             CurrentSeed = seed;

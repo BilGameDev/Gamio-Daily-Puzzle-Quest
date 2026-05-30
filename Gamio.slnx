@@ -11,8 +11,8 @@
   <Project Path="Gamio.Games.Hitori.csproj" />
   <Project Path="Gamio.Games.Shikaku.csproj" />
   <Project Path="Gamio.Games.LineConnect.csproj" />
-  <Project Path="Lofelt.NiceVibrations.csproj" />
   <Project Path="UniTask.Addressables.csproj" />
+  <Project Path="Lofelt.NiceVibrations.csproj" />
   <Project Path="Gamio.Utils.csproj" />
   <Project Path="DOTween.Modules.csproj" />
   <Project Path="UnlimitedScrollUI.csproj" />

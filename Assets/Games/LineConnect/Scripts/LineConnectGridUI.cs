@@ -36,11 +36,13 @@ namespace Gamio.Games.LineConnect
             LineConnectGame.OnControllerCreated -= OnControllerCreated;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (launchOnStart)
             {
-                TestGame(new LineConnectGame());
+                LaunchGame(new LineConnectGame());
             }
         }
 
@@ -56,7 +58,7 @@ namespace Gamio.Games.LineConnect
             showSolution = false;
             BuildGrid();
         }
-        
+
         protected override void OnHint()
         {
             if (grid == null || grid.IsSolved) return;

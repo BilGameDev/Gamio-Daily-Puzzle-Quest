@@ -1,4 +1,4 @@
 namespace Gamio.Core
 {
-    public enum Difficulty { Random, Easy, Medium, Hard }
+    public enum Difficulty { Easy, Medium, Hard }
 }

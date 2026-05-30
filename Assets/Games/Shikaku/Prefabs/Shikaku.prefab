@@ -1523,9 +1523,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404c7bf6c24e9fc4996b42f78027e38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Shikaku::Gamio.Games.Shikaku.ShikakuGridUI
-  launchOnStart: 0
-  difficulty: 0
-  seed: 0
+  launchOnStart: 1
+  testMode: 0
+  testDifficulty: 0
+  testSeed: 1234
   gridLayout: {fileID: 8952157792762115210}
   cellPrefab: {fileID: 6239408109168841205, guid: dceb4293cfc3fe84c9a8090127071525, type: 3}
   selectionOverlay: {fileID: 8877655933216585241}

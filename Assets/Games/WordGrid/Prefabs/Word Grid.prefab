@@ -2136,9 +2136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e1c9b0e864ef14e8a94e8d1f9bd806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.WordGrid::Gamio.Games.WordGrid.WordGridUI
-  launchOnStart: 0
-  difficulty: 0
-  seed: 0
+  launchOnStart: 1
+  testMode: 0
+  testDifficulty: 0
+  testSeed: 1234
   wordTilesParent: {fileID: 7566277517832588179}
   alphabetParent: {fileID: 1254339640835158538}
   cellPrefab: {fileID: 1652637510283419137, guid: 2e0b52d19f8362e44b0e033b9296b528, type: 3}
@@ -2203,11 +2204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.WordGrid::Gamio.Games.WordGrid.CenteredGridLayout
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: 40
+    m_Right: 40
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  constraintCount: 5
+  m_ChildAlignment: 4
+  constraintCount: 7
   cellSize: {x: 100, y: 100}
-  spacing: {x: 0, y: 0}
+  spacing: {x: 30, y: 30}

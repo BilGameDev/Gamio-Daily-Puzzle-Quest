@@ -12,7 +12,7 @@ namespace Gamio.Games.Sudoku
         public static SudokuGameSettingsSO ActiveSettings { get; private set; }
         public static event Action<SudokuGridController> OnControllerCreated;
         public static Difficulty CurrentDifficulty { get; private set; }
-        public static int CurrentSeed { get; private set; }
+        public static string CurrentSeed { get; private set; }
         public static bool TutorialDeferred { get; set; }
 
         public static void FireControllerCreated(SudokuGridController controller)
@@ -40,7 +40,7 @@ namespace Gamio.Games.Sudoku
             Instance = this;
         }
 
-        public IEnumerator Run(int seed, Difficulty difficulty)
+        public IEnumerator Run(string seed, Difficulty difficulty)
         {
             CurrentDifficulty = difficulty;
             CurrentSeed = seed;

@@ -5,16 +5,16 @@ namespace Gamio.Games.Arrows
 {
     public class ArrowsGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
 
-        public ArrowsGenerator(int seedValue)
+        public ArrowsGenerator(string seedValue)
         {
             seed = seedValue;
         }
 
         public ArrowsPuzzle Generate(int rows, int cols, float density)
         {
-            var rng = new System.Random(seed);
+            var rng = new System.Random(seed.GetHashCode());
             rows = Mathf.Max(3, rows);
             cols = Mathf.Max(3, cols);
             float d = Mathf.Clamp01(density);

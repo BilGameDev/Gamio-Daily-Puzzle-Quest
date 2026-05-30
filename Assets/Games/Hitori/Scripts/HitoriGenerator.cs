@@ -6,17 +6,17 @@ namespace Gamio.Games.Hitori
 {
     public class HitoriGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
         private Random rng;
 
-        public HitoriGenerator(int seedValue)
+        public HitoriGenerator(string seedValue)
         {
             seed = seedValue;
         }
 
         public HitoriPuzzle Generate(int gridSize)
         {
-            rng = new Random(seed);
+            rng = new Random(seed.GetHashCode());
 
             var solution = new int[gridSize, gridSize];
             GenerateLatinSquare(solution);

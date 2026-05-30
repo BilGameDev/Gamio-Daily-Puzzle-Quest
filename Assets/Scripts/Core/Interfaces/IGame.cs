@@ -9,7 +9,7 @@ namespace Gamio.Core
         string DisplayName { get; }
         public event Action OnSolved;
         void Initialize();
-        IEnumerator Run(int seed, Difficulty difficulty);
+        IEnumerator Run(string seed, Difficulty difficulty);
         void Cleanup();
     }
 }

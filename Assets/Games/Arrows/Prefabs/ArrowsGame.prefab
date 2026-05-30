@@ -324,8 +324,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Arrows::Gamio.Games.Arrows.ArrowsGridUI
   launchOnStart: 1
-  difficulty: 2
-  seed: 45
+  testMode: 0
+  testDifficulty: 0
+  testSeed: 1234
   gridLayout: {fileID: 1368334881018709184}
   cellPrefab: {fileID: 963348210160214424, guid: f9a0d2fcba6fd3b4ea927208f4880aa3, type: 3}
 --- !u!1 &1630523583294461660

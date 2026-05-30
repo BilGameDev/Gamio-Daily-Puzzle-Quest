@@ -4,12 +4,19 @@ using Gamio.Core.Services;
 using Google;
 using UnityEngine;
 
+[DefaultExecutionOrder(-50)]
 public class GamioManager : MonoBehaviour
 {
-    private int streakCount;
+    public StreakInfo StreakInfo => streakInfo;
+    public bool DailyCompleted => dailyCompleted;
+    public bool ChallengeActive => challengeActive;
+    public string ChallengeSeed => challengeSeed;
+
+    private StreakInfo streakInfo;
     private bool dailyCompleted;
     private bool challengeActive;
-    GoogleSignInUser signInUser;
+    private string challengeSeed;
+
     CloudAPIService cloudAPIService;
     ILoginEvents loginEvents;
     OfflineQueue offlineQueue;
@@ -32,7 +39,6 @@ public class GamioManager : MonoBehaviour
             loginEvents.OnAuthSuccess += FetchData;
         }
     }
-
     void OnDisable()
     {
         if (loginEvents != null)
@@ -46,39 +52,24 @@ public class GamioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SetGoogleUser(GoogleSignInUser googleSignInUser)
-    {
-        signInUser = googleSignInUser;
-    }
-
     public void SetChallengeActive(bool active)
     {
         challengeActive = active;
     }
 
-    public int GetStreak() => streakCount;
-    public bool GetChallengeCompleted() => dailyCompleted;
-    public bool GetChallengeActive() => challengeActive;
-
     public async void FetchData()
     {
-        // Initialize state
-        streakCount = 0;
-        dailyCompleted = false;
-
         try
         {
-            // Fire both requests in parallel using UniTask.WhenAll
-            // This is significantly faster than waiting for them one by one
             var seedsTask = cloudAPIService.GetSeeds();
             var streaksTask = cloudAPIService.GetStreaks();
 
-            // The method pauses here until both tasks complete
             var (seeds, streaks) = await UniTask.WhenAll(seedsTask, streaksTask);
 
             // Update local state once data is confirmed
             dailyCompleted = seeds.dailyCompleted;
-            streakCount = 55; // Logic applied
+            streakInfo = seeds.streak;
+            challengeSeed = seeds.seed;
 
             // Trigger your internal events
             cloudDataEvents.SeedFetched(seeds);

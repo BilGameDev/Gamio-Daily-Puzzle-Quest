@@ -12,14 +12,17 @@ public class GamioSceneManager : MonoBehaviour
 
     private ILoginEvents loginEvents;
     private ICloudDataEvents cloudDataEvents;
+    private IUIEvents uIEvents;
 
     private void OnEnable()
     {
         loginEvents = GamioAppContext.Get<ILoginEvents>();
         cloudDataEvents = GamioAppContext.Get<ICloudDataEvents>();
+        uIEvents = GamioAppContext.Get<IUIEvents>();
 
         if (loginEvents != null)
         {
+            loginEvents.OnLoginFailed += LoginFailed;
             loginEvents.OnAuthFailed += LoginFailed;
             loginEvents.OnLogoutRequested += Logout;
         }
@@ -28,29 +31,38 @@ public class GamioSceneManager : MonoBehaviour
         {
             cloudDataEvents.OnAllDataFetched += LoadHomeScene;
         }
+
+        if (uIEvents != null)
+        {
+            uIEvents.OnGameSceneRequested += LoadGameScene;
+            uIEvents.OnBackRequested += LoadHomeScene;
+        }
     }
 
     private void OnDisable()
     {
         if (loginEvents != null)
         {
+            loginEvents.OnLoginFailed -= LoginFailed;
             loginEvents.OnAuthFailed -= LoginFailed;
             loginEvents.OnLogoutRequested -= Logout;
         }
 
-         if (cloudDataEvents != null)
+        if (cloudDataEvents != null)
         {
             cloudDataEvents.OnAllDataFetched -= LoadHomeScene;
+        }
+
+        if (uIEvents != null)
+        {
+            uIEvents.OnGameSceneRequested -= LoadGameScene;
+            uIEvents.OnBackRequested -= LoadHomeScene;
         }
     }
 
     private void LoadHomeScene()
     {
-        if (GetActiveScene() == bootstrapScene || GetActiveScene() == loginScene)
-        {
-            SceneLoader.LoadScene(homeScene);
-            return;
-        }
+        SceneLoader.LoadScene(homeScene);
     }
 
     private void LoginFailed(string error)
@@ -58,7 +70,13 @@ public class GamioSceneManager : MonoBehaviour
         if (GetActiveScene() == bootstrapScene)
         {
             SceneLoader.LoadScene(loginScene);
-            return;
+        }
+    }
+    private void LoadGameScene(string gameScene)
+    {
+        if (!string.IsNullOrEmpty(gameScene))
+        {
+            SceneLoader.LoadScene(gameScene);
         }
     }
 

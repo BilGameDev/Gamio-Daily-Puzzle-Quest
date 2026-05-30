@@ -5,17 +5,17 @@ namespace Gamio.Games.Sudoku
 {
     public class SudokuGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
         private Random rng;
 
-        public SudokuGenerator(int seedValue)
+        public SudokuGenerator(string seedValue)
         {
             seed = seedValue;
         }
 
         public SudokuPuzzle Generate(int gridSize, int boxSize, int cellsToRemove)
         {
-            rng = new Random(seed);
+            rng = new Random(seed.GetHashCode());
             var size = gridSize;
             var board = new int[size, size];
             SolveBoard(board, size, boxSize);

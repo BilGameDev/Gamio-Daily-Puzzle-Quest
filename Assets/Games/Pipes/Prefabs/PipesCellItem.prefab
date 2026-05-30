@@ -53,7 +53,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5064221092216510804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -88,13 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f175159f249efa4419e8062e8c4159df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Pipes::Gamio.Games.Pipes.PipesCellItem
-  _pipeColor: {r: 0.3, g: 0.6, b: 0.9, a: 1}
-  _correctColor: {r: 0.2, g: 0.8, b: 0.3, a: 1}
-  _wrongColor: {r: 0.9, g: 0.3, b: 0.3, a: 1}
-  _portColor: {r: 0.9, g: 0.7, b: 0.2, a: 1}
-  _straightPrefab: {fileID: 3482609351068884736, guid: 5d7caef4880a6434ab6263a4189861c1, type: 3}
-  _bendPrefab: {fileID: 5113756364629166972, guid: df8aa05a869babb4591a0d6e5f312771, type: 3}
-  _crossPrefab: {fileID: 3433984604339566733, guid: 7d28eeeefaacd6a48b16fff144bde3e5, type: 3}
-  _tJunctionPrefab: {fileID: 2961390492488762388, guid: 696f7d4ab8f56a84e92bee58fe016adf, type: 3}
-  _portPrefab: {fileID: 5986840595996635942, guid: 4a39e02993276fa42b3e124fbf73fc77, type: 3}
-  _portConnectedPrefab: {fileID: 5986840595996635942, guid: fd3ee9699e9e16b4081449f115ba2aac, type: 3}
+  straightPrefab: {fileID: 3482609351068884736, guid: 5d7caef4880a6434ab6263a4189861c1, type: 3}
+  bendPrefab: {fileID: 5113756364629166972, guid: df8aa05a869babb4591a0d6e5f312771, type: 3}
+  crossPrefab: {fileID: 3433984604339566733, guid: 7d28eeeefaacd6a48b16fff144bde3e5, type: 3}
+  tJunctionPrefab: {fileID: 2961390492488762388, guid: 696f7d4ab8f56a84e92bee58fe016adf, type: 3}
+  portPrefab: {fileID: 5986840595996635942, guid: 4a39e02993276fa42b3e124fbf73fc77, type: 3}
+  portConnectedPrefab: {fileID: 5986840595996635942, guid: fd3ee9699e9e16b4081449f115ba2aac, type: 3}

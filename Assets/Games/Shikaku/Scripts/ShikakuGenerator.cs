@@ -5,17 +5,17 @@ namespace Gamio.Games.Shikaku
 {
     public class ShikakuGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
         private Random rng;
 
-        public ShikakuGenerator(int s)
+        public ShikakuGenerator(string s)
         {
             seed = s;
         }
 
         public ShikakuPuzzle Generate(int gridSize)
         {
-            rng = new Random(seed);
+            rng = new Random(seed.GetHashCode());
             var rects = new List<ShikakuRect>();
             PartitionGrid(0, 0, gridSize, gridSize, rects);
 

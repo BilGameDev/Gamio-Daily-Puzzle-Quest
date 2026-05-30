@@ -7,17 +7,17 @@ namespace Gamio.Games.WordGrid
 {
     public class WordGridGenerator
     {
-        private readonly int seed;
+        private readonly string seed;
         private System.Random rng;
 
-        public WordGridGenerator(int seed)
+        public WordGridGenerator(string seed)
         {
             this.seed = seed;
         }
 
         public WordGridPuzzle Generate(int wordLength, List<string> allWords)
         {
-            rng = new System.Random(seed);
+            rng = new System.Random(seed.GetHashCode());
 
             var candidates = allWords
                 .Select(w => w.ToUpperInvariant().Trim())

@@ -38,11 +38,13 @@ namespace Gamio.Games.Pipes
             PipesGame.OnControllerCreated -= OnControllerCreated;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (launchOnStart)
             {
-                TestGame(new PipesGame());
+                LaunchGame(new PipesGame());
             }
         }
 

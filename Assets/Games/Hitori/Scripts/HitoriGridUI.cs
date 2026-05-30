@@ -103,22 +103,6 @@ namespace Gamio.Games.Hitori
             }
         }
 
-        private void Update()
-        {
-            if (grid == null) return;
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-            {
-                showSolution = false;
-                hintRevealCount++;
-                RefreshAll();
-            }
-            if (Keyboard.current.pKey.wasPressedThisFrame)
-            {
-                showSolution = !showSolution;
-                RefreshAll();
-            }
-        }
-
         private void OnControllerCreated(HitoriGridController controller)
         {
             Setup(controller);

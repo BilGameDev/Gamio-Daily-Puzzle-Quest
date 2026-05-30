@@ -56,11 +56,13 @@ namespace Gamio.Games.Shikaku
             ShikakuGame.OnControllerCreated -= OnControllerCreated;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+            
             if (launchOnStart)
             {
-                TestGame(new ShikakuGame());
+                LaunchGame(new ShikakuGame());
             }
         }
 

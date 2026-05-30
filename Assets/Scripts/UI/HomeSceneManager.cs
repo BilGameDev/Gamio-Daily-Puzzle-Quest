@@ -23,14 +23,18 @@ namespace Gamio.Features.HomeHub
         private void Start()
         {
             gamioManager = GamioAppContext.Get<GamioManager>();
+            challengeButton.onClick.AddListener(ShowChallengePopup);
             RefreshUI();
+        }
+
+        void ShowChallengePopup()
+        {
+            GamioAppContext.Get<IUIEvents>().RequestChallenge();
         }
 
         private void RefreshUI()
         {
-            var streak = gamioManager.GetStreak();
-
-            Debug.Log(streak);
+            var streak = gamioManager.StreakInfo.current;
 
             if (streakText != null)
             {
@@ -47,13 +51,18 @@ namespace Gamio.Features.HomeHub
 
             if (challengeButton != null && challengeButtonLabel != null)
             {
-                bool completed = gamioManager.GetChallengeCompleted();
+                bool completed = gamioManager.DailyCompleted;
                 challengeButton.interactable = !completed;
                 challengeButtonLabel.text = completed ? "New challenge tomorrow" : "Begin Challenge";
                 var colors = challengeButton.colors;
                 colors.normalColor = completed ? challengeCompletedColor : challengeAvailableColor;
                 challengeButton.colors = colors;
             }
+        }
+
+        void OnDestroy()
+        {
+            challengeButton.onClick.RemoveAllListeners();
         }
     }
 }
