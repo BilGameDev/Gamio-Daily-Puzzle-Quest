@@ -11,11 +11,12 @@ public class GamioManager : MonoBehaviour
     public bool DailyCompleted => dailyCompleted;
     public bool ChallengeActive => challengeActive;
     public string ChallengeSeed => challengeSeed;
-
+    public int ChallengeId => challengeId;
     private StreakInfo streakInfo;
     private bool dailyCompleted;
     private bool challengeActive;
     private string challengeSeed;
+    private int challengeId;
 
     CloudAPIService cloudAPIService;
     ILoginEvents loginEvents;
@@ -70,6 +71,7 @@ public class GamioManager : MonoBehaviour
             dailyCompleted = seeds.dailyCompleted;
             streakInfo = seeds.streak;
             challengeSeed = seeds.seed;
+            challengeId = seeds.seedId;
 
             // Trigger your internal events
             cloudDataEvents.SeedFetched(seeds);

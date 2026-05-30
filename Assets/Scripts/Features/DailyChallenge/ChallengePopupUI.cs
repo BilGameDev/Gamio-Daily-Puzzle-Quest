@@ -12,12 +12,11 @@ namespace Gamio.Features.DailyChallenge
     {
         [SerializeField] private CanvasGroup overlayGroup;
         [SerializeField] private CanvasGroup panelGroup;
-        [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI gameTypeText;
         [SerializeField] private Button beginButton;
         [SerializeField] private TextMeshProUGUI beginButtonLabel;
         [SerializeField] private Button closeButton;
-        [SerializeField] private RawImage gameIcon;
+        [SerializeField] private Transform gameIconHolder;
         [SerializeField] private GameIcons[] gameIcons;
 
         private string gameType;
@@ -51,6 +50,7 @@ namespace Gamio.Features.DailyChallenge
             {
                 panelGroup.alpha = 0f;
                 panelGroup.transform.localScale = Vector3.one * 0.92f;
+                gameIconHolder.localScale = Vector3.zero;
             }
 
             if (beginButton != null)
@@ -68,18 +68,12 @@ namespace Gamio.Features.DailyChallenge
             if (gameTypeText != null)
                 gameTypeText.text = gameType;
 
-            if (timerText != null)
-                timerText.text = FormatTime(totalTime);
-
-            if (gameIcon != null)
+            foreach (var item in gameIcons)
             {
-                foreach (var item in gameIcons)
+                if (item.gameType.Equals(gameType, StringComparison.OrdinalIgnoreCase))
                 {
-                    if (item.gameType.Equals(gameType, StringComparison.OrdinalIgnoreCase))
-                    {
-                        gameIcon.texture = item.gameIcon;
-                        return;
-                    }
+                    Instantiate(item.gameIcon, gameIconHolder);
+                    return;
                 }
             }
         }
@@ -106,6 +100,7 @@ namespace Gamio.Features.DailyChallenge
                 Sequence seq = DOTween.Sequence();
                 seq.Append(panelGroup.DOFade(1f, 0.35f));
                 seq.Join(panelGroup.transform.DOScale(1f, 0.4f).SetEase(Ease.OutBack));
+                seq.Join(gameIconHolder.transform.DOScale(1f, 0.4f).SetEase(Ease.OutBack).SetDelay(.3f));
                 yield return seq.WaitForCompletion();
             }
 
@@ -163,20 +158,12 @@ namespace Gamio.Features.DailyChallenge
             DOTween.Kill(this);
             StopAllCoroutines();
         }
-
-        public static string FormatTime(float seconds)
-        {
-            var ts = TimeSpan.FromSeconds(seconds);
-            if (ts.Hours > 0)
-                return $"{ts.Hours:D2}:{ts.Minutes:D2}:{ts.Seconds:D2}";
-            return $"{ts.Minutes:D2}:{ts.Seconds:D2}";
-        }
     }
 
     [Serializable]
     struct GameIcons
     {
         public string gameType;
-        public Texture gameIcon;
+        public GameObject gameIcon;
     }
 }

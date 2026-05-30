@@ -31,6 +31,7 @@ namespace Gamio.Features.UI
 
         GamioManager gamioManager;
         IUIEvents uIEvents;
+        LeaderboardManager leaderboardManager;
 
         private void Awake()
         {

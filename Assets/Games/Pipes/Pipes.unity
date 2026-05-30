@@ -223,6 +223,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7797374948142650660, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
       propertyPath: m_Name
       value: TopBarCanvasGame Variant
@@ -695,6 +715,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4947945043582132597, guid: c7e2dd04be15121438a08171ed58a669, type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947945043582132597, guid: c7e2dd04be15121438a08171ed58a669, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5181609071713444859, guid: c7e2dd04be15121438a08171ed58a669, type: 3}

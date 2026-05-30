@@ -26,6 +26,7 @@ namespace Gamio.Core
         {
             game.Initialize();
             stopwatch = new Stopwatch();
+            timerObject.gameObject.SetActive(false);
 
             if (testMode || gamioManager == null)
             {
@@ -39,7 +40,7 @@ namespace Gamio.Core
                     {
                         stopwatch.Stop();
 
-                        uIEvents.SolvedChallenge(stopwatch.Elapsed.ToString());
+                        uIEvents.SolvedChallenge(stopwatch.Elapsed.Seconds);
                         game.OnSolved -= Solved;
                     }
 
@@ -97,7 +98,7 @@ namespace Gamio.Core
         {
             if (stopwatch.IsRunning)
             {
-                timerObject.text = FormatTime(stopwatch.Elapsed);
+                timerObject.text = $"Time: {FormatTime(stopwatch.Elapsed)}";
             }
         }
 

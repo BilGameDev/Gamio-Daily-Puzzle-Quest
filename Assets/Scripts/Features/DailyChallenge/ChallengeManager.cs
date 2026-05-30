@@ -1,6 +1,9 @@
+using System;
+using System.Threading.Tasks;
 using Gamio.Core;
 using Gamio.Core.Services;
 using Gamio.Features.DailyChallenge;
+using Gamio.Features.Leaderboard;
 using UnityEngine;
 
 namespace Gamio.Root
@@ -17,6 +20,7 @@ namespace Gamio.Root
         IUIEvents uiEvents;
         GamioManager gamioManager;
         GamesLibrary gamesLibrary;
+        CloudAPIService cloudAPIService;
 
         void Awake()
         {
@@ -27,6 +31,7 @@ namespace Gamio.Root
         {
             gamioManager = GamioAppContext.Get<GamioManager>();
             gamesLibrary = GamioAppContext.Get<GamesLibrary>();
+            cloudAPIService = GamioAppContext.Get<CloudAPIService>();
         }
 
         void OnEnable()
@@ -90,9 +95,30 @@ namespace Gamio.Root
             popup = null;
         }
 
-        void OnChallengeSolved(string solveTime)
+        void OnChallengeSolved(float solveTime)
         {
             Debug.Log(solveTime);
+            _ = SubmitDaily(solveTime);
+        }
+
+        async Task SubmitDaily(float solveTime)
+        {
+            try
+            {
+                var dailySublit = await cloudAPIService.SubmitDaily(gamioManager.ChallengeId, solveTime);
+                if (dailySublit.success)
+                {
+                    await LeaderboardPopupUI.Show(
+                new LeaderboardManager(cloudAPIService,
+                GamioAppContext.Get<AuthService>()),
+                gamioManager.ChallengeId,
+                LeaderboardMode.Result);
+                }
+            }
+            catch (Exception error)
+            {
+                Debug.Log(error.Message);
+            }
         }
 
         void OnBackRequested()
