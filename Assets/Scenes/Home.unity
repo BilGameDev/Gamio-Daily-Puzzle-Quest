@@ -5824,6 +5824,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: TopBarCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6180211456262422959, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180211456262422959, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180211456262422959, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180211456262422959, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6455915855350287278, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5927,6 +5943,22 @@ PrefabInstance:
     - target: {fileID: 7176885062641774164, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501980812322081335, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501980812322081335, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501980812322081335, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501980812322081335, guid: cd92ecf20d0f2994c8bb14464bb85aa1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

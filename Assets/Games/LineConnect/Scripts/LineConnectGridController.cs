@@ -89,7 +89,6 @@ namespace Gamio.Games.LineConnect
             activePath.Clear();
             OnVisualsChanged?.Invoke();
             bool isFull = puzzle.IsSolved();
-            Debug.Log($"[LineConnect] EndDrag: solved={isFull}, IsSolved={isFull}, dragPathCount={activePath.Count}");
             if (isFull)
             {
                 solved = true;

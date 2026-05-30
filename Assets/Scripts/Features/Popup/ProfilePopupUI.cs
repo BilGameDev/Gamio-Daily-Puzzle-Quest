@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Text;
+using Cysharp.Threading.Tasks;
 using Gamio.Core;
 using Gamio.Core.Services;
 using TMPro;
@@ -9,14 +12,31 @@ using DG.Tweening;
 
 namespace Gamio.Features.Popup
 {
+    [Serializable]
+    class ProfanityResponse
+    {
+        public bool isProfanity;
+        public float score;
+    }
+
     public class ProfilePopupUI : MonoBehaviour
     {
+        [Header("Avatar")]
         [SerializeField] private RawImage avatarImage;
         [SerializeField] private Button newRobotButton;
         [SerializeField] private TextMeshProUGUI newRobotButtonText;
+
+        [Header("Username")]
+        [SerializeField] private TMP_InputField usernameField;
+        [SerializeField] private Button updateUsernameButton;
+        [SerializeField] private TextMeshProUGUI usernameFeedbackText;
+
+        [Header("Actions")]
         [SerializeField] private Button logoutButton;
         [SerializeField] private TextMeshProUGUI logoutButtonText;
         [SerializeField] private Button closeButton;
+
+        [Header("Animation")]
         [SerializeField] private CanvasGroup panelGroup;
         [SerializeField] private CanvasGroup overlayGroup;
 
@@ -47,8 +67,13 @@ namespace Gamio.Features.Popup
             if (closeButton == null) Debug.LogError("[ProfilePopup] closeButton not assigned in prefab");
             else closeButton.onClick.AddListener(Close);
 
+            if (updateUsernameButton != null)
+                updateUsernameButton.onClick.AddListener(OnUpdateUsernameClicked);
+
             currentSeed = AvatarService.GetSavedSeed();
             StartCoroutine(LoadAvatarTexture(currentSeed));
+
+            usernameField.text = GamioAppContext.Get<AuthService>().DisplayName;
 
             if (overlayGroup != null)
             {
@@ -108,11 +133,79 @@ namespace Gamio.Features.Popup
             GamioAppContext.Get<ILoginEvents>()?.RequestLogout();
         }
 
+        private async void OnUpdateUsernameClicked()
+        {
+            var username = usernameField.text?.Trim();
+            if (string.IsNullOrEmpty(username)) return;
+
+            updateUsernameButton.interactable = false;
+
+            try
+            {
+                bool isProfane = await CheckProfanity(username);
+                if (isProfane)
+                {
+                    ShowFeedback("Username contains inappropriate language", true);
+                    return;
+                }
+
+                var result = await GamioAppContext.Get<CloudAPIService>().UpdateUsername(username);
+                if (result.success)
+                    ShowFeedback("Username updated!", false);
+                else
+                    ShowFeedback("Failed to update username", true);
+            }
+            catch (Exception e)
+            {
+                ShowFeedback($"Error: {e.Message}", true);
+            }
+            finally
+            {
+                updateUsernameButton.interactable = true;
+            }
+        }
+
+        private async UniTask<bool> CheckProfanity(string text)
+        {
+            try
+            {
+                var json = $"{{\"message\":\"{EscapeJson(text)}\"}}";
+                using var req = new UnityWebRequest("https://www.profanity.dev/api", "POST");
+                byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+                req.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                req.downloadHandler = new DownloadHandlerBuffer();
+                req.SetRequestHeader("Content-Type", "application/json");
+                await req.SendWebRequest();
+
+                if (req.result != UnityWebRequest.Result.Success)
+                    return false;
+
+                var response = JsonUtility.FromJson<ProfanityResponse>(req.downloadHandler.text);
+                return response.isProfanity;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void ShowFeedback(string message, bool isError)
+        {
+            if (usernameFeedbackText == null) return;
+            usernameFeedbackText.text = message;
+            usernameFeedbackText.color = isError ? Color.red : Color.green;
+            usernameFeedbackText.DOFade(1f, 0.2f);
+            DOVirtual.DelayedCall(3f, () => usernameFeedbackText.DOFade(0f, 0.3f));
+        }
+
+        private static string EscapeJson(string s) => s.Replace("\\", "\\\\").Replace("\"", "\\\"");
+
         public void Close()
         {
             newRobotButton.onClick.RemoveAllListeners();
             logoutButton.onClick.RemoveAllListeners();
             closeButton.onClick.RemoveAllListeners();
+            updateUsernameButton?.onClick.RemoveAllListeners();
 
             var seq = DOTween.Sequence();
             if (overlayGroup != null)
