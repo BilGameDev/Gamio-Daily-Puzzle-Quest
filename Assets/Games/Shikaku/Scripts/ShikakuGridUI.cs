@@ -49,15 +49,11 @@ namespace Gamio.Games.Shikaku
             ShikakuGame.OnControllerCreated += OnControllerCreated;
             if (ShikakuGame.CurrentController != null)
                 Setup(ShikakuGame.CurrentController);
-            GamioEvents.OnHintRequested += OnHint;
-            GamioEvents.OnResetRequested += OnReset;
         }
 
         private void OnDisable()
         {
             ShikakuGame.OnControllerCreated -= OnControllerCreated;
-            GamioEvents.OnHintRequested -= OnHint;
-            GamioEvents.OnResetRequested -= OnReset;
         }
 
         void Start()
@@ -111,24 +107,6 @@ namespace Gamio.Games.Shikaku
                 selectionOverlay.gameObject.SetActive(false);
 
             RefreshVisuals();
-        }
-
-        private void Update()
-        {
-            if (grid == null) return;
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-            {
-                OnHint();
-            }
-            if (Keyboard.current.pKey.wasPressedThisFrame)
-            {
-                showSolution = !showSolution;
-                HideHintOverlays();
-                if (showSolution)
-                    ShowSolutionOverlays();
-                else
-                    HideSolutionOverlays();
-            }
         }
 
         private void RemovePlacedOverlayAt(int idx)
@@ -266,14 +244,14 @@ namespace Gamio.Games.Shikaku
             RefreshVisuals();
         }
 
-        public void ResetPuzzle()
+        protected override void ResetPuzzle()
         {
             grid.ResetPuzzle();
             ClearPlacedOverlays();
             RefreshVisuals();
         }
 
-        private void OnHint()
+        protected override void OnHint()
         {
             if (grid == null) return;
             var rects = grid.Puzzle.SolutionRects;
@@ -294,8 +272,6 @@ namespace Gamio.Games.Shikaku
             if (grid.Puzzle.IsSolved())
                 grid.Check();
         }
-
-        private void OnReset() => ResetPuzzle();
 
         private void ClearPlacedOverlays()
         {

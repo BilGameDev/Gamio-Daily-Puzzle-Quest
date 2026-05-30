@@ -24,8 +24,6 @@ namespace Gamio.Games.WordSearch
         private WordSearchGridController tutorialController;
         private WordSearchCellItem[,] cells;
         private readonly List<TextMeshProUGUI> wordLabels = new List<TextMeshProUGUI>();
-        private bool isRunning;
-        private bool isReplay;
 
         private const string GameId = "wordsearch";
 
@@ -36,29 +34,11 @@ namespace Gamio.Games.WordSearch
                 WordSearchGame.TutorialDeferred = true;
         }
 
-        private void OnEnable()
-        {
-            GamioEvents.OnTutorialRequested += Replay;
-            GamioEvents.OnSkipTutorialRequested += SkipTutorial;
-        }
-
-        private void OnDisable()
-        {
-            GamioEvents.OnTutorialRequested -= Replay;
-            GamioEvents.OnSkipTutorialRequested -= SkipTutorial;
-        }
-
         protected override void Start()
         {
             base.Start();
             if (WordSearchGame.Instance != null && WordSearchGame.TutorialDeferred)
                 Begin();
-        }
-
-        public void Replay()
-        {
-            isReplay = true;
-            Begin();
         }
 
         private void SkipTutorial() => Finish();
@@ -380,7 +360,7 @@ namespace Gamio.Games.WordSearch
             return dr == 0 || dc == 0 || Mathf.Abs(dr) == Mathf.Abs(dc);
         }
 
-        private void Finish()
+        public override void Finish()
         {
             isRunning = false;
             CleanupPhase();

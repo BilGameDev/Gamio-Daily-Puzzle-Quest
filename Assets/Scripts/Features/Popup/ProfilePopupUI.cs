@@ -105,7 +105,7 @@ namespace Gamio.Features.Popup
 
         private void OnLogoutClicked()
         {
-            GamioEvents.RequestLogout();
+            GamioAppContext.Get<ILoginEvents>()?.RequestLogout();
         }
 
         public void Close()

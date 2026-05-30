@@ -28,8 +28,6 @@ namespace Gamio.Games.Kings
         private void OnEnable()
         {
             KingsGame.OnControllerCreated += OnControllerCreated;
-            GamioEvents.OnResetRequested += ResetPuzzle;
-            GamioEvents.OnHintRequested += Hint;
             if (KingsGame.CurrentController != null)
                 OnControllerCreated(KingsGame.CurrentController);
         }
@@ -37,8 +35,6 @@ namespace Gamio.Games.Kings
         private void OnDisable()
         {
             KingsGame.OnControllerCreated -= OnControllerCreated;
-            GamioEvents.OnResetRequested -= ResetPuzzle;
-            GamioEvents.OnHintRequested -= Hint;
         }
 
         void Start()
@@ -93,26 +89,6 @@ namespace Gamio.Games.Kings
             }
 
             RefreshAll();
-        }
-
-        private void Update()
-        {
-            if (grid == null) return;
-            if (Keyboard.current.rKey.wasPressedThisFrame)
-                ResetPuzzle();
-
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-                Hint();
-
-            if (Keyboard.current.pKey.wasPressedThisFrame)
-            {
-                showSolution = !showSolution;
-                RefreshAll();
-            }
-
-            if (Keyboard.current.zKey.wasPressedThisFrame &&
-                (Keyboard.current.ctrlKey.isPressed || Keyboard.current.leftCtrlKey.isPressed))
-                Undo();
         }
 
         private void OnCellTap(int row, int col)
@@ -171,7 +147,7 @@ namespace Gamio.Games.Kings
                 RefreshAll();
         }
 
-        public void ResetPuzzle()
+        protected override void ResetPuzzle()
         {
             if (grid == null) return;
             grid.ResetPuzzle();
@@ -180,7 +156,7 @@ namespace Gamio.Games.Kings
             RefreshAll();
         }
 
-        public void Hint()
+        protected override void OnHint()
         {
             if (grid == null || grid.IsSolved) return;
             showSolution = false;

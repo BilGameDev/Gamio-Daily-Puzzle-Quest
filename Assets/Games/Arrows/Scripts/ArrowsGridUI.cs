@@ -25,23 +25,18 @@ namespace Gamio.Games.Arrows
 
         private void OnEnable()
         {
-            ArrowsGame.OnControllerCreated += OnControllerCreated;
-            GamioEvents.OnResetRequested += OnResetRequested;
             if (ArrowsGame.CurrentController != null)
                 Setup(ArrowsGame.CurrentController);
         }
 
         private void OnDisable()
         {
-            ArrowsGame.OnControllerCreated -= OnControllerCreated;
-            GamioEvents.OnResetRequested -= OnResetRequested;
             if (grid != null)
             {
                 grid.OnTileRemoved -= OnTileRemoved;
                 grid.OnTileBlocked -= OnTileBlocked;
                 grid.OnTileRestored -= OnTileRestored;
                 grid.OnSolved -= HandleSolved;
-                grid.OnPuzzleReset -= HandleReset;
             }
         }
 
@@ -66,25 +61,8 @@ namespace Gamio.Games.Arrows
             grid.OnTileBlocked += OnTileBlocked;
             grid.OnTileRestored += OnTileRestored;
             grid.OnSolved += HandleSolved;
-            grid.OnPuzzleReset += HandleReset;
 
             BuildGrid();
-        }
-
-        private void Update()
-        {
-            if (grid == null) return;
-
-            if (Keyboard.current.rKey.wasPressedThisFrame)
-                grid.ResetPuzzle();
-
-            if (Keyboard.current.zKey.wasPressedThisFrame && (Keyboard.current.leftCtrlKey.isPressed || Keyboard.current.rightCtrlKey.isPressed))
-                grid.Undo();
-
-            if (Keyboard.current.escapeKey.wasPressedThisFrame && ArrowsGame.CurrentController != null)
-            {
-                grid.ResetPuzzle();
-            }
         }
 
         private void BuildGrid()
@@ -192,7 +170,7 @@ namespace Gamio.Games.Arrows
             OnSolved?.Invoke();
         }
 
-        private void HandleReset()
+        protected override void ResetPuzzle()
         {
             for (int r = 0; r < rows; r++)
             {
@@ -211,12 +189,6 @@ namespace Gamio.Games.Arrows
                     }
                 }
             }
-        }
-
-        private void OnResetRequested()
-        {
-            if (grid != null)
-                grid.ResetPuzzle();
         }
 
         private void OnControllerCreated(ArrowsGridController controller)
@@ -241,7 +213,6 @@ namespace Gamio.Games.Arrows
                 grid.OnTileBlocked -= OnTileBlocked;
                 grid.OnTileRestored -= OnTileRestored;
                 grid.OnSolved -= HandleSolved;
-                grid.OnPuzzleReset -= HandleReset;
             }
         }
 

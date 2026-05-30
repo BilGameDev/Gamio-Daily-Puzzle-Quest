@@ -664,15 +664,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a608f1ca3ba930348936e46dc4f471d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Leaderboard.LeaderboardCell
-  _rankText: {fileID: 7365127142319729750}
-  _nameText: {fileID: 1884752227137770744}
-  _timeText: {fileID: 744809501952272677}
-  _streakText: {fileID: 3678536820253320223}
-  _streakIcon: {fileID: 0}
-  _backgroundImage: {fileID: 5345462477444108174}
-  _myRankColor: {r: 0.15, g: 0.3, b: 0.15, a: 1}
-  _normalColor: {r: 0.12, g: 0.12, b: 0.12, a: 0.8}
-  _dismissColor: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 0}
+  rankText: {fileID: 7365127142319729750}
+  nameText: {fileID: 1884752227137770744}
+  timeText: {fileID: 744809501952272677}
+  streakText: {fileID: 3678536820253320223}
+  streakIcon: {fileID: 3106457514940091812}
+  backgroundImage: {fileID: 5345462477444108174}
+  myRankColor: {r: 1, g: 1, b: 1, a: 1}
+  normalColor: {r: 0.12, g: 0.12, b: 0.12, a: 0.8}
+  dismissColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &7738790799176384207
 MonoBehaviour:
   m_ObjectHideFlags: 0

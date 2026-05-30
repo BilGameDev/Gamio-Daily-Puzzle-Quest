@@ -31,8 +31,6 @@ namespace Gamio.Games.Sudoku
 
         private void OnEnable()
         {
-            GamioEvents.OnResetRequested += ResetPuzzle;
-            GamioEvents.OnHintRequested += RevealHint;
             SudokuGame.OnControllerCreated += OnControllerCreated;
             if (SudokuGame.CurrentController != null)
                 Setup(SudokuGame.CurrentController);
@@ -40,8 +38,6 @@ namespace Gamio.Games.Sudoku
 
         private void OnDisable()
         {
-            GamioEvents.OnResetRequested -= ResetPuzzle;
-            GamioEvents.OnHintRequested -= RevealHint;
             SudokuGame.OnControllerCreated -= OnControllerCreated;
         }
 
@@ -160,30 +156,18 @@ namespace Gamio.Games.Sudoku
                 cells[row, col].PlayViolationAnimation();
         }
 
-        private void Update()
-        {
-            if (grid == null) return;
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-                RevealHint();
-            if (Keyboard.current.pKey.wasPressedThisFrame)
-            {
-                showSolution = !showSolution;
-                RefreshVisuals();
-            }
-        }
-
         private void OnControllerCreated(SudokuGridController controller)
         {
             Setup(controller);
         }
 
-        public void ResetPuzzle()
+        protected override void ResetPuzzle()
         {
             grid?.ResetPuzzle();
             RefreshVisuals();
         }
 
-        private void RevealHint()
+        protected override void OnHint()
         {
             showSolution = false;
             hintRevealCount++;

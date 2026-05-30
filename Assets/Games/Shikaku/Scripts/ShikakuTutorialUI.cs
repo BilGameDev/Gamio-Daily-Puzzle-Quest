@@ -23,8 +23,6 @@ namespace Gamio.Games.Shikaku
         private readonly List<RectTransform> placedOverlays = new List<RectTransform>();
         private readonly List<int> removedBuffer = new List<int>();
         private Color currentDragColor;
-        private bool isRunning;
-        private bool isReplay;
 
         private const string GameId = "shikaku";
 
@@ -35,32 +33,12 @@ namespace Gamio.Games.Shikaku
                 ShikakuGame.TutorialDeferred = true;
         }
 
-        private void OnEnable()
-        {
-            GamioEvents.OnTutorialRequested += Replay;
-            GamioEvents.OnSkipTutorialRequested += SkipTutorial;
-        }
-
-        private void OnDisable()
-        {
-            GamioEvents.OnTutorialRequested -= Replay;
-            GamioEvents.OnSkipTutorialRequested -= SkipTutorial;
-        }
-
         protected override void Start()
         {
             base.Start();
             if (ShikakuGame.Instance != null && ShikakuGame.TutorialDeferred)
                 Begin();
         }
-
-        public void Replay()
-        {
-            isReplay = true;
-            Begin();
-        }
-
-        private void SkipTutorial() => Finish();
 
         public override void Begin()
         {
@@ -376,7 +354,7 @@ namespace Gamio.Games.Shikaku
             });
         }
 
-        private void Finish()
+        public override void Finish()
         {
             isRunning = false;
             CleanupPhase();

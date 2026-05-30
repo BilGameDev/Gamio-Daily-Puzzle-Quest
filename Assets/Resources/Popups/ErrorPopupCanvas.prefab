@@ -464,11 +464,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f537024eb5a536468b18acdd7dc5e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Popup.ErrorPopupUI
-  _overlayGroup: {fileID: 3366149599182144902}
-  _panelGroup: {fileID: 6633794839533102055}
-  _messageText: {fileID: 8014514168613392686}
-  _confirmButton: {fileID: 2084018614579263363}
-  _confirmButtonText: {fileID: 6989844494363249836}
+  overlayGroup: {fileID: 3366149599182144902}
+  panelGroup: {fileID: 6633794839533102055}
+  messageText: {fileID: 8014514168613392686}
+  confirmButton: {fileID: 2084018614579263363}
+  confirmButtonText: {fileID: 6989844494363249836}
 --- !u!1 &6986830984201643777
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,7 +39,6 @@ namespace Gamio.Games.WordGrid
         private void OnEnable()
         {
             WordGridGame.OnControllerCreated += OnControllerCreated;
-            GamioEvents.OnResetRequested += OnResetRequested;
             if (WordGridGame.CurrentController != null)
                 Setup(WordGridGame.CurrentController);
         }
@@ -47,7 +46,6 @@ namespace Gamio.Games.WordGrid
         private void OnDisable()
         {
             WordGridGame.OnControllerCreated -= OnControllerCreated;
-            GamioEvents.OnResetRequested -= OnResetRequested;
         }
 
         void Start()
@@ -212,7 +210,7 @@ namespace Gamio.Games.WordGrid
                 attemptsText.text = $"Attempts: {grid.Attempts}";
         }
 
-        private void OnResetRequested()
+        protected override void ResetPuzzle()
         {
             if (grid == null) return;
             grid.ResetPuzzle();
@@ -225,6 +223,7 @@ namespace Gamio.Games.WordGrid
                 submitButton.gameObject.SetActive(true);
                 submitButton.interactable = true;
             }
+            
             UpdateAttempts();
         }
 

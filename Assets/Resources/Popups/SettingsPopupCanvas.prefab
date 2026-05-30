@@ -1257,15 +1257,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23499f0d5c73260489efc1bbac26c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Popup.SettingsPopupUI
-  _overlayGroup: {fileID: 173945896591766388}
-  _panelGroup: {fileID: 2417985986112315748}
-  _audioToggle: {fileID: 4084310056580022595}
-  _audioLabel: {fileID: 6996255653858808000}
-  _hapticsToggle: {fileID: 2712424902242196114}
-  _hapticsLabel: {fileID: 1758105565441363112}
-  _creditsButton: {fileID: 8594474829616083899}
-  _creditsButtonLabel: {fileID: 2445352817484980255}
-  _closeButton: {fileID: 3492702673851207855}
+  overlayGroup: {fileID: 173945896591766388}
+  panelGroup: {fileID: 2417985986112315748}
+  audioToggle: {fileID: 4084310056580022595}
+  audioLabel: {fileID: 6996255653858808000}
+  hapticsToggle: {fileID: 2712424902242196114}
+  hapticsLabel: {fileID: 1758105565441363112}
+  creditsButton: {fileID: 8594474829616083899}
+  creditsButtonLabel: {fileID: 2445352817484980255}
+  closeButton: {fileID: 3492702673851207855}
 --- !u!1 &5334635164311133094
 GameObject:
   m_ObjectHideFlags: 0

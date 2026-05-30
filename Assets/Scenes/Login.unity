@@ -145,10 +145,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 73025986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b26ebeebdc4aa44a9f49c6c566ca59d, type: 3}
+  m_Script: {fileID: 11500000, guid: da6e4e45da105814aa57ed6a6b6cfe79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Root::Gamio.Core.LoginSceneManager
-  _googleAuth: {fileID: 0}
+  loginButton: {fileID: 535740536}
 --- !u!4 &73025988
 Transform:
   m_ObjectHideFlags: 0

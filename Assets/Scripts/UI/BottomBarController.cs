@@ -10,13 +10,20 @@ namespace Gamio.Features.UI
         [SerializeField] private Button resetButton;
         [SerializeField] private Button hintButton;
 
-        private void Awake()
-        {
-            if (resetButton != null)
-                resetButton.onClick.AddListener(() => GamioEvents.RequestReset());
+        IUIEvents uIEvents;
 
-            if (hintButton != null)
-                hintButton.onClick.AddListener(() => GamioEvents.RequestHint());
+        void Start()
+        {
+            uIEvents = GamioAppContext.Get<IUIEvents>();
+
+            if (uIEvents != null)
+            {
+                if (resetButton != null)
+                    resetButton.onClick.AddListener(() => uIEvents.RequestReset());
+
+                if (hintButton != null)
+                    hintButton.onClick.AddListener(() => uIEvents.RequestHint());
+            }
         }
 
         private void OnDestroy()

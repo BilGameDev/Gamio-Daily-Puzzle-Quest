@@ -764,16 +764,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06abdcac04db2074cbc5a6791c11ab28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Leaderboard.LeaderboardPopupUI
-  _scroller: {fileID: 1020309992181611094}
-  _cellPrefab: {fileID: 8403627519638142647, guid: ce8e65808d967de44a3369a8fc456528, type: 3}
-  _panelGroup: {fileID: 3462294065987733660}
-  _splashGroup: {fileID: 3153675023880232545}
-  _titleText: {fileID: 5644251837303406682}
-  _closeButton: {fileID: 8838497537422912845}
-  _topButton: {fileID: 8739124742743001008}
-  _myRankButton: {fileID: 2229995757931829486}
-  _loadingIndicator: {fileID: 3535907988821339248}
-  _emptyStateText: {fileID: 5846991909991111869}
+  scroller: {fileID: 1020309992181611094}
+  cellPrefab: {fileID: 8403627519638142647, guid: ce8e65808d967de44a3369a8fc456528, type: 3}
+  panelGroup: {fileID: 3462294065987733660}
+  splashGroup: {fileID: 3153675023880232545}
+  titleText: {fileID: 5644251837303406682}
+  closeButton: {fileID: 8838497537422912845}
+  topButton: {fileID: 8739124742743001008}
+  myRankButton: {fileID: 2229995757931829486}
+  loadingIndicator: {fileID: 3535907988821339248}
+  emptyStateText: {fileID: 5846991909991111869}
 --- !u!1 &3467092814980453215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3885595899755788736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 143f2fdee522f7248a6ca61628c09b3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2946613388844d145b1d0a87660b8c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Core::SafeAreaPadding
   padTop: 1

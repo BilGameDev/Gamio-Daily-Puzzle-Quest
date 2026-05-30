@@ -16,8 +16,6 @@ namespace Gamio.Games.Hitori
 
         private HitoriGridController tutorialController;
         private HitoriCellItem[,] cells;
-        private bool isRunning;
-        private bool isReplay;
         private bool phaseAdvancing;
 
         private const string GameId = "hitori";
@@ -29,32 +27,12 @@ namespace Gamio.Games.Hitori
                 HitoriGame.TutorialDeferred = true;
         }
 
-        private void OnEnable()
-        {
-            GamioEvents.OnTutorialRequested += Replay;
-            GamioEvents.OnSkipTutorialRequested += SkipTutorial;
-        }
-
-        private void OnDisable()
-        {
-            GamioEvents.OnTutorialRequested -= Replay;
-            GamioEvents.OnSkipTutorialRequested -= SkipTutorial;
-        }
-
         protected override void Start()
         {
             base.Start();
             if (HitoriGame.Instance != null && HitoriGame.TutorialDeferred)
                 Begin();
         }
-
-        public void Replay()
-        {
-            isReplay = true;
-            Begin();
-        }
-
-        private void SkipTutorial() => Finish();
 
         public override void Begin()
         {
@@ -211,7 +189,7 @@ namespace Gamio.Games.Hitori
             cells[r, c].SetVisual(state, Color.white);
         }
 
-        private void Finish()
+        public override void Finish()
         {
             isRunning = false;
             CleanupPhase();

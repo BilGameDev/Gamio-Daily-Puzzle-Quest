@@ -26,9 +26,6 @@ namespace Gamio.Games.Sudoku
 
         private SudokuGridController tutorialController;
         private SudokuCellItem[,] cells;
-        private bool isRunning;
-        private bool isReplay;
-
         private const string GameId = "sudoku";
 
         private void Awake()
@@ -38,18 +35,6 @@ namespace Gamio.Games.Sudoku
                 SudokuGame.TutorialDeferred = true;
         }
 
-        private void OnEnable()
-        {
-            GamioEvents.OnTutorialRequested += Replay;
-            GamioEvents.OnSkipTutorialRequested += SkipTutorial;
-        }
-
-        private void OnDisable()
-        {
-            GamioEvents.OnTutorialRequested -= Replay;
-            GamioEvents.OnSkipTutorialRequested -= SkipTutorial;
-        }
-
         protected override void Start()
         {
             base.Start();
@@ -57,14 +42,6 @@ namespace Gamio.Games.Sudoku
             if (SudokuGame.Instance != null && SudokuGame.TutorialDeferred)
                 Begin();
         }
-
-        public void Replay()
-        {
-            isReplay = true;
-            Begin();
-        }
-
-        private void SkipTutorial() => Finish();
 
         public override void Begin()
         {
@@ -361,7 +338,7 @@ namespace Gamio.Games.Sudoku
             }
         }
 
-        private void Finish()
+        public override void Finish()
         {
             isRunning = false;
             CleanupPhase();

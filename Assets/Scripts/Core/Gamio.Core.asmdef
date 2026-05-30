@@ -2,7 +2,8 @@
     "name": "Gamio.Core",
     "rootNamespace": "",
     "references": [
-        "GUID:236174c95283dcc4dac1003d5d816c49"
+        "GUID:236174c95283dcc4dac1003d5d816c49",
+        "GUID:9f92a6d041d9fd24c991e1ca8725d442"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

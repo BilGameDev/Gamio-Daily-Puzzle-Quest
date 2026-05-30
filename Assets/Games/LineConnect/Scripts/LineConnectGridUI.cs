@@ -27,8 +27,6 @@ namespace Gamio.Games.LineConnect
         private void OnEnable()
         {
             LineConnectGame.OnControllerCreated += OnControllerCreated;
-            GamioEvents.OnResetRequested += ResetPuzzle;
-            GamioEvents.OnHintRequested += Hint;
             if (LineConnectGame.CurrentController != null)
                 Setup(LineConnectGame.CurrentController);
         }
@@ -36,8 +34,6 @@ namespace Gamio.Games.LineConnect
         private void OnDisable()
         {
             LineConnectGame.OnControllerCreated -= OnControllerCreated;
-            GamioEvents.OnResetRequested -= ResetPuzzle;
-            GamioEvents.OnHintRequested -= Hint;
         }
 
         void Start()
@@ -60,22 +56,8 @@ namespace Gamio.Games.LineConnect
             showSolution = false;
             BuildGrid();
         }
-
-        private void Update()
-        {
-            if (grid == null) return;
-
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-                Hint();
-
-            if (Keyboard.current.pKey.wasPressedThisFrame)
-            {
-                showSolution = !showSolution;
-                RefreshAll();
-            }
-        }
-
-        public void Hint()
+        
+        protected override void OnHint()
         {
             if (grid == null || grid.IsSolved) return;
             showSolution = false;
@@ -102,7 +84,7 @@ namespace Gamio.Games.LineConnect
             }
         }
 
-        public void ResetPuzzle()
+        protected override void ResetPuzzle()
         {
             if (grid == null) return;
             grid.ResetPuzzle();

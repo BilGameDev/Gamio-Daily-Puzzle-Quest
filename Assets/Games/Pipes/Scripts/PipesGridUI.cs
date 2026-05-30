@@ -1,7 +1,6 @@
 using System;
 using Gamio.Core;
 using Gamio.Features;
-using Gamio.Features.Tutorial;
 using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +18,6 @@ namespace Gamio.Games.Pipes
         [SerializeField] private Color cellBackground = new Color(0.12f, 0.12f, 0.14f);
         [SerializeField] private float gapRatio = 0.08f;
 
-
         private PipesGridController grid;
         private PipesCellItem[,] cells;
         private int size;
@@ -31,8 +29,6 @@ namespace Gamio.Games.Pipes
         private void OnEnable()
         {
             PipesGame.OnControllerCreated += OnControllerCreated;
-            GamioEvents.OnResetRequested += ResetPuzzle;
-            GamioEvents.OnHintRequested += OnHint;
             if (PipesGame.CurrentController != null)
                 Setup(PipesGame.CurrentController);
         }
@@ -40,8 +36,6 @@ namespace Gamio.Games.Pipes
         private void OnDisable()
         {
             PipesGame.OnControllerCreated -= OnControllerCreated;
-            GamioEvents.OnResetRequested -= ResetPuzzle;
-            GamioEvents.OnHintRequested -= OnHint;
         }
 
         void Start()
@@ -93,25 +87,6 @@ namespace Gamio.Games.Pipes
                 }
 
             RefreshAll();
-        }
-
-        private void Update()
-        {
-            if (grid == null) return;
-            if (Keyboard.current.hKey.wasPressedThisFrame)
-            {
-                OnHint();
-            }
-            if (Keyboard.current.pKey.wasPressedThisFrame)
-            {
-                showSolution = !showSolution;
-                RefreshAll();
-                grid.ForceSolve();
-            }
-            if (Keyboard.current.cKey.wasPressedThisFrame)
-            {
-                Check();
-            }
         }
 
         private void OnCellClick(int row, int col)
@@ -176,14 +151,14 @@ namespace Gamio.Games.Pipes
             RefreshAll();
         }
 
-        public void ResetPuzzle()
+        protected override void ResetPuzzle()
         {
             showSolution = false;
             grid.ResetPuzzle();
             RefreshAll();
         }
 
-        private void OnHint()
+        protected override void OnHint()
         {
             for (int r = 0; r < size; r++)
                 for (int c = 0; c < size; c++)

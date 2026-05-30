@@ -22,8 +22,6 @@ namespace Gamio.Games.WordGrid
         private WordGridController tutorialController;
         private WordGridCellItem[] wordCells;
         private List<WordGridLetterTile> letterTiles;
-        private bool isRunning;
-        private bool isReplay;
 
         private const string GameId = "wordgrid";
         private static readonly string tutorialLetters = "ACDEINOST";
@@ -35,32 +33,12 @@ namespace Gamio.Games.WordGrid
                 WordGridGame.TutorialDeferred = true;
         }
 
-        private void OnEnable()
-        {
-            GamioEvents.OnTutorialRequested += Replay;
-            GamioEvents.OnSkipTutorialRequested += SkipTutorial;
-        }
-
-        private void OnDisable()
-        {
-            GamioEvents.OnTutorialRequested -= Replay;
-            GamioEvents.OnSkipTutorialRequested -= SkipTutorial;
-        }
-
         protected override void Start()
         {
             base.Start();
             if (WordGridGame.Instance != null && WordGridGame.TutorialDeferred)
                 Begin();
         }
-
-        public void Replay()
-        {
-            isReplay = true;
-            Begin();
-        }
-
-        private void SkipTutorial() => Finish();
 
         public override void Begin()
         {
@@ -135,7 +113,7 @@ namespace Gamio.Games.WordGrid
                 ShowTemporary("Tutorial complete!", 1.5f, Finish));
         }
 
-        private void Finish()
+        public override void Finish()
         {
             isRunning = false;
             CleanupPhase();

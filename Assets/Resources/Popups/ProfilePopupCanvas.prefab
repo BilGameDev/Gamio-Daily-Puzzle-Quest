@@ -847,14 +847,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726ddf807aaadb34da0aa10fc63e34ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Popup.ProfilePopupUI
-  _avatarImage: {fileID: 1695699672989613582}
-  _newRobotButton: {fileID: 479328300595875930}
-  _newRobotButtonText: {fileID: 77493232611454532}
-  _logoutButton: {fileID: 5720001260653697695}
-  _logoutButtonText: {fileID: 4466894195743137930}
-  _closeButton: {fileID: 5922104010487899977}
-  _panelGroup: {fileID: 6256768749485214423}
-  _overlayGroup: {fileID: 5703474444150835157}
+  avatarImage: {fileID: 1695699672989613582}
+  newRobotButton: {fileID: 479328300595875930}
+  newRobotButtonText: {fileID: 77493232611454532}
+  logoutButton: {fileID: 5720001260653697695}
+  logoutButtonText: {fileID: 4466894195743137930}
+  closeButton: {fileID: 5922104010487899977}
+  panelGroup: {fileID: 6256768749485214423}
+  overlayGroup: {fileID: 5703474444150835157}
 --- !u!1 &5994402233939641042
 GameObject:
   m_ObjectHideFlags: 0

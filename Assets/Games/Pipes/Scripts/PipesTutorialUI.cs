@@ -18,8 +18,6 @@ namespace Gamio.Games.Pipes
 
         private PipesGridController tutorialController;
         private PipesCellItem[,] cells;
-        private bool isRunning;
-        private bool isReplay;
 
         private const string GameId = "pipes";
 
@@ -30,32 +28,12 @@ namespace Gamio.Games.Pipes
                 PipesGame.TutorialDeferred = true;
         }
 
-        private void OnEnable()
-        {
-            GamioEvents.OnTutorialRequested += Replay;
-            GamioEvents.OnSkipTutorialRequested += SkipTutorial;
-        }
-
-        private void OnDisable()
-        {
-            GamioEvents.OnTutorialRequested -= Replay;
-            GamioEvents.OnSkipTutorialRequested -= SkipTutorial;
-        }
-
        protected override void Start()
         {
             base.Start();
             if (PipesGame.Instance != null && PipesGame.TutorialDeferred)
                 Begin();
         }
-
-        public void Replay()
-        {
-            isReplay = true;
-            Begin();
-        }
-
-        private void SkipTutorial() => Finish();
 
         public override void Begin()
         {
@@ -290,7 +268,7 @@ namespace Gamio.Games.Pipes
             }
         }
 
-        private void Finish()
+        public override void Finish()
         {
             isRunning = false;
             CleanupPhase();

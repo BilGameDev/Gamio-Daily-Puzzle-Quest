@@ -401,8 +401,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 200
     m_Right: 200
-    m_Top: 100
-    m_Bottom: 60
+    m_Top: 0
+    m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -673,9 +673,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 144298166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cdde40e659b45945bf91613d439755e, type: 3}
+  m_Script: {fileID: 11500000, guid: e3c88aba89deec846920035b8d5bb418, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UnityEngine.UI.FastScrollRect
+  m_EditorClassIdentifier: Gamio.Utils::UnityEngine.UI.FastScrollRect
   m_Content: {fileID: 1793526255}
   m_Horizontal: 0
   m_Vertical: 1
@@ -688,8 +688,8 @@ MonoBehaviour:
   m_Viewport: {fileID: 1778699263}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
-  m_HorizontalScrollbarVisibility: 2
-  m_VerticalScrollbarVisibility: 2
+  m_HorizontalScrollbarVisibility: 1
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -882,16 +882,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 229016136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e04b2355aea88b041920e26283d85901, type: 3}
+  m_Script: {fileID: 11500000, guid: 792aade8c6a421c48951c09f722a7053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Root::Gamio.Features.HomeHub.HomeSceneManager
-  _streakText: {fileID: 1882205830}
-  _hasStreakGraphic: {fileID: 1141669017}
-  _noStreakGraphic: {fileID: 1179268231}
-  _challengeButton: {fileID: 1547092088}
-  _challengeButtonLabel: {fileID: 425815324}
-  _challengeAvailableColor: {r: 1, g: 0.8745098, b: 0.34901962, a: 1}
-  _challengeCompletedColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+  streakText: {fileID: 1882205830}
+  hasStreakGraphic: {fileID: 1141669017}
+  noStreakGraphic: {fileID: 1179268231}
+  challengeButton: {fileID: 1547092088}
+  challengeButtonLabel: {fileID: 425815324}
+  challengeAvailableColor: {r: 1, g: 0.8745098, b: 0.34901962, a: 1}
+  challengeCompletedColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
 --- !u!1 &240475736
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 240475736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 143f2fdee522f7248a6ca61628c09b3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2946613388844d145b1d0a87660b8c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Core::SafeAreaPadding
   padTop: 1
@@ -1403,9 +1403,8 @@ GameObject:
   - component: {fileID: 390401924}
   - component: {fileID: 390401923}
   - component: {fileID: 390401922}
-  - component: {fileID: 390401921}
   - component: {fileID: 390401920}
-  - component: {fileID: 390401919}
+  - component: {fileID: 390401925}
   m_Layer: 5
   m_Name: Lines
   m_TagString: Untagged
@@ -1434,22 +1433,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &390401919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 390401917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &390401920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,20 +1446,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &390401921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 390401917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: lineconnect
-  _sceneName: LineConnect
 --- !u!114 &390401922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1521,7 +1490,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 390401921}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
         m_MethodName: Launch
         m_Mode: 1
@@ -1571,6 +1540,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390401917}
   m_CullTransparentMesh: 1
+--- !u!114 &390401925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390401917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1 &401075087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,9 +1568,8 @@ GameObject:
   - component: {fileID: 401075094}
   - component: {fileID: 401075093}
   - component: {fileID: 401075092}
-  - component: {fileID: 401075091}
   - component: {fileID: 401075090}
-  - component: {fileID: 401075089}
+  - component: {fileID: 401075095}
   m_Layer: 5
   m_Name: Word Grid
   m_TagString: Untagged
@@ -1614,22 +1598,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &401075089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 401075087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &401075090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1643,20 +1611,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &401075091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 401075087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: wordgrid
-  _sceneName: Word Grid
 --- !u!114 &401075092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1701,7 +1655,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 401075091}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
         m_MethodName: Launch
         m_Mode: 1
@@ -1751,6 +1705,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401075087}
   m_CullTransparentMesh: 1
+--- !u!114 &401075095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401075087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1 &425815322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,7 +2473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: -100}
+  m_AnchoredPosition: {x: 100, y: -144.8}
   m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &832710880
@@ -2556,9 +2526,8 @@ GameObject:
   - component: {fileID: 853242815}
   - component: {fileID: 853242814}
   - component: {fileID: 853242813}
-  - component: {fileID: 853242812}
   - component: {fileID: 853242811}
-  - component: {fileID: 853242810}
+  - component: {fileID: 853242816}
   m_Layer: 5
   m_Name: WordSearch
   m_TagString: Untagged
@@ -2587,22 +2556,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &853242810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853242808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &853242811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,20 +2569,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &853242812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 853242808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: wordsearch
-  _sceneName: Word Search
 --- !u!114 &853242813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,7 +2613,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 853242812}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
         m_MethodName: Launch
         m_Mode: 1
@@ -2724,6 +2663,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853242808}
   m_CullTransparentMesh: 1
+--- !u!114 &853242816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853242808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1 &923854658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,7 +2723,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 2000}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &923854660
 MonoBehaviour:
@@ -2790,8 +2745,8 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 400, y: 400}
-  m_Spacing: {x: 60, y: 90}
+  m_CellSize: {x: 400, y: 250}
+  m_Spacing: {x: 60, y: 40}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &923854661
@@ -2844,9 +2799,8 @@ GameObject:
   - component: {fileID: 1059172341}
   - component: {fileID: 1059172340}
   - component: {fileID: 1059172339}
-  - component: {fileID: 1059172338}
   - component: {fileID: 1059172337}
-  - component: {fileID: 1059172336}
+  - component: {fileID: 1059172342}
   m_Layer: 5
   m_Name: Arrows
   m_TagString: Untagged
@@ -2875,22 +2829,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1059172336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059172334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &1059172337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2904,20 +2842,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &1059172338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059172334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: arrows
-  _sceneName: Arrows
 --- !u!114 &1059172339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2962,7 +2886,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1059172338}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
         m_MethodName: Launch
         m_Mode: 1
@@ -3012,6 +2936,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059172334}
   m_CullTransparentMesh: 1
+--- !u!114 &1059172342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059172334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1 &1141669017
 GameObject:
   m_ObjectHideFlags: 0
@@ -3306,9 +3246,8 @@ GameObject:
   - component: {fileID: 1292377711}
   - component: {fileID: 1292377710}
   - component: {fileID: 1292377709}
-  - component: {fileID: 1292377708}
   - component: {fileID: 1292377707}
-  - component: {fileID: 1292377706}
+  - component: {fileID: 1292377712}
   m_Layer: 5
   m_Name: Circuit
   m_TagString: Untagged
@@ -3337,22 +3276,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1292377706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292377704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &1292377707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3366,20 +3289,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &1292377708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292377704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: pipes
-  _sceneName: Pipes
 --- !u!114 &1292377709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3424,7 +3333,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1292377708}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
         m_MethodName: Launch
         m_Mode: 1
@@ -3474,6 +3383,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292377704}
   m_CullTransparentMesh: 1
+--- !u!114 &1292377712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292377704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1 &1352809481
 GameObject:
   m_ObjectHideFlags: 0
@@ -3698,9 +3623,8 @@ GameObject:
   - component: {fileID: 1504309897}
   - component: {fileID: 1504309896}
   - component: {fileID: 1504309895}
-  - component: {fileID: 1504309894}
   - component: {fileID: 1504309893}
-  - component: {fileID: 1504309892}
+  - component: {fileID: 1504309898}
   m_Layer: 5
   m_Name: Shikaku
   m_TagString: Untagged
@@ -3729,22 +3653,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1504309892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504309890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &1504309893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3758,20 +3666,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &1504309894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504309890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: shikaku
-  _sceneName: Shikaku
 --- !u!114 &1504309895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3816,7 +3710,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1504309894}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
         m_MethodName: Launch
         m_Mode: 1
@@ -3866,6 +3760,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504309890}
   m_CullTransparentMesh: 1
+--- !u!114 &1504309898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504309890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1 &1537460860
 GameObject:
   m_ObjectHideFlags: 0
@@ -4052,7 +3962,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1547092085}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Core::ButtonScaler
   pressedScale: 0.9
@@ -4287,9 +4197,8 @@ GameObject:
   - component: {fileID: 1648622646}
   - component: {fileID: 1648622645}
   - component: {fileID: 1648622644}
-  - component: {fileID: 1648622643}
   - component: {fileID: 1648622642}
-  - component: {fileID: 1648622641}
+  - component: {fileID: 1648622647}
   m_Layer: 5
   m_Name: Sudoku
   m_TagString: Untagged
@@ -4318,22 +4227,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1648622641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648622639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &1648622642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4347,20 +4240,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &1648622643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648622639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: sudoku
-  _sceneName: Sudoku
 --- !u!114 &1648622644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4404,19 +4283,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1648622645}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1648622643}
-        m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
-        m_MethodName: Launch
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1648622645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4455,6 +4322,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648622639}
   m_CullTransparentMesh: 1
+--- !u!114 &1648622647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648622639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1 &1765269289
 GameObject:
   m_ObjectHideFlags: 0
@@ -4466,6 +4349,7 @@ GameObject:
   - component: {fileID: 1765269290}
   - component: {fileID: 1765269291}
   - component: {fileID: 1765269292}
+  - component: {fileID: 1765269293}
   m_Layer: 5
   m_Name: Challenge Panel
   m_TagString: Untagged
@@ -4491,7 +4375,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 800}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1765269291
 CanvasRenderer:
@@ -4531,6 +4415,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1765269293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765269289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 700
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1769973062
 GameObject:
   m_ObjectHideFlags: 0
@@ -4747,7 +4651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -361.4074}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1793526256
@@ -4772,7 +4676,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -5643,9 +5547,8 @@ GameObject:
   - component: {fileID: 2122626123}
   - component: {fileID: 2122626122}
   - component: {fileID: 2122626121}
-  - component: {fileID: 2122626120}
   - component: {fileID: 2122626119}
-  - component: {fileID: 2122626118}
+  - component: {fileID: 2122626124}
   m_Layer: 5
   m_Name: Kings
   m_TagString: Untagged
@@ -5674,22 +5577,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2122626118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122626116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5a32b37ff9af04c8d93fc06d874136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Gamio.Core::ButtonScaler
-  pressedScale: 0.9
-  duration: 0.1
-  ease: 6
-  originalScaleOne: 1
 --- !u!114 &2122626119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5703,20 +5590,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
   m_ShowMaskGraphic: 1
---- !u!114 &2122626120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122626116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b18d20f1c881a224bb23a0d439788853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Root.GameLauncherButton
-  _gameId: kings
-  _sceneName: Kings
 --- !u!114 &2122626121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5761,7 +5634,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2122626120}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gamio.Root.GameLauncherButton, Assembly-CSharp
         m_MethodName: Launch
         m_Mode: 1
@@ -5811,6 +5684,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122626116}
   m_CullTransparentMesh: 1
+--- !u!114 &2122626124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122626116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0078a5c6f5364aafd880be1d06977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::ButtonScaler
+  pressedScale: 0.9
+  duration: 0.1
+  ease: 6
+  originalScaleOne: 1
 --- !u!1001 &6106915254870330480
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -253,14 +253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df4df23e2fef7e4fb0e5191f3b6bcd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Popup.PopupUI
-  _titleText: {fileID: 5635217820789975988}
-  _messageText: {fileID: 2922066353460093100}
-  _confirmButtonText: {fileID: 3856670546913453881}
-  _cancelButtonText: {fileID: 5382566641322559588}
-  _confirmButton: {fileID: 8532760169686466423}
-  _cancelButton: {fileID: 8943061317083080858}
-  _panelGroup: {fileID: 5916975387047912619}
-  _overlayGroup: {fileID: 4600522491448846335}
+  titleText: {fileID: 5635217820789975988}
+  messageText: {fileID: 2922066353460093100}
+  confirmButtonText: {fileID: 3856670546913453881}
+  cancelButtonText: {fileID: 5382566641322559588}
+  confirmButton: {fileID: 8532760169686466423}
+  cancelButton: {fileID: 8943061317083080858}
+  panelGroup: {fileID: 5916975387047912619}
+  overlayGroup: {fileID: 4600522491448846335}
 --- !u!1 &4208004699755860003
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,12 +839,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 40
   m_fontSizeBase: 29.1
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 50
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

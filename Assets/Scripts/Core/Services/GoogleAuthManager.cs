@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using Gamio.Core;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
@@ -31,28 +32,33 @@ namespace Gamio.Services
         public static UnityAction<string> OnGoogleAuthTokenReceived;
         public static UnityAction<string> OnGoogleLoginFailed;
 
-        public bool HasStoredSession => !string.IsNullOrEmpty(PlayerPrefs.GetString(k_refreshTokenKey, string.Empty));
+        public static bool HasStoredSession => !string.IsNullOrEmpty(PlayerPrefs.GetString(k_refreshTokenKey, string.Empty));
 
         void Start()
         {
             if (loginOnStart)
             {
-                Login();
+                AutoLogin();
             }
         }
 
-        public void Login()
+        void Awake()
+        {
+            GamioAppContext.Register(this);
+        }
+
+        public void AutoLogin()
         {
             if (!HasStoredSession)
             {
-                StartGoogleLogin();
+                StartLogin();
                 return;
             }
 
             StartCoroutine(RefreshIdToken());
         }
 
-        public void StartGoogleLogin()
+        public void StartLogin()
         {
             string scope = "openid%20email";
             string state = Guid.NewGuid().ToString("N");
@@ -60,6 +66,11 @@ namespace Gamio.Services
 
             Application.OpenURL(authUrl);
             StartListening();
+        }
+
+        public void StartSilentLogin()
+        {
+            StartCoroutine(RefreshIdToken());
         }
 
         public static void ClearStoredSession()

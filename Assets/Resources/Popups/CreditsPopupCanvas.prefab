@@ -998,10 +998,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a564ce3f9902a429cb5b465ecdbd0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Popup.CreditsPopupUI
-  _overlayGroup: {fileID: 934941665571241585}
-  _panelGroup: {fileID: 711284930448617831}
-  _creditsText: {fileID: 984843512905242257}
-  _closeButton: {fileID: 8753221912446714212}
+  overlayGroup: {fileID: 934941665571241585}
+  panelGroup: {fileID: 711284930448617831}
+  creditsText: {fileID: 984843512905242257}
+  closeButton: {fileID: 8753221912446714212}
 --- !u!1 &9079170947477070935
 GameObject:
   m_ObjectHideFlags: 0

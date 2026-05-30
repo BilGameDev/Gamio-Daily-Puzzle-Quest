@@ -1185,15 +1185,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5832724667155598182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 143f2fdee522f7248a6ca61628c09b3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2946613388844d145b1d0a87660b8c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Core::SafeAreaPadding
   padTop: 1
   padBottom: 0
   padLeft: 0
   padRight: 0
-  multiplier: 0.5
-  scaler: {fileID: 0}
+  multiplier: 1
+  scaler: {fileID: 1206196153836738240}
   _adjustMatch: 1
   _threshold: 1.5
 --- !u!1 &6342737348552275010
@@ -1813,8 +1813,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8969749340736115086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0961ad37dc538f7458644ba4cee4b7e9, type: 3}
+  m_Script: {fileID: 11500000, guid: a48327a748cc3164d91aefc893c862bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
-  _resetButton: {fileID: 7794450692283147649}
-  _hintButton: {fileID: 321843208586818974}
+  resetButton: {fileID: 7794450692283147649}
+  hintButton: {fileID: 321843208586818974}

@@ -3,6 +3,7 @@
   <Project Path="GooglePlugin.csproj" />
   <Project Path="Lofelt.NiceVibrations.Demo.csproj" />
   <Project Path="Gamio.Games.Arrows.csproj" />
+  <Project Path="MaterialSymbols.Editor.csproj" />
   <Project Path="Gamio.Features.csproj" />
   <Project Path="Gamio.Games.WordGrid.csproj" />
   <Project Path="Gamio.Games.Hitori.csproj" />
@@ -15,6 +16,7 @@
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Gamio.Games.Kings.csproj" />
   <Project Path="Gamio.Core.csproj" />
+  <Project Path="MaterialSymbols.csproj" />
   <Project Path="Gamio.Games.WordSearch.csproj" />
   <Project Path="Gamio.Games.Pipes.csproj" />
   <Project Path="UnlimitedScrollUIEditor.csproj" />

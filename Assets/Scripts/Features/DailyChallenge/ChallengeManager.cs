@@ -46,7 +46,6 @@ namespace Gamio.Root
             totalTime += elapsed;
 
             active = false;
-            GamioEvents.IsChallengeActive = false;
             TutorialService.ChallengeModeActive = false;
             ClosePopup();
 
@@ -65,7 +64,6 @@ namespace Gamio.Root
         {
             if (string.IsNullOrEmpty(gameType)) return;
             active = true;
-            GamioEvents.IsChallengeActive = true;
             TutorialService.ChallengeModeActive = true;
             ShowPopup();
         }
@@ -80,7 +78,6 @@ namespace Gamio.Root
         {
             active = false;
             timerActive = false;
-            GamioEvents.IsChallengeActive = false;
             TutorialService.ChallengeModeActive = false;
             ClosePopup();
             OnChallengeCancelled?.Invoke();
@@ -91,7 +88,6 @@ namespace Gamio.Root
             gameType = null;
             totalTime = 0;
             active = false;
-            GamioEvents.IsChallengeActive = false;
             TutorialService.ChallengeModeActive = false;
             ClosePopup();
         }

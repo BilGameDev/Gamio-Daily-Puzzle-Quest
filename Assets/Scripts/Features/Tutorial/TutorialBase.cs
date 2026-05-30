@@ -29,15 +29,33 @@ namespace Gamio.Features.Tutorial
         private Tween textTween;
         private readonly List<Image> dots = new List<Image>();
         private int currentStep;
+        private IUIEvents uIEvents;
+        protected bool isReplay;
+        protected bool isRunning;
+
+        private void OnEnable()
+        {
+            uIEvents = GamioAppContext.Get<IUIEvents>();
+
+            if (uIEvents != null)
+            {
+                uIEvents.OnTutorialRequested += Replay;
+                uIEvents.OnSkipTutorialRequested += SkipTutorial;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (uIEvents != null)
+            {
+                uIEvents.OnTutorialRequested -= Replay;
+                uIEvents.OnSkipTutorialRequested -= SkipTutorial;
+            }
+        }
 
         protected virtual void Start()
         {
-            if (skipButton == null)
-            {
-                Debug.LogWarning($"[TutorialBase] skipButton not assigned on {name}");
-                return;
-            }
-            skipButton.onClick.AddListener(SkipTutorial);
+            skipButton?.onClick.AddListener(RequestSkipTutorial);
         }
 
         public void ShowInstruction(string text)
@@ -92,13 +110,24 @@ namespace Gamio.Features.Tutorial
             gameObject.SetActive(true);
         }
 
+        void RequestSkipTutorial()
+        {
+            uIEvents?.RequestSkipTutorial();
+        }
+
         void SkipTutorial()
         {
             PopupUI.Show(skipPopupTitle, skipPopupMessage,
-                onConfirm: GamioEvents.RequestSkipTutorial,
+                onConfirm: Finish,
                 onCancel: null,
                 confirmLabel: "Skip",
                 cancelLabel: "Cancel");
+        }
+
+        public virtual void Replay()
+        {
+            isReplay = true;
+            Begin();
         }
 
         public void Hide()
@@ -112,6 +141,7 @@ namespace Gamio.Features.Tutorial
         }
 
         public virtual void Begin() { }
+        public virtual void Finish() { }
 
         protected void End()
         {

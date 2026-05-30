@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using Gamio.Core;
 using Gamio.Features;
 using Lofelt.NiceVibrations;
 using TMPro;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Gamio.Games.WordSearch
 {
-    public class WordSearchGridUI : MonoBehaviour
+    public class WordSearchGridUI : GameUI
     {
         [Header("References")]
         [SerializeField] private GridLayoutGroup gridLayout;
@@ -20,8 +21,6 @@ namespace Gamio.Games.WordSearch
         [SerializeField] private Color cellColor = Color.white;
         [SerializeField] private Color highlightColor = new Color(0.3f, 0.8f, 1f, 0.6f);
         [SerializeField] private Color foundColor = new Color(0.6f, 0.9f, 0.6f, 0.5f);
-        [Header("Layout")]
-        [SerializeField] private float maxCellSize = 120f;
 
         private WordSearchGridController grid;
         private WordSearchCellItem[,] cells;
@@ -42,6 +41,14 @@ namespace Gamio.Games.WordSearch
         private void OnDisable()
         {
             WordSearchGame.OnControllerCreated -= OnControllerCreated;
+        }
+
+        void Start()
+        {
+            if (launchOnStart)
+            {
+                TestGame(new WordSearchGame());
+            }
         }
 
         public void Setup(WordSearchGridController controller)
@@ -130,11 +137,11 @@ namespace Gamio.Games.WordSearch
             }
 
             for (int r = 0; r < size; r++)
-            for (int c = 0; c < size; c++)
-            {
-                if (grid.Puzzle.IsCellFound(r, c))
-                    cells[r, c].SetFound(foundColor);
-            }
+                for (int c = 0; c < size; c++)
+                {
+                    if (grid.Puzzle.IsCellFound(r, c))
+                        cells[r, c].SetFound(foundColor);
+                }
         }
 
         private void HandleSolved()
@@ -144,15 +151,15 @@ namespace Gamio.Games.WordSearch
 
             float delay = 0;
             for (int r = 0; r < size; r++)
-            for (int c = 0; c < size; c++)
-            {
-                var cell = cells[r, c];
-                cell.transform.DOKill();
-                cell.transform.localScale = Vector3.one;
-                cell.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
-                    .SetDelay(delay).SetEase(Ease.OutQuad);
-                delay += 0.02f;
-            }
+                for (int c = 0; c < size; c++)
+                {
+                    var cell = cells[r, c];
+                    cell.transform.DOKill();
+                    cell.transform.localScale = Vector3.one;
+                    cell.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
+                        .SetDelay(delay).SetEase(Ease.OutQuad);
+                    delay += 0.02f;
+                }
         }
 
         private void Update()
@@ -263,8 +270,7 @@ namespace Gamio.Games.WordSearch
 
         private void UpdateCellSize()
         {
-            var target = WordSearchGame.ActiveSettings != null
-                ? WordSearchGame.ActiveSettings.GetConfig(WordSearchGame.CurrentDifficulty).cellSize : new Vector2(maxCellSize, maxCellSize);
+            var target = WordSearchGame.ActiveSettings.GetConfig(WordSearchGame.CurrentDifficulty).cellSize;
             gridLayout.cellSize = new Vector2(Mathf.Max(0, target.x), Mathf.Max(0, target.y));
         }
 

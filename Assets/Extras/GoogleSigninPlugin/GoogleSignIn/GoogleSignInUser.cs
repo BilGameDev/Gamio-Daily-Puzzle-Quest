@@ -24,39 +24,39 @@ namespace Google {
     ///<remarks> null if not requested, or if there was an error.</remarks>
     public string AuthCode {
       get;
-      internal set;
+      set;
     }
 
     /// <summary> Email address.</summary>
     ///<remarks> null if not requested, or if there was an error.</remarks>
     public string Email {
       get;
-      internal set;
+      set;
     }
 
     /// <summary> Id token.</summary>
     ///<remarks> null if not requested, or if there was an error.</remarks>
     public string IdToken {
       get;
-      internal set;
+      set;
     }
 
     /// <summary> Display Name.</summary>
     public string DisplayName {
       get;
-      internal set;
+      set;
     }
 
     /// <summary> Given Name.</summary>
     public string GivenName {
       get;
-      internal set;
+      set;
     }
 
     /// <summary> Family Name.</summary>
     public string FamilyName {
       get;
-      internal set;
+      set;
     }
 
     /// <summary> Profile photo</summary>
@@ -64,13 +64,13 @@ namespace Google {
     /// or none set.</remarks>
     public Uri ImageUrl {
       get;
-      internal set;
+      set;
     }
 
     /// <summary> User ID</summary>
     public string UserId {
       get;
-      internal set;
+      set;
     }
   }
 }

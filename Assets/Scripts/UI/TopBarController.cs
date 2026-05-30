@@ -25,6 +25,9 @@ namespace Gamio.Features.UI
         [SerializeField] private string confirmLabel = "Yes";
         [SerializeField] private string cancelLabel = "No";
 
+        GamioManager gamioManager;
+        IUIEvents uIEvents;
+
         private void Awake()
         {
             if (backButton != null)
@@ -49,15 +52,21 @@ namespace Gamio.Features.UI
             AvatarService.OnAvatarSeedChanged += LoadAvatarPreview;
         }
 
+        void Start()
+        {
+            gamioManager = GamioAppContext.Get<GamioManager>();
+            uIEvents = GamioAppContext.Get<IUIEvents>();
+        }
+
         private void OnBackClicked()
         {
-            string title = GamioEvents.IsChallengeActive ? "End Challenge?" : backPopupTitle;
-            string message = GamioEvents.IsChallengeActive
+            string title = gamioManager.IsChallengeActive ? "End Challenge?" : backPopupTitle;
+            string message = gamioManager.IsChallengeActive
                 ? "Are you sure you wish to end the challenge?"
                 : backPopupMessage;
 
             PopupUI.Show(title, message,
-                onConfirm: GamioEvents.RequestBack,
+                onConfirm: uIEvents.RequestBack,
                 onCancel: null,
                 confirmLabel: confirmLabel,
                 cancelLabel: cancelLabel);
@@ -65,11 +74,11 @@ namespace Gamio.Features.UI
 
         private void OnTutorialClicked()
         {
-            if (GamioEvents.IsChallengeActive)
+            if (gamioManager.IsChallengeActive)
                 return;
 
             PopupUI.Show(tutorialPopupTitle, tutorialPopupMessage,
-                onConfirm: GamioEvents.RequestTutorial,
+                onConfirm: uIEvents.RequestTutorial,
                 onCancel: null,
                 confirmLabel: confirmLabel,
                 cancelLabel: cancelLabel);

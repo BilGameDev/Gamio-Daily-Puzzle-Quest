@@ -104,10 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641e135841ea2414783ba2e5f5230dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakTile
-  _dayLabel: {fileID: 753685407292094942}
-  _dateLabel: {fileID: 753685407292094942}
-  _fireIndicator: {fileID: 4313240899893453059}
-  _background: {fileID: 0}
+  dayLabel: {fileID: 0}
+  dateLabel: {fileID: 0}
+  fireIndicator: {fileID: 0}
+  background: {fileID: 0}
 --- !u!1 &234250640080506155
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972373340038335525}
   m_Enabled: 1
-  m_Alpha: 0.4
+  m_Alpha: 0.5
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -484,10 +484,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641e135841ea2414783ba2e5f5230dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakTile
-  _dayLabel: {fileID: 1754496555064432381}
-  _dateLabel: {fileID: 1754496555064432381}
-  _fireIndicator: {fileID: 591932055886528665}
-  _background: {fileID: 0}
+  dayLabel: {fileID: 0}
+  dateLabel: {fileID: 0}
+  fireIndicator: {fileID: 0}
+  background: {fileID: 0}
 --- !u!1 &1753600211252692781
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,7 +2044,7 @@ RectTransform:
   m_GameObject: {fileID: 4448064750968774665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7000905299230013157}
@@ -2119,10 +2119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641e135841ea2414783ba2e5f5230dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakTile
-  _dayLabel: {fileID: 1850640066757238939}
-  _dateLabel: {fileID: 1850640066757238939}
-  _fireIndicator: {fileID: 510880854783270599}
-  _background: {fileID: 0}
+  dayLabel: {fileID: 0}
+  dateLabel: {fileID: 0}
+  fireIndicator: {fileID: 0}
+  background: {fileID: 0}
 --- !u!1 &4801483259301514092
 GameObject:
   m_ObjectHideFlags: 0
@@ -2227,10 +2227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641e135841ea2414783ba2e5f5230dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakTile
-  _dayLabel: {fileID: 2192980884886408138}
-  _dateLabel: {fileID: 2192980884886408138}
-  _fireIndicator: {fileID: 2158436142190672909}
-  _background: {fileID: 0}
+  dayLabel: {fileID: 0}
+  dateLabel: {fileID: 0}
+  fireIndicator: {fileID: 0}
+  background: {fileID: 0}
 --- !u!1 &4812636575626619729
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,7 +3117,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5633494889052827871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e79f25a245e2b94c865b77249ca8932, type: 3}
+  m_Script: {fileID: 11500000, guid: cd5f3251e65026648ad0190bbce0963a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.Carousel
   m_Padding:
@@ -3125,12 +3125,12 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   _spacing: 250
-  _centerScale: {x: 1.5, y: 1.2, z: 1}
+  _centerScale: {x: 1.5, y: 1.3, z: 1}
   _sideScale: {x: 1, y: 0.8, z: 1}
-  _sideAlpha: 0.4
-  _transitionDuration: 0.5
+  _sideAlpha: 0.5
+  _transitionDuration: 0.35
   _transitionEase: 9
   _wrapAround: 0
   _autoScroll: 0
@@ -3356,14 +3356,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fd72e585b114240bc337b064b4ee79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakOverlay
-  _overlayGroup: {fileID: 9222015403380822929}
-  _panelGroup: {fileID: 4374971310946638513}
-  _carouselGroup: {fileID: 2328692841186551594}
-  _fireImage: {fileID: 3357520279978654159}
-  _streakCountText: {fileID: 6908320628556065717}
-  _streakLabelText: {fileID: 7499936781813687768}
-  _daysCarousel: {fileID: 85691480340532904}
-  _proceedButton: {fileID: 6404324381551426581}
+  overlayGroup: {fileID: 9222015403380822929}
+  panelGroup: {fileID: 4374971310946638513}
+  carouselGroup: {fileID: 2328692841186551594}
+  fireImage: {fileID: 3357520279978654159}
+  streakCountText: {fileID: 6908320628556065717}
+  streakLabelText: {fileID: 7499936781813687768}
+  daysCarousel: {fileID: 85691480340532904}
+  proceedButton: {fileID: 6404324381551426581}
 --- !u!1 &6105540716501120266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3726,10 +3726,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641e135841ea2414783ba2e5f5230dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakTile
-  _dayLabel: {fileID: 1748249773359369327}
-  _dateLabel: {fileID: 1748249773359369327}
-  _fireIndicator: {fileID: 5466994869934055123}
-  _background: {fileID: 0}
+  dayLabel: {fileID: 0}
+  dateLabel: {fileID: 0}
+  fireIndicator: {fileID: 0}
+  background: {fileID: 0}
 --- !u!1 &6730621512195196716
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,10 +3971,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641e135841ea2414783ba2e5f5230dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakTile
-  _dayLabel: {fileID: 18278823294125546}
-  _dateLabel: {fileID: 18278823294125546}
-  _fireIndicator: {fileID: 5698393826260321445}
-  _background: {fileID: 0}
+  dayLabel: {fileID: 0}
+  dateLabel: {fileID: 0}
+  fireIndicator: {fileID: 0}
+  background: {fileID: 0}
 --- !u!1 &7847109988545885706
 GameObject:
   m_ObjectHideFlags: 0
@@ -4672,10 +4672,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641e135841ea2414783ba2e5f5230dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.Streaks.StreakTile
-  _dayLabel: {fileID: 5269721453703241765}
-  _dateLabel: {fileID: 5269721453703241765}
-  _fireIndicator: {fileID: 2958246298759381765}
-  _background: {fileID: 0}
+  dayLabel: {fileID: 0}
+  dateLabel: {fileID: 0}
+  fireIndicator: {fileID: 0}
+  background: {fileID: 0}
 --- !u!1 &8332786010864838240
 GameObject:
   m_ObjectHideFlags: 0

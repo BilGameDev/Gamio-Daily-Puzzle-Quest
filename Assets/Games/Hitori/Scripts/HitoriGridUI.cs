@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using Gamio.Core;
 
 namespace Gamio.Games.Hitori
 {
-    public class HitoriGridUI : MonoBehaviour
+    public class HitoriGridUI : GameUI
     {
         [SerializeField] private GridLayoutGroup gridLayout;
         [SerializeField] private HitoriCellItem cellPrefab;
@@ -135,7 +136,7 @@ namespace Gamio.Games.Hitori
             RefreshAll();
         }
 
-        public void ResetPuzzle()
+        protected override void ResetPuzzle()
         {
             grid.ResetPuzzle();
             RefreshAll();
