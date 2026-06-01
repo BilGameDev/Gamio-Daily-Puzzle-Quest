@@ -2073,7 +2073,7 @@ MonoBehaviour:
   - {fileID: 8435538175057395485}
   - {fileID: 3100464924170039797}
   selectedColor: {r: 0.7, g: 0.85, b: 1, a: 1}
-  normalCellColor: {r: 1, g: 1, b: 1, a: 1}
+  normalCellColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
   cellSize: {x: 60, y: 60}
 --- !u!1 &5023563101039053045
 GameObject:

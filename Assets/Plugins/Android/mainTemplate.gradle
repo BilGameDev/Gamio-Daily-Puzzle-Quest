@@ -1,12 +1,11 @@
 apply plugin: 'com.android.library'
 apply from: '../shared/keepUnitySymbols.gradle'
-apply from: '../shared/common.gradle'
 **APPLY_PLUGINS**
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
-    implementation 'com.google.android.gms:play-services-auth:21+' // Assets/Extras/GoogleSigninPlugin/GoogleSignIn/Editor/GoogleSignInDependencies.xml:10
+    implementation 'com.google.android.gms:play-services-auth:21+' // Assets/GoogleSigninPlugin/GoogleSignIn/Editor/GoogleSignInDependencies.xml:10
 // Android Resolver Dependencies End
 **DEPS**}
 

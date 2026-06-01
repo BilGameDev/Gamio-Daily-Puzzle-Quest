@@ -174,7 +174,6 @@ namespace Gamio.Games.Shikaku
         private void OnCellDown(int row, int col)
         {
             HapticsHelper.PlaySoftImpact();
-            HapticsHelper.PlayConstant(0.1f, 0.1f, 10f);
             currentDragColor = Color.HSVToRGB(UnityEngine.Random.value, 0.28f, 0.92f);
             grid.StartDrag(row, col);
             grid.RemoveOverlappingDuringDrag(removedBuffer);
@@ -187,12 +186,6 @@ namespace Gamio.Games.Shikaku
         {
             if (!grid.IsDragging) return;
             grid.UpdateDrag(row, col);
-            int w = Mathf.Abs(grid.DragEndCol - grid.DragStartCol) + 1;
-            int h = Mathf.Abs(grid.DragEndRow - grid.DragStartRow) + 1;
-            float area = w * h;
-            float maxArea = rows * cols;
-            float t = Mathf.Clamp01(area / maxArea);
-            HapticsHelper.UpdateContinuous(0.1f + t * 0.1f, t * 0.3f);
             grid.RemoveOverlappingDuringDrag(removedBuffer);
             for (int i = 0; i < removedBuffer.Count; i++)
                 RemovePlacedOverlayAt(removedBuffer[i]);
@@ -202,7 +195,6 @@ namespace Gamio.Games.Shikaku
         private void OnCellUp()
         {
             if (!grid.IsDragging) return;
-            HapticsHelper.StopContinuous();
 
             bool placed = grid.EndDrag(currentDragColor);
             if (placed)

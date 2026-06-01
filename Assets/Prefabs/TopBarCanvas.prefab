@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4751965397870708621}
   - component: {fileID: 8096478733653396240}
   - component: {fileID: 3544843734119124316}
-  - component: {fileID: 6339789787724580380}
+  - component: {fileID: 2576200713866509927}
   m_Layer: 5
   m_Name: TopBarCanvas
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6339789787724580380
+--- !u!114 &2576200713866509927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 981a2f20d08138a4b8c55c0daff63d10, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.TopBarController
+  m_EditorClassIdentifier: Assembly-CSharp::Gamio.Features.UI.TopBarController
   backButton: {fileID: 7243705775390276663}
   tutorialButton: {fileID: 3007932447749808167}
   settingsButton: {fileID: 8381804665548226884}

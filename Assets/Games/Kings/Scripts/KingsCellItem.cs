@@ -16,10 +16,10 @@ namespace Gamio.Games.Kings
         [NonSerialized] public int SectionIndex;
 
         [Header("References")]
-        [SerializeField] private TextMeshProUGUI iconText;
+        [SerializeField] private GameObject kingIcon;
+        [SerializeField] private GameObject nullIcon;
+
         [Header("Colors")]
-        [SerializeField] private string nullChar = "\u25CF";
-        [SerializeField] private string kingChar = "\u2654";
         [SerializeField] private Color nullColor = new Color(0.25f, 0.25f, 0.3f, 0.8f);
         [SerializeField] private Color kingColor = new Color(0.95f, 0.75f, 0.15f, 1f);
         [Header("Input")]
@@ -67,27 +67,24 @@ namespace Gamio.Games.Kings
             switch (state)
             {
                 case KingsCellState.Empty:
-                    if (iconText != null)
-                    {
-                        iconText.text = "";
-                        iconText.color = Color.clear;
-                    }
+                    if (nullIcon != null)
+                        nullIcon.SetActive(false);
+                    if (kingIcon != null)
+                        kingIcon.SetActive(false);
                     break;
 
                 case KingsCellState.Null:
-                    if (iconText != null)
-                    {
-                        iconText.text = nullChar;
-                        iconText.color = nullColor;
-                    }
+                    if (nullIcon != null)
+                        nullIcon.SetActive(true);
+                    if (kingIcon != null)
+                        kingIcon.SetActive(false);
                     break;
 
                 case KingsCellState.King:
-                    if (iconText != null)
-                    {
-                        iconText.text = kingChar;
-                        iconText.color = kingColor;
-                    }
+                    if (kingIcon != null)
+                        kingIcon.SetActive(true);
+                    if (nullIcon != null)
+                        nullIcon.SetActive(false);
                     break;
             }
         }

@@ -124,7 +124,6 @@ namespace Gamio.Games.LineConnect
         private void OnCellDown(int row, int col)
         {
             HapticsHelper.PlaySoftImpact();
-            HapticsHelper.PlayConstant(0.12f, 0.1f, 10f);
             grid.StartDrag(row, col);
         }
 
@@ -132,13 +131,10 @@ namespace Gamio.Games.LineConnect
         {
             if (!grid.IsDragging) return;
             grid.UpdateDrag(row, col);
-            float t = Mathf.Clamp01(grid.ActivePath.Count / (float)(size * size));
-            HapticsHelper.UpdateContinuous(0.12f + t * 0.08f, t * 0.4f);
         }
 
         private void OnCellUp()
         {
-            HapticsHelper.StopContinuous();
             grid.EndDrag();
         }
 

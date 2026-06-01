@@ -73,7 +73,7 @@ namespace Gamio.Features.Popup
             currentSeed = AvatarService.GetSavedSeed();
             StartCoroutine(LoadAvatarTexture(currentSeed));
 
-            usernameField.text = GamioAppContext.Get<AuthService>().DisplayName;
+            usernameField.text = GamioAppContext.Get<AuthService>().Username;
 
             if (overlayGroup != null)
             {

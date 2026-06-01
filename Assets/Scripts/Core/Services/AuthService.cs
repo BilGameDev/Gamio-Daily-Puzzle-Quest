@@ -9,6 +9,7 @@ namespace Gamio.Core.Services
         private const string SessionTokenKey = "Gamio_SessionToken";
         private const string UserIdKey = "Gamio_UserId";
         private const string UsernameKey = "Gamio_Username";
+        private const string DisplayNameKey = "Gamio_Displayname";
 
         private readonly CloudAPIService cloudApiService;
         private readonly ILoginEvents loginEvents;

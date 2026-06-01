@@ -45,7 +45,7 @@ public class LoginManager : MonoBehaviour
         {
             loginEvents.OnSilentLoginRequested -= OnSignInSilently;
             loginEvents.OnLoginRequested -= OnSignIn;
-            loginEvents.OnLogoutRequested += OnSignOut;
+            loginEvents.OnLogoutRequested -= OnSignOut;
         }
     }
 
@@ -102,19 +102,22 @@ public class LoginManager : MonoBehaviour
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
     {
-        if (task.IsFaulted)
+        UnityMainThreadHelper.Run(() =>
         {
-            HandleSignInError(task);
-        }
-        else if (task.IsCanceled)
-        {
-            loginEvents?.LoginFailed("Sign-in canceled");
-        }
-        else
-        {
-            loginEvents?.LoginSuccessful(task.Result);
-            authService?.AuthenticateWithGoogle(task.Result.IdToken);
-        }
+            if (task.IsFaulted)
+            {
+                HandleSignInError(task);
+            }
+            else if (task.IsCanceled)
+            {
+                loginEvents?.LoginFailed("Sign-in canceled");
+            }
+            else
+            {
+                loginEvents?.LoginSuccessful(task.Result);
+                authService?.AuthenticateWithGoogle(task.Result.IdToken);
+            }
+        });
     }
 
     void OnEditorAuthenticationFinished(string token)
@@ -140,15 +143,22 @@ public class LoginManager : MonoBehaviour
 
     internal void OnSilentAuthenticationFinished(Task<GoogleSignInUser> task)
     {
-        if (task.IsFaulted || task.IsCanceled)
+        UnityMainThreadHelper.Run(() =>
         {
-            HandleSignInError(task);
-        }
-        else
-        {
-            loginEvents?.LoginSuccessful(task.Result);
-            authService?.AuthenticateWithGoogle(task.Result.IdToken);
-        }
+            if (task.IsFaulted)
+            {
+                HandleSignInError(task);
+            }
+            else if (task.IsCanceled)
+            {
+                loginEvents?.LoginFailed("Silent sign-in canceled");
+            }
+            else
+            {
+                loginEvents?.LoginSuccessful(task.Result);
+                authService?.AuthenticateWithGoogle(task.Result.IdToken);
+            }
+        });
     }
 
     private void HandleSignInError(Task<GoogleSignInUser> task)

@@ -67,6 +67,8 @@ public class GamioSceneManager : MonoBehaviour
 
     private void LoginFailed(string error)
     {
+        Debug.LogError("Login Failed " + error);
+
         if (GetActiveScene() == bootstrapScene)
         {
             SceneLoader.LoadScene(loginScene);

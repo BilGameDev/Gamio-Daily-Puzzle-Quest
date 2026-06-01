@@ -108,7 +108,6 @@ namespace Gamio.Games.WordSearch
         private void OnCellDown(int row, int col)
         {
             HapticsHelper.PlaySoftImpact();
-            HapticsHelper.PlayConstant(0.1f, 0.1f, 10f);
             grid.StartDrag(row, col);
             RefreshHighlights();
         }
@@ -117,17 +116,12 @@ namespace Gamio.Games.WordSearch
         {
             if (!grid.IsDragging) return;
             grid.UpdateDrag(row, col);
-            float dr = Mathf.Abs(grid.DragEndRow - grid.DragStartRow);
-            float dc = Mathf.Abs(grid.DragEndCol - grid.DragStartCol);
-            float t = Mathf.Clamp01(Mathf.Max(dr, dc) / size);
-            HapticsHelper.UpdateContinuous(0.1f + t * 0.1f, t * 0.35f);
             RefreshHighlights();
         }
 
         private void OnCellUp()
         {
             if (!grid.IsDragging) return;
-            HapticsHelper.StopContinuous();
             grid.EndDrag();
             RefreshHighlights();
         }

@@ -2,7 +2,6 @@
   <Project Path="UniTask.csproj" />
   <Project Path="UniTask.Linq.csproj" />
   <Project Path="Gamio.Games.Sudoku.csproj" />
-  <Project Path="GooglePlugin.csproj" />
   <Project Path="Lofelt.NiceVibrations.Demo.csproj" />
   <Project Path="Gamio.Games.Arrows.csproj" />
   <Project Path="MaterialSymbols.Editor.csproj" />
@@ -11,9 +10,10 @@
   <Project Path="Gamio.Games.Hitori.csproj" />
   <Project Path="Gamio.Games.Shikaku.csproj" />
   <Project Path="Gamio.Games.LineConnect.csproj" />
-  <Project Path="UniTask.Addressables.csproj" />
   <Project Path="Lofelt.NiceVibrations.csproj" />
+  <Project Path="UniTask.Addressables.csproj" />
   <Project Path="Gamio.Utils.csproj" />
+  <Project Path="GooglePlugin.csproj" />
   <Project Path="DOTween.Modules.csproj" />
   <Project Path="UnlimitedScrollUI.csproj" />
   <Project Path="Assembly-CSharp.csproj" />

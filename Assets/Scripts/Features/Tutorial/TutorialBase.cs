@@ -33,7 +33,7 @@ namespace Gamio.Features.Tutorial
         protected bool isReplay;
         protected bool isRunning;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             uIEvents = GamioAppContext.Get<IUIEvents>();
 
@@ -44,7 +44,7 @@ namespace Gamio.Features.Tutorial
             }
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (uIEvents != null)
             {

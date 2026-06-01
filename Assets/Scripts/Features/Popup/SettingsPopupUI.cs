@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Gamio.UI;
 
 namespace Gamio.Features.Popup
 {
@@ -9,9 +10,9 @@ namespace Gamio.Features.Popup
     {
         [SerializeField] private CanvasGroup overlayGroup;
         [SerializeField] private CanvasGroup panelGroup;
-        [SerializeField] private Toggle audioToggle;
+        [SerializeField] private SliderToggle audioToggle;
         [SerializeField] private TextMeshProUGUI audioLabel;
-        [SerializeField] private Toggle hapticsToggle;
+        [SerializeField] private SliderToggle hapticsToggle;
         [SerializeField] private TextMeshProUGUI hapticsLabel;
         [SerializeField] private Button creditsButton;
         [SerializeField] private TextMeshProUGUI creditsButtonLabel;
@@ -35,11 +36,11 @@ namespace Gamio.Features.Popup
 
         private void Setup()
         {
-            audioToggle.isOn = PlayerPrefs.GetInt(AudioPrefKey, 1) == 1;
-            hapticsToggle.isOn = PlayerPrefs.GetInt(HapticsPrefKey, 1) == 1;
+            audioToggle.SetIsOn(PlayerPrefs.GetInt(AudioPrefKey, 1) == 1, true);
+            hapticsToggle.SetIsOn(PlayerPrefs.GetInt(HapticsPrefKey, 1) == 1, true);
 
-            audioToggle.onValueChanged.AddListener(OnAudioChanged);
-            hapticsToggle.onValueChanged.AddListener(OnHapticsChanged);
+            audioToggle.OnValueChanged += OnAudioChanged;
+            hapticsToggle.OnValueChanged += OnHapticsChanged;
             creditsButton.onClick.AddListener(OnCreditsClicked);
             closeButton.onClick.AddListener(Close);
 
@@ -79,8 +80,8 @@ namespace Gamio.Features.Popup
 
         public void Close()
         {
-            audioToggle.onValueChanged.RemoveAllListeners();
-            hapticsToggle.onValueChanged.RemoveAllListeners();
+            audioToggle.OnValueChanged -= OnAudioChanged;
+            hapticsToggle.OnValueChanged -= OnHapticsChanged;
             creditsButton.onClick.RemoveAllListeners();
             closeButton.onClick.RemoveAllListeners();
 
