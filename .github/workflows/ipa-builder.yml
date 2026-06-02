@@ -121,13 +121,37 @@ jobs:
                        CODE_SIGNING_REQUIRED=NO
           fi
 
-          # Create Payload and IPA
+          # ========================================
+          # FIND THE ACTUAL .app NAME AND LOCATION
+          # ========================================
+          echo "Searching for .app file..."
+
+          # Try multiple possible locations for the .app
+          APP_PATH=$(find ./build -name "*.app" -type d 2>/dev/null | head -1)
+
+          if [ -z "$APP_PATH" ]; then
+            echo "❌ Could not find .app file"
+            echo "Searching in archive directory:"
+            find ./build -name "*.app" -type d 2>/dev/null || echo "No .app found"
+            exit 1
+          fi
+
+          echo "✅ Found .app at: $APP_PATH"
+          APP_NAME=$(basename "$APP_PATH")
+          echo "App name is: $APP_NAME"
+
+          # Create Payload folder and copy the .app
           mkdir -p Payload
-          cp -r "./build/Unity-iPhone.xcarchive/Products/Applications/Unity-iPhone.app" Payload/
-          APP_NAME="UnityGame_$(date +%Y%m%d_%H%M%S).ipa"
-          zip -r "$APP_NAME" Payload
+          cp -r "$APP_PATH" Payload/
+
+          # Create IPA
+          IPA_NAME="Gamio_$(date +%Y%m%d_%H%M%S).ipa"
+          zip -r "$IPA_NAME" Payload
+
           mkdir -p ${{ github.workspace }}/output
-          mv "$APP_NAME" ${{ github.workspace }}/output/
+          mv "$IPA_NAME" ${{ github.workspace }}/output/
+
+          echo "✅ IPA created: $IPA_NAME"
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
