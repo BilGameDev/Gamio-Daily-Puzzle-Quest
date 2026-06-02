@@ -93,22 +93,16 @@ jobs:
         run: |
           mkdir -p "${{ github.workspace }}/${{ env.IPA_OUTPUT }}"
 
-          cat > "${{ github.workspace }}/${{ env.IPA_OUTPUT }}/exportOptions.plist" << EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>method</key>
-  <string>development</string>
-  <key>signingStyle</key>
-  <string>manual</string>
-  <key>signingCertificate</key>
-  <string>-</string>
-  <key>provisioningProfiles</key>
-  <dict/>
-</dict>
-</plist>
-EOF
+          python3 -c "
+import plistlib
+p = {
+  'method': 'development',
+  'signingStyle': 'manual',
+  'signingCertificate': '-',
+  'provisioningProfiles': {}
+}
+plistlib.dump(p, open('${{ github.workspace }}/${{ env.IPA_OUTPUT }}/exportOptions.plist', 'wb'))
+"
 
           xcodebuild -exportArchive \
             -archivePath "${{ github.workspace }}/${{ env.ARCHIVE_PATH }}" \
