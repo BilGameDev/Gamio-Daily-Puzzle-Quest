@@ -32,8 +32,6 @@ jobs:
       - name: Install CocoaPods
         run: sudo gem install cocoapods
 
-      # ⚠️ REMOVED: unity-activate step - not needed with unity-builder v4
-      
       - name: Build Xcode Project with Unity
         uses: game-ci/unity-builder@v4
         with:
@@ -44,8 +42,7 @@ jobs:
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          # UNITY_SERIAL NOT needed for Personal license
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Optional, for manual activation
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}  # ← REQUIRED for Student/Pro
 
       - name: Run Pod Install
         run: |
@@ -55,7 +52,6 @@ jobs:
           fi
 
       - name: Build Unsigned IPA
-        id: build-ipa
         run: |
           cd build/ios
           BUILD_CONFIG="${{ inputs.build_configuration || 'Release' }}"
