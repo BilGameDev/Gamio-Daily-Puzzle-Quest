@@ -78,10 +78,28 @@ jobs:
 
       - name: Build Unsigned IPA
         run: |
-          cd build/ios
+          # First, find where the Xcode project was actually created
+          echo "Searching for Xcode project..."
+          XCODE_PATH=$(find . -name "Unity-iPhone.xcodeproj" -type d 2>/dev/null | head -1)
+
+          if [ -z "$XCODE_PATH" ]; then
+            echo "❌ Could not find Unity-iPhone.xcodeproj"
+            echo "Listing directories for debugging:"
+            ls -la
+            ls -la build/ || true
+            ls -la build/ios/ || true
+            exit 1
+          fi
+
+          echo "✅ Found Xcode project at: $XCODE_PATH"
+          cd $(dirname "$XCODE_PATH")
+
           BUILD_CONFIG="${{ inputs.build_configuration || 'Release' }}"
-          
+          echo "Building with configuration: $BUILD_CONFIG"
+
+          # Determine if we use workspace or project
           if [ -d "Unity-iPhone.xcworkspace" ]; then
+            echo "Using workspace (CocoaPods detected)"
             xcodebuild -workspace Unity-iPhone.xcworkspace \
                        -scheme "Unity-iPhone" \
                        -configuration "$BUILD_CONFIG" \
@@ -91,7 +109,8 @@ jobs:
                        CODE_SIGNING_ALLOWED=NO \
                        CODE_SIGNING_REQUIRED=NO
           else
-            xcodebuild -project Unity-iPhone.xcodeproj \
+            echo "Using project (no CocoaPods)"
+            xcodebuild -project "Unity-iPhone.xcodeproj" \
                        -scheme "Unity-iPhone" \
                        -configuration "$BUILD_CONFIG" \
                        -sdk iphoneos \
@@ -100,7 +119,8 @@ jobs:
                        CODE_SIGNING_ALLOWED=NO \
                        CODE_SIGNING_REQUIRED=NO
           fi
-          
+
+          # Create Payload and IPA
           mkdir -p Payload
           cp -r "./build/Unity-iPhone.xcarchive/Products/Applications/Unity-iPhone.app" Payload/
           APP_NAME="UnityGame_$(date +%Y%m%d_%H%M%S).ipa"
