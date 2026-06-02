@@ -1,138 +1,66 @@
 name: iOS Build with CocoaPods
 
 on:
-  workflow_dispatch:  # Manual trigger only
-    inputs:
-      build_configuration:
-        description: 'Build Configuration'
-        required: true
-        default: 'Release'
-        type: choice
-        options:
-          - Release
-          - Development
+  workflow_dispatch:
 
 jobs:
   build-ios:
-    name: Build iOS IPA
-    runs-on: macos-latest  # macOS required for iOS build + CocoaPods
-    timeout-minutes: 120   # Unity builds can take a while
+    runs-on: macos-latest
+    timeout-minutes: 120
 
     steps:
-      # ========================================
-      # 1. CHECKOUT CODE
-      # ========================================
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          lfs: true           # Required for large Unity assets
+          lfs: true
           clean: true
-          fetch-depth: 1
 
-      # ========================================
-      # 2. CACHE UNITY LIBRARY (Speeds up builds)
-      # ========================================
       - name: Cache Unity Library
         uses: actions/cache@v4
         with:
           path: Library
           key: Library-iOS-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-iOS-
-            Library-
+          restore-keys: Library-iOS-
 
-      # ========================================
-      # 3. CACHE COCOAPODS (Speeds up pod install)
-      # ========================================
       - name: Cache CocoaPods
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.cocoapods/repos
-            ~/.cocoapods/pods
+          path: ~/.cocoapods/repos
           key: cocoapods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            cocoapods-
+          restore-keys: cocoapods-
 
-      # ========================================
-      # 4. INSTALL COCOAPODS
-      # ========================================
       - name: Install CocoaPods
-        run: |
-          sudo gem install cocoapods
-          pod --version
+        run: sudo gem install cocoapods
 
-      # ========================================
-      # 5. ACTIVATE UNITY (Required for Personal/Pro)
-      # ========================================
-      - name: Activate Unity
-        uses: game-ci/unity-activate@v3
-        env:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
-
-      # ========================================
-      # 6. BUILD XCODE PROJECT WITH UNITY
-      # ========================================
-      - name: Build Xcode Project
+      # ⚠️ REMOVED: unity-activate step - not needed with unity-builder v4
+      
+      - name: Build Xcode Project with Unity
         uses: game-ci/unity-builder@v4
         with:
           targetPlatform: iOS
           buildMethod: BuildCommand.PerformBuild
           buildName: UnityGame
-          versioning: None
-          androidAppBundle: false
-          androidSymbolType: None
-          androidKeystoreName: null
-          androidKeystoreBase64: null
-          androidKeystorePass: null
-          androidKeyaliasName: null
-          androidKeyaliasPass: null
-          customImage: null
-          dockerImage: unityci/editor:ubuntu-2022.3.20f1-windows-mono-2.0
           allowDirtyBuild: true
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          # UNITY_SERIAL NOT needed for Personal license
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}  # Optional, for manual activation
 
-      # ========================================
-      # 7. RUN COCOAPODS INSTALL
-      # ========================================
       - name: Run Pod Install
         run: |
           cd build/ios
-          
-          # Check if Podfile exists (External Dependency Manager creates it)
           if [ -f "Podfile" ]; then
-            echo "Podfile found. Running pod install..."
             pod install --repo-update
-          else
-            echo "No Podfile found. Skipping pod install."
-          fi
-          
-          # Verify workspace was created
-          if [ -f "Unity-iPhone.xcworkspace/contents.xcworkspacedata" ]; then
-            echo "✅ Workspace found. Ready for Xcode build."
-          else
-            echo "⚠️ Workspace not found. Using .xcodeproj instead."
           fi
 
-      # ========================================
-      # 8. BUILD UNSIGNED IPA (FOR SIDELOADING)
-      # ========================================
       - name: Build Unsigned IPA
         id: build-ipa
         run: |
           cd build/ios
-          
           BUILD_CONFIG="${{ inputs.build_configuration || 'Release' }}"
-          echo "Building with configuration: $BUILD_CONFIG"
           
-          # Determine if we use workspace or project
           if [ -d "Unity-iPhone.xcworkspace" ]; then
-            echo "Using workspace (CocoaPods detected)"
             xcodebuild -workspace Unity-iPhone.xcworkspace \
                        -scheme "Unity-iPhone" \
                        -configuration "$BUILD_CONFIG" \
@@ -140,11 +68,8 @@ jobs:
                        -archivePath "./build/Unity-iPhone.xcarchive" \
                        archive \
                        CODE_SIGNING_ALLOWED=NO \
-                       CODE_SIGNING_REQUIRED=NO \
-                       CODE_SIGN_IDENTITY="" \
-                       DEVELOPMENT_TEAM=""
+                       CODE_SIGNING_REQUIRED=NO
           else
-            echo "Using project (no CocoaPods)"
             xcodebuild -project Unity-iPhone.xcodeproj \
                        -scheme "Unity-iPhone" \
                        -configuration "$BUILD_CONFIG" \
@@ -152,51 +77,19 @@ jobs:
                        -archivePath "./build/Unity-iPhone.xcarchive" \
                        archive \
                        CODE_SIGNING_ALLOWED=NO \
-                       CODE_SIGNING_REQUIRED=NO \
-                       CODE_SIGN_IDENTITY="" \
-                       DEVELOPMENT_TEAM=""
+                       CODE_SIGNING_REQUIRED=NO
           fi
           
-          # Check if archive was created
-          if [ ! -d "./build/Unity-iPhone.xcarchive" ]; then
-            echo "❌ Archive creation failed!"
-            exit 1
-          fi
-          
-          # Create Payload folder and copy .app
           mkdir -p Payload
           cp -r "./build/Unity-iPhone.xcarchive/Products/Applications/Unity-iPhone.app" Payload/
-          
-          # Create IPA
           APP_NAME="UnityGame_$(date +%Y%m%d_%H%M%S).ipa"
           zip -r "$APP_NAME" Payload
-          
-          # Move to output location
           mkdir -p ${{ github.workspace }}/output
           mv "$APP_NAME" ${{ github.workspace }}/output/
-          
-          echo "ipa_path=${{ github.workspace }}/output/$APP_NAME" >> $GITHUB_OUTPUT
-          echo "✅ IPA created: $APP_NAME"
 
-      # ========================================
-      # 9. UPLOAD IPA AS ARTIFACT
-      # ========================================
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Unity-iOS-Build
           path: ${{ github.workspace }}/output/*.ipa
           retention-days: 30
-          compression-level: 0
-
-      # ========================================
-      # 10. OPTIONAL: UPLOAD XCODE PROJECT (for debugging)
-      # ========================================
-      - name: Upload Xcode Project (Debug)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: XcodeProject-Debug
-          path: build/ios/
-          retention-days: 7
-          include-hidden-files: false
