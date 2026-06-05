@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Lean.Gui;
 using DG.Tweening;
 
 namespace Gamio.Features.Popup
@@ -19,12 +20,11 @@ namespace Gamio.Features.Popup
         public float score;
     }
 
-    public class ProfilePopupUI : MonoBehaviour
+    public class ProfilePopupUI : SlideUpPopup
     {
         [Header("Avatar")]
         [SerializeField] private RawImage avatarImage;
         [SerializeField] private Button newRobotButton;
-        [SerializeField] private TextMeshProUGUI newRobotButtonText;
 
         [Header("Username")]
         [SerializeField] private TMP_InputField usernameField;
@@ -33,15 +33,33 @@ namespace Gamio.Features.Popup
 
         [Header("Actions")]
         [SerializeField] private Button logoutButton;
-        [SerializeField] private TextMeshProUGUI logoutButtonText;
         [SerializeField] private Button closeButton;
-
-        [Header("Animation")]
-        [SerializeField] private CanvasGroup panelGroup;
-        [SerializeField] private CanvasGroup overlayGroup;
+        [SerializeField] private Button creditsButton;
+        [SerializeField] private LeanToggle hapticsToggle;
 
         private string currentSeed;
         private bool isLoading;
+
+        private const string AudioPrefKey = "Gamio_AudioEnabled";
+        private const string HapticsPrefKey = "Gamio_HapticsEnabled";
+
+        void OnEnable()
+        {
+            hapticsToggle.OnOn.AddListener(() => {
+                PlayerPrefs.SetInt(HapticsPrefKey, 1);
+                PlayerPrefs.Save();
+            });
+            hapticsToggle.OnOff.AddListener(() => {
+                PlayerPrefs.SetInt(HapticsPrefKey, 0);
+                PlayerPrefs.Save();
+            });
+        }
+
+        void OnDisable()
+        {
+            hapticsToggle.OnOn.RemoveAllListeners();
+            hapticsToggle.OnOff.RemoveAllListeners();
+        }
 
         public static ProfilePopupUI Show()
         {
@@ -69,25 +87,15 @@ namespace Gamio.Features.Popup
 
             if (updateUsernameButton != null)
                 updateUsernameButton.onClick.AddListener(OnUpdateUsernameClicked);
+            
+            creditsButton.onClick.AddListener(OnCreditsClicked);
 
             currentSeed = AvatarService.GetSavedSeed();
             StartCoroutine(LoadAvatarTexture(currentSeed));
 
             usernameField.text = GamioAppContext.Get<AuthService>().Username;
 
-            if (overlayGroup != null)
-            {
-                overlayGroup.alpha = 0f;
-                overlayGroup.DOFade(0.5f, 0.2f);
-            }
-
-            if (panelGroup != null)
-            {
-                panelGroup.alpha = 0f;
-                panelGroup.transform.localScale = Vector3.one * 0.8f;
-                panelGroup.DOFade(1f, 0.2f);
-                panelGroup.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
-            }
+            Open();
         }
 
         private void OnNewRobotClicked()
@@ -102,7 +110,6 @@ namespace Gamio.Features.Popup
         {
             isLoading = true;
             newRobotButton.interactable = false;
-            newRobotButtonText.text = "Loading...";
 
             var url = AvatarService.GetAvatarUrl(seed, 512);
             using var request = UnityWebRequestTexture.GetTexture(url);
@@ -122,7 +129,6 @@ namespace Gamio.Features.Popup
 
             if (this != null)
             {
-                newRobotButtonText.text = "Random";
                 newRobotButton.interactable = true;
             }
             isLoading = false;
@@ -130,7 +136,9 @@ namespace Gamio.Features.Popup
 
         private void OnLogoutClicked()
         {
-            GamioAppContext.Get<ILoginEvents>()?.RequestLogout();
+            PopupUI.Show("Logout", "Are you sure you want to log out?",
+                onConfirm: () => GamioAppContext.Get<ILoginEvents>()?.RequestLogout(),
+                confirmLabel: "Logout");
         }
 
         private async void OnUpdateUsernameClicked()
@@ -149,11 +157,8 @@ namespace Gamio.Features.Popup
                     return;
                 }
 
-                var result = await GamioAppContext.Get<CloudAPIService>().UpdateUsername(username);
-                if (result.success)
-                    ShowFeedback("Username updated!", false);
-                else
-                    ShowFeedback("Failed to update username", true);
+                await GamioAppContext.Get<AuthService>().UpdateUsername(username);
+                ShowFeedback("Username updated!", false);
             }
             catch (Exception e)
             {
@@ -189,6 +194,11 @@ namespace Gamio.Features.Popup
             }
         }
 
+         private void OnCreditsClicked()
+        {
+            CreditsPopupUI.Show();
+        }
+
         private void ShowFeedback(string message, bool isError)
         {
             if (usernameFeedbackText == null) return;
@@ -200,28 +210,20 @@ namespace Gamio.Features.Popup
 
         private static string EscapeJson(string s) => s.Replace("\\", "\\\\").Replace("\"", "\\\"");
 
-        public void Close()
+        public override void Close()
         {
             newRobotButton.onClick.RemoveAllListeners();
             logoutButton.onClick.RemoveAllListeners();
             closeButton.onClick.RemoveAllListeners();
             updateUsernameButton?.onClick.RemoveAllListeners();
+            creditsButton.onClick.RemoveAllListeners();
 
-            var seq = DOTween.Sequence();
-            if (overlayGroup != null)
-                seq.Join(overlayGroup.DOFade(0f, 0.15f));
-            if (panelGroup != null)
-                seq.Join(panelGroup.DOFade(0f, 0.15f));
-            seq.OnComplete(() =>
-            {
-                if (this != null)
-                    Destroy(gameObject);
-            });
+            base.Close();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
-            DOTween.Kill(this);
+            base.OnDestroy();
             StopAllCoroutines();
         }
     }

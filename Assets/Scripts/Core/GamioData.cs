@@ -14,14 +14,21 @@ namespace Gamio.Core.Services
     }
 
     [Serializable]
-    public class SeedResponse
+    public class ChallengeInfo
     {
-        public string date;
         public int seedId;
         public string seed;
         public string gameType;
-        public bool dailyCompleted;
+        public bool completed;
         public float? totalTimeSeconds;
+    }
+
+    [Serializable]
+    public class SeedResponse
+    {
+        public string date;
+        public ChallengeInfo[] challenges;
+        public bool dailyCompleted;
         public StreakInfo streak;
     }
 
@@ -30,6 +37,8 @@ namespace Gamio.Core.Services
     {
         public int current;
         public int longest;
+        public int effective;
+        public string endTime;
     }
 
     [Serializable]
@@ -39,6 +48,7 @@ namespace Gamio.Core.Services
         public bool alreadyCompleted;
         public float totalTimeSeconds;
         public StreakInfo streak;
+        public string streakEndTime;
     }
 
     [Serializable]
@@ -46,6 +56,8 @@ namespace Gamio.Core.Services
     {
         public int current;
         public int longest;
+        public int effective;
+        public string endTime;
         public string lastCompletedDate;
         public RecentCompletion[] recentCompletions;
         public string[] completionDates;
@@ -83,6 +95,21 @@ namespace Gamio.Core.Services
     {
         public string userId;
         public SeedRanking[] rankings;
+    }
+
+    [Serializable]
+    public class TodayLeaderboardsResponse
+    {
+        public SlotLeaderboard[] leaderboards;
+    }
+
+    [Serializable]
+    public class SlotLeaderboard
+    {
+        public int seedId;
+        public string gameType;
+        public int totalParticipants;
+        public LeaderboardEntry[] entries;
     }
 
     [Serializable]

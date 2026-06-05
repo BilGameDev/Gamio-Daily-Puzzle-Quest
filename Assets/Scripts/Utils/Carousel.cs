@@ -18,6 +18,7 @@ namespace Gamio.Features.UI
         [SerializeField] private bool _wrapAround;
         [SerializeField] private bool _autoScroll;
         [SerializeField] private float _autoScrollInterval = 3f;
+        [SerializeField] private bool _tapToSelect;
 
         private readonly Dictionary<RectTransform, CanvasGroup> _cache = new();
         private readonly Dictionary<RectTransform, SlotPos> _targetSlots = new();
@@ -27,6 +28,7 @@ namespace Gamio.Features.UI
 
         public int CurrentIndex => _currentIndex;
         public int ItemCount => rectChildren.Count;
+        public RectTransform CurrentItem => _currentIndex >= 0 && _currentIndex < rectChildren.Count ? rectChildren[_currentIndex] : null;
 
         public event Action<int> OnIndexChanged;
 
@@ -51,8 +53,12 @@ namespace Gamio.Features.UI
             if (!_layoutApplied)
             {
                 _layoutApplied = true;
+                UpdateItemFocus();
+                UpdateItemVisibility();
                 StartAutoScroll();
             }
+            if (_tapToSelect)
+                SetupTapHandlers();
         }
 
         public override void SetLayoutVertical() { }
@@ -86,23 +92,80 @@ namespace Gamio.Features.UI
             if (_isTransitioning || rectChildren.Count == 0) return;
             index = Mathf.Clamp(index, 0, rectChildren.Count - 1);
             if (index == _currentIndex) return;
+
+            GetCarouselItem(_currentIndex)?.SetFocused(false);
+
             _currentIndex = index;
             CalculateSlots();
             ApplyLayout(true);
             ResetAutoScroll();
+
+            GetCarouselItem(_currentIndex)?.SetFocused(true);
+            UpdateItemVisibility();
             OnIndexChanged?.Invoke(_currentIndex);
         }
 
         private void EnsureCanvasGroups()
         {
-            foreach (var child in rectChildren)
+            for (int i = 0; i < rectChildren.Count; i++)
             {
+                var child = rectChildren[i];
                 if (!_cache.ContainsKey(child))
                 {
                     if (!child.TryGetComponent(out CanvasGroup cg))
                         cg = child.gameObject.AddComponent<CanvasGroup>();
                     _cache[child] = cg;
                 }
+                if (!child.TryGetComponent(out CarouselItem item))
+                    item = child.gameObject.AddComponent<CarouselItem>();
+                item.Index = i;
+            }
+        }
+
+        private void SetupTapHandlers()
+        {
+            for (int i = 0; i < rectChildren.Count; i++)
+            {
+                var child = rectChildren[i];
+                var index = i;
+
+                if (!child.TryGetComponent(out Button btn))
+                {
+                    btn = child.gameObject.AddComponent<Button>();
+                    var img = child.GetComponent<Graphic>();
+                    if (img != null)
+                        btn.targetGraphic = img;
+                    else if (child.childCount > 0)
+                    {
+                        var childImg = child.GetComponentInChildren<Graphic>();
+                        if (childImg != null)
+                            btn.targetGraphic = childImg;
+                    }
+                }
+
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() => GoTo(index));
+            }
+        }
+
+        private CarouselItem GetCarouselItem(int index)
+        {
+            if (index < 0 || index >= rectChildren.Count) return null;
+            rectChildren[index].TryGetComponent(out CarouselItem item);
+            return item;
+        }
+
+        private void UpdateItemFocus()
+        {
+            GetCarouselItem(_currentIndex)?.SetFocused(true);
+        }
+
+        private void UpdateItemVisibility()
+        {
+            for (int i = 0; i < rectChildren.Count; i++)
+            {
+                if (!_targetSlots.TryGetValue(rectChildren[i], out var slot)) continue;
+                GetCarouselItem(i)?.SetVisible(slot != SlotPos.LeftExit && slot != SlotPos.RightExit);
             }
         }
 
@@ -220,6 +283,11 @@ namespace Gamio.Features.UI
             base.OnTransformChildrenChanged();
             _cache.Clear();
             _currentIndex = Mathf.Clamp(_currentIndex, 0, Mathf.Max(0, rectChildren.Count - 1));
+            for (int i = 0; i < rectChildren.Count; i++)
+            {
+                if (rectChildren[i].TryGetComponent(out CarouselItem item))
+                    item.Index = i;
+            }
         }
 
         protected override void OnDisable()

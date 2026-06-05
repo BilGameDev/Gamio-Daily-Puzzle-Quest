@@ -6,6 +6,7 @@ namespace Gamio.Core
     public class GamesLibrary : MonoBehaviour
     {
         [SerializeField] GameScenes[] gameScenes;
+        [SerializeField] public GameIcons[] gameIcons;
 
         void Awake()
         {
@@ -33,6 +34,11 @@ namespace Gamio.Core
             return gameScene;
         }
 
+        public Games GetGame(string gameType)
+        {
+            return EnumUtility.TryParse(gameType, true, out Games game) ? game : default;
+        }
+
         public string GetGameScene(string scene)
         {
             string gameScene = string.Empty;
@@ -45,6 +51,34 @@ namespace Gamio.Core
             }
 
             return gameScene;
+        }
+
+        public GameObject GetGameIcon(Games game)
+        {
+            GameObject gameIcon = null;
+            foreach (var item in gameIcons)
+            {
+                if (item.gameType.Equals(game))
+                {
+                    gameIcon = item.gameIcon;
+                }
+            }
+
+            return gameIcon;
+        }
+
+        public GameObject GetGameIcon(string gameType)
+        {
+            GameObject gameIcon = null;
+            foreach (var item in gameIcons)
+            {
+                if (item.gameType.ToString().Equals(gameType, StringComparison.OrdinalIgnoreCase))
+                {
+                    gameIcon = item.gameIcon;
+                }
+            }
+
+            return gameIcon;
         }
     }
 
@@ -59,6 +93,13 @@ namespace Gamio.Core
         LineConnect,
         Arrows,
         Kings
+    }
+
+    [Serializable]
+    public struct GameIcons
+    {
+        public Games gameType;
+        public GameObject gameIcon;
     }
 
 }

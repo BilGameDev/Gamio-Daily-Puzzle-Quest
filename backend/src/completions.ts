@@ -34,6 +34,7 @@ export async function handleSubmitDaily(
       success: true,
       alreadyCompleted: true,
       totalTimeSeconds: timeSeconds,
+      streakEndTime: getStreakEndTime(),
     });
   }
 
@@ -87,23 +88,26 @@ export async function handleSubmitDaily(
       current: newStreak,
       longest: longestStreak,
     },
+    streakEndTime: getStreakEndTime(),
   });
 }
 
 export async function handleDeleteCompletions(userId: string, env: Env): Promise<Response> {
   const today = new Date().toISOString().split('T')[0];
 
-  const challenge = await env.DB.prepare(
+  const challenges = await env.DB.prepare(
     'SELECT id FROM daily_challenges WHERE date = ?'
-  ).bind(today).first<{ id: number }>();
+  ).bind(today).all<{ id: number }>();
 
-  if (!challenge) {
+  if (!challenges.results.length) {
     return jsonResponse({ success: true, deleted: false, reason: 'No challenge for today' });
   }
 
+  const ids = challenges.results.map(c => c.id);
+  const placeholders = ids.map(() => '?').join(',');
   await env.DB.prepare(
-    'DELETE FROM user_challenges WHERE user_id = ? AND challenge_id = ?'
-  ).bind(userId, challenge.id).run();
+    `DELETE FROM user_challenges WHERE user_id = ? AND challenge_id IN (${placeholders})`
+  ).bind(userId, ...ids).run();
 
   return jsonResponse({ success: true, deleted: true });
 }
@@ -116,4 +120,10 @@ function getYesterday(dateStr: string): string {
   const date = new Date(dateStr + 'T00:00:00Z');
   date.setUTCDate(date.getUTCDate() - 1);
   return date.toISOString().split('T')[0];
+}
+
+function getStreakEndTime(): string {
+  const now = new Date();
+  now.setUTCHours(23, 59, 59, 999);
+  return now.toISOString();
 }

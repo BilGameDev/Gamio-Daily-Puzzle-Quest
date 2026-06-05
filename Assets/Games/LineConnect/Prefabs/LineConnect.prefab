@@ -630,6 +630,7 @@ MonoBehaviour:
   testSeed: 1234
   gridLayout: {fileID: 3970096791977798124}
   cellPrefab: {fileID: 1839685432956231823, guid: 3808dbb53dc231d4a9a09cf8d9bee2e0, type: 3}
+  endpointPrefab: {fileID: 1839685432956231823, guid: 621a9296794ddfc469520c515f9819b7, type: 3}
   cellSize: {x: 100, y: 110}
 --- !u!1 &3056117042322996149
 GameObject:

@@ -4,6 +4,7 @@ using Gamio.Core;
 using Gamio.Core.Services;
 using Gamio.Features.Leaderboard;
 using Gamio.Features.Popup;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -12,6 +13,11 @@ namespace Gamio.Features.UI
 {
     public class TopBarController : MonoBehaviour
     {
+        [Header("Streak")]
+        [SerializeField] private TextMeshProUGUI streakText;
+        [SerializeField] private GameObject hasStreakGraphic;
+        [SerializeField] private GameObject noStreakGraphic;
+
         [Header("Buttons")]
         [SerializeField] private Button backButton;
         [SerializeField] private Button tutorialButton;
@@ -31,7 +37,6 @@ namespace Gamio.Features.UI
 
         GamioManager gamioManager;
         IUIEvents uIEvents;
-        LeaderboardManager leaderboardManager;
 
         private void Awake()
         {
@@ -64,6 +69,26 @@ namespace Gamio.Features.UI
         {
             gamioManager = GamioAppContext.Get<GamioManager>();
             uIEvents = GamioAppContext.Get<IUIEvents>();
+
+            RefreshUI();
+        }
+
+        void RefreshUI()
+        {
+            var streak = gamioManager.StreakInfo.current;
+
+            if (streakText != null)
+            {
+                ColorUtility.TryParseHtmlString(streak > 0 ? "#FF8C00" : "#202020", out var color);
+                streakText.color = color;
+                streakText.text = streak > 0 ? streak == 1 ? $"{streak} day" : $"{streak} days" : "No Streak";
+            }
+
+            if (hasStreakGraphic != null)
+                hasStreakGraphic.SetActive(streak > 0);
+
+            if (noStreakGraphic != null)
+                noStreakGraphic.SetActive(streak == 0);
         }
 
         private void OnBackClicked()
@@ -112,7 +137,6 @@ namespace Gamio.Features.UI
             await LeaderboardPopupUI.Show(
                 new LeaderboardManager(GamioAppContext.Get<CloudAPIService>(),
                 GamioAppContext.Get<AuthService>()),
-                1,
                 LeaderboardMode.Preview);
         }
 

@@ -11,8 +11,7 @@ namespace Gamio.Root
     public class ChallengeManager : MonoBehaviour
     {
         private ChallengePopupUI popup;
-        private string gameType;
-        private float totalTime;
+        private ChallengeInfo[] availableChallenges;
         private bool active;
         public bool IsActive => active;
 
@@ -66,27 +65,30 @@ namespace Gamio.Root
 
         void OnSeedFetched(SeedResponse seedResponse)
         {
-            if (!seedResponse.dailyCompleted && !string.IsNullOrEmpty(seedResponse.gameType))
-            {
-                gameType = seedResponse.gameType;
-                totalTime = seedResponse.totalTimeSeconds ?? 0;
-            }
+            availableChallenges = seedResponse.challenges;
         }
 
         void ShowPopup()
         {
-            if (string.IsNullOrEmpty(gameType)) return;
+            var challenges = gamioManager.Challenges;
+            if (challenges == null || challenges.Length == 0) return;
+            var idx = System.Array.FindIndex(challenges, c => c.seedId == gamioManager.ChallengeId);
+            if (idx < 0) idx = 0;
+            var challenge = challenges[idx];
+            if (string.IsNullOrEmpty(challenge?.gameType)) return;
+            if (popup != null) return;
             active = true;
 
-            popup = ChallengePopupUI.Show(transform, gameType, totalTime);
+            popup = ChallengePopupUI.Show(transform, challenge.gameType);
             popup.OnBeginRequested += OnBeginGame;
             popup.OnCloseRequested += OnClosePopup;
         }
 
         void OnBeginGame()
         {
-            gamioManager?.SetChallengeActive(true);
-            uiEvents.RequestGameScene(gamesLibrary?.GetGameScene(gameType));
+            gamioManager.SetChallengeActive(true);
+            var challenge = System.Array.Find(gamioManager.Challenges, c => c.seedId == gamioManager.ChallengeId);
+            uiEvents.RequestGameScene(gamesLibrary?.GetGameScene(challenge?.gameType ?? ""));
             popup = null;
         }
 
@@ -113,8 +115,8 @@ namespace Gamio.Root
                     await LeaderboardPopupUI.Show(
                 new LeaderboardManager(cloudAPIService,
                 GamioAppContext.Get<AuthService>()),
-                gamioManager.ChallengeId,
-                LeaderboardMode.Result);
+                LeaderboardMode.Result,
+                gamioManager.ChallengeId);
 
                     gamioManager.SetStreak(dailySublit.streak);
                     gamioManager.SetDailyCompleted(true);

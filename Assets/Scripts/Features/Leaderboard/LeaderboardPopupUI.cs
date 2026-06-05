@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using Gamio.Core;
@@ -18,6 +21,14 @@ namespace Gamio.Features.Leaderboard
         Result
     }
 
+    [Serializable]
+    struct TabButton
+    {
+        public Button button;
+        public TextMeshProUGUI label;
+        public Image background;
+    }
+
     public class LeaderboardPopupUI : MonoBehaviour
     {
         [SerializeField] private VerticalUnlimitedScroller scroller;
@@ -30,19 +41,29 @@ namespace Gamio.Features.Leaderboard
         [SerializeField] private Button myRankButton;
         [SerializeField] private GameObject loadingIndicator;
         [SerializeField] private GameObject emptyStateText;
+        [SerializeField] private TabButton[] tabButtons;
+
+        [SerializeField] private Color tabSelectedColor = new Color32(255, 128, 0, 255);
+        [SerializeField] private Color tabDeselectedColor = new Color32(40, 40, 40, 200);
+        [SerializeField] private Color tabLabelSelectedColor = Color.white;
+        [SerializeField] private Color tabLabelDeselectedColor = Color.gray;
 
         private LeaderboardManager manager;
+        private SlotLeaderboard[] allLeaderboards;
         private LeaderboardEntry[] entries;
         private string myUserId;
+        private int currentSlotIndex;
         private int myRank;
+        private int myTotalParticipants;
         private LeaderboardMode mode;
         private bool hasRank;
-        private bool hasEntries;
         private Sequence animSeq;
         private VerticalLayoutGroup layoutGroup;
         private GamioManager gamioManager;
+        private CloudAPIService cloudAPI;
+        private bool _buttonsShown;
 
-        public static async Task<LeaderboardPopupUI> Show(LeaderboardManager manager, int seedId, LeaderboardMode mode)
+        public static async Task<LeaderboardPopupUI> Show(LeaderboardManager manager, LeaderboardMode mode, int? initialSeedId = null)
         {
             var prefab = Resources.Load<LeaderboardPopupUI>("Popups/LeaderboardPopupCanvas");
             if (prefab == null)
@@ -51,7 +72,7 @@ namespace Gamio.Features.Leaderboard
                 return null;
             }
             var popup = Instantiate(prefab);
-            await popup.Initialize(manager, seedId, mode);
+            await popup.Initialize(manager, mode, initialSeedId);
             return popup;
         }
 
@@ -70,52 +91,168 @@ namespace Gamio.Features.Leaderboard
             myRankButton?.onClick.AddListener(GoToMyRank);
 
             gamioManager = GamioAppContext.Get<GamioManager>();
+            cloudAPI = GamioAppContext.Get<CloudAPIService>();
         }
 
-        private async Task Initialize(LeaderboardManager managerRef, int seedId, LeaderboardMode newMode)
+        private async Task Initialize(LeaderboardManager managerRef, LeaderboardMode newMode, int? initialSeedId)
         {
             manager = managerRef;
             mode = newMode;
             myUserId = managerRef.MyUserId;
             hasRank = false;
-            hasEntries = false;
 
             if (titleText != null)
                 titleText.text = newMode == LeaderboardMode.Result ? "Challenge Complete!" : "Leaderboard";
 
-            managerRef.OnLeaderboardUpdated += OnDataUpdated;
+            managerRef.OnLeaderboardUpdated += OnMyRankUpdated;
             managerRef.OnError += OnError;
 
-            if (managerRef.MyRanks?.rankings != null && managerRef.CurrentEntries?.Length > 0)
+            ShowLoading(true);
+
+            var response = await cloudAPI.GetTodayLeaderboards();
+            await managerRef.FetchMyRank();
+
+            allLeaderboards = response?.leaderboards ?? new SlotLeaderboard[0];
+            hasRank = manager.MyRanks?.rankings != null && manager.MyRanks.rankings.Length > 0;
+
+            if (allLeaderboards.Length == 0)
             {
-                OnDataUpdated();
+                ShowLoading(false);
+                StartCoroutine(ShowCloseButton());
                 return;
             }
 
-            ShowLoading(true);
-            await managerRef.FetchMyRank();
-            await managerRef.FetchLeaderboard(seedId);
+            currentSlotIndex = 0;
+            if (initialSeedId.HasValue)
+            {
+                for (int i = 0; i < allLeaderboards.Length; i++)
+                {
+                    if (allLeaderboards[i].seedId == initialSeedId.Value)
+                    {
+                        currentSlotIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            CreateTabs();
+
+            var introSeq = DOTween.Sequence().SetId(this);
+            if (mode == LeaderboardMode.Result && splashGroup != null)
+            {
+                splashGroup.alpha = 0f;
+                splashGroup.transform.localScale = Vector3.one * 0.7f;
+                introSeq.Append(splashGroup.DOFade(1f, 0.3f));
+                introSeq.Join(splashGroup.transform.DOScale(1f, 0.35f).SetEase(Ease.OutBack));
+                introSeq.AppendInterval(3f);
+                introSeq.Append(splashGroup.DOFade(0f, 0.25f));
+                introSeq.Join(splashGroup.transform.DOScale(0.8f, 0.25f));
+                HapticsHelper.PlayPreset(HapticPatterns.PresetType.Success);
+            }
+
+            if (panelGroup != null)
+            {
+                panelGroup.alpha = 0f;
+                panelGroup.transform.localScale = Vector3.one * 0.92f;
+                if (mode == LeaderboardMode.Result)
+                    introSeq.Append(panelGroup.DOFade(1f, 0.25f).SetDelay(1f));
+                else
+                    introSeq.Append(panelGroup.DOFade(1f, 0.2f));
+                introSeq.Join(panelGroup.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack));
+            }
+            else
+            {
+                HapticsHelper.PlayPreset(HapticPatterns.PresetType.LightImpact);
+            }
+
+            introSeq.OnComplete(() =>
+            {
+                PopulateSlot();
+                ShowButtons();
+                if (mode == LeaderboardMode.Result)
+                {
+                    HapticsHelper.PlayEmphasis(0.7f, 0.5f);
+                    if (myRank > 0 && entries != null && entries.Length > 0)
+                        DOVirtual.DelayedCall(1.5f, () =>
+                        {
+                            HapticsHelper.PlaySoftImpact();
+                            SmoothScrollTo(myRank - 1, true);
+                        }).SetId(this);
+                }
+            });
         }
 
-        private void OnDataUpdated()
+        private void CreateTabs()
         {
-            if (!hasRank && manager.MyRanks?.rankings != null)
+            for (int i = 0; i < tabButtons.Length && i < allLeaderboards.Length; i++)
             {
-                hasRank = true;
-                myRank = manager.MyRanks.rankings.Length > 0 ? manager.MyRanks.rankings[0].rank : -1;
+                var idx = i;
+
+                if (tabButtons[i].label != null)
+                    tabButtons[i].label.text = allLeaderboards[i].gameType;
+
+                if (tabButtons[i].button != null)
+                {
+                    tabButtons[i].button.onClick.RemoveAllListeners();
+                    tabButtons[i].button.onClick.AddListener(() => SelectSlot(idx));
+                }
             }
 
-            if (!hasEntries && manager.CurrentEntries != null)
+            for (int i = allLeaderboards.Length; i < tabButtons.Length; i++)
             {
-                hasEntries = true;
-                entries = manager.CurrentEntries;
+                if (tabButtons[i].button != null)
+                    tabButtons[i].button.gameObject.SetActive(false);
             }
 
-            if (hasRank && hasEntries)
+            UpdateTabHighlight();
+        }
+
+        private void UpdateTabHighlight()
+        {
+            for (int i = 0; i < tabButtons.Length; i++)
             {
-                ShowLoading(false);
-                BuildList();
+                bool selected = i == currentSlotIndex;
+
+                if (tabButtons[i].label != null)
+                    tabButtons[i].label.color = selected ? tabLabelSelectedColor : tabLabelDeselectedColor;
+
+                if (tabButtons[i].background != null)
+                    tabButtons[i].background.color = selected ? tabSelectedColor : tabDeselectedColor;
             }
+        }
+
+        private void SelectSlot(int index)
+        {
+            DOTween.Kill(this);
+            currentSlotIndex = index;
+            PopulateSlot();
+            UpdateTabHighlight();
+        }
+
+        private void PopulateSlot()
+        {
+            var slot = allLeaderboards[currentSlotIndex];
+            entries = slot.entries;
+
+            myRank = -1;
+            myTotalParticipants = slot.totalParticipants;
+            if (hasRank && manager.MyRanks?.rankings != null)
+            {
+                var ranking = manager.MyRanks.rankings.FirstOrDefault(r => r.seedId == slot.seedId);
+                if (ranking != null)
+                {
+                    myRank = ranking.rank;
+                    myTotalParticipants = ranking.totalParticipants;
+                }
+            }
+
+            ShowLoading(false);
+            BuildList();
+        }
+
+        private void OnMyRankUpdated()
+        {
+            hasRank = manager.MyRanks?.rankings != null && manager.MyRanks.rankings.Length > 0;
         }
 
         private void OnError(string error)
@@ -132,14 +269,6 @@ namespace Gamio.Features.Leaderboard
 
             if (empty)
             {
-                if (panelGroup != null)
-                {
-                    panelGroup.alpha = 0f;
-                    panelGroup.transform.localScale = Vector3.one * 0.92f;
-                    panelGroup.DOFade(1f, 0.2f);
-                    panelGroup.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
-                }
-                HapticsHelper.PlayPreset(HapticPatterns.PresetType.LightImpact);
                 StartCoroutine(ShowCloseButton());
                 return;
             }
@@ -154,75 +283,27 @@ namespace Gamio.Features.Leaderboard
                         lbCell.SetData(entries[index], entries[index].userId == myUserId);
                 }
             });
-
-            if (mode == LeaderboardMode.Result)
-                StartCoroutine(ResultAnimation());
-            else
-                StartCoroutine(PreviewAnimation());
-        }
-
-        private IEnumerator PreviewAnimation()
-        {
-            if (panelGroup != null)
-            {
-                panelGroup.alpha = 0f;
-                panelGroup.transform.localScale = Vector3.one * 0.92f;
-                panelGroup.DOFade(1f, 0.2f);
-                panelGroup.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
-            }
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.LightImpact);
-
-            yield return new WaitForSeconds(0.3f);
-            ShowButtons();
-        }
-
-        private IEnumerator ResultAnimation()
-        {
-            if (splashGroup != null)
-            {
-                splashGroup.alpha = 0f;
-                splashGroup.transform.localScale = Vector3.one * 0.7f;
-                splashGroup.DOFade(1f, 0.3f);
-                splashGroup.transform.DOScale(1f, 0.35f).SetEase(Ease.OutBack);
-            }
-            HapticsHelper.PlayPreset(HapticPatterns.PresetType.Success);
-
-            yield return new WaitForSeconds(3f);
-
-            if (splashGroup != null)
-            {
-                splashGroup.DOFade(0f, 0.25f);
-                splashGroup.transform.DOScale(0.8f, 0.25f);
-            }
-
-            if (panelGroup != null)
-            {
-                panelGroup.transform.localScale = Vector3.one * 0.85f;
-                panelGroup.alpha = 0f;
-                panelGroup.DOFade(1f, 0.25f).SetDelay(1f);
-                panelGroup.transform.DOScale(1f, 0.35f).SetDelay(1f).SetEase(Ease.OutBack);
-            }
-            HapticsHelper.PlayEmphasis(0.7f, 0.5f);
-
-            ShowButtons();
-
-            yield return new WaitForSeconds(1.5f);
-
-            if (myRank > 0 && entries != null && entries.Length > 0)
-            {
-                HapticsHelper.PlaySoftImpact();
-                SmoothScrollTo(myRank - 1, true);
-            }
         }
 
         private void ShowButtons()
         {
+            if (_buttonsShown) return;
+            _buttonsShown = true;
+
             if (topButton != null)
             {
                 topButton.gameObject.SetActive(true);
                 topButton.transform.localScale = Vector3.zero;
                 topButton.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
             }
+
+            if (closeButton != null)
+            {
+                closeButton.gameObject.SetActive(true);
+                closeButton.transform.localScale = Vector3.zero;
+                closeButton.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack).SetDelay(0.1f);
+            }
+
             if (myRankButton != null)
             {
                 bool hasRankBool = myRank > 0;
@@ -232,12 +313,6 @@ namespace Gamio.Features.Leaderboard
                     myRankButton.transform.localScale = Vector3.zero;
                     myRankButton.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack).SetDelay(0.05f);
                 }
-            }
-            if (closeButton != null)
-            {
-                closeButton.gameObject.SetActive(true);
-                closeButton.transform.localScale = Vector3.zero;
-                closeButton.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack).SetDelay(0.1f);
             }
         }
 
@@ -295,22 +370,29 @@ namespace Gamio.Features.Leaderboard
         {
             yield return new WaitForSeconds(0.3f);
             if (closeButton != null)
-            {
                 closeButton.gameObject.SetActive(true);
-                closeButton.transform.localScale = Vector3.zero;
-                closeButton.transform.DOScale(1f, 0.25f).SetEase(Ease.OutBack);
-            }
         }
 
         private void CloseLeaderboard()
         {
-            if (gamioManager.StreakPending)
-            {
-                StreakOverlay.Show(gamioManager.StreakInfo.current, GamioAppContext.Get<IUIEvents>().RequestBack);
-                gamioManager.SetStreakPending(false);
-            }
+            DOTween.Kill(this);
+            if (closeButton != null) closeButton.interactable = false;
 
-            Destroy(gameObject);
+            var seq = DOTween.Sequence();
+            seq.SetId("Close_" + GetInstanceID());
+            if (panelGroup != null)
+                seq.Join(panelGroup.DOFade(0f, 0.2f));
+            if (splashGroup != null)
+                seq.Join(splashGroup.DOFade(0f, 0.15f));
+            seq.OnComplete(() =>
+            {
+                if (gamioManager.StreakPending)
+                {
+                    StreakOverlay.Show(gamioManager.StreakInfo.current, GamioAppContext.Get<IUIEvents>().RequestBack);
+                    gamioManager.SetStreakPending(false);
+                }
+                Destroy(gameObject);
+            });
         }
 
         private void OnDestroy()
@@ -318,15 +400,20 @@ namespace Gamio.Features.Leaderboard
             animSeq?.Kill();
             if (manager != null)
             {
-                manager.OnLeaderboardUpdated -= OnDataUpdated;
+                manager.OnLeaderboardUpdated -= OnMyRankUpdated;
                 manager.OnError -= OnError;
             }
 
-            closeButton?.onClick.RemoveAllListeners();
-            topButton?.onClick.RemoveAllListeners();
-            myRankButton?.onClick.RemoveAllListeners();
+            if (closeButton != null) closeButton?.onClick.RemoveAllListeners();
+            if (topButton != null) topButton?.onClick.RemoveAllListeners();
+            if (myRankButton != null) myRankButton?.onClick.RemoveAllListeners();
+            foreach (var tb in tabButtons)
+            {
+                if (tb.button != null) tb.button.onClick.RemoveAllListeners();
+            }
 
             DOTween.Kill(this);
+            DOTween.Kill("Close_" + GetInstanceID());
             StopAllCoroutines();
         }
 

@@ -9,16 +9,26 @@ function getGameTypes(env: Env): string[] {
   return raw.split(',').map(s => s.trim()).filter(Boolean);
 }
 
+const SLOTS = [0, 1, 2];
+
 export async function generateDailyChallenge(env: Env): Promise<void> {
   const today = new Date().toISOString().split('T')[0];
-  const seed = await computeSeed(today, env.SEED_HMAC_KEY);
   const gameTypes = getGameTypes(env);
-  const gameType = gameTypes[simpleHash(today) % gameTypes.length];
+  const selectedTypes = new Set<string>();
 
-  await env.DB.prepare(
-    `INSERT OR IGNORE INTO daily_challenges (date, seed, game_type)
-     VALUES (?, ?, ?)`
-  ).bind(today, seed, gameType).run();
+  for (const slot of SLOTS) {
+    const seed = await computeSeed(`${today}:${slot}`, env.SEED_HMAC_KEY);
+
+    const available = gameTypes.filter(t => !selectedTypes.has(t));
+    const pool = available.length > 0 ? available : gameTypes;
+    const gameType = pool[simpleHash(seed) % pool.length];
+    selectedTypes.add(gameType);
+
+    await env.DB.prepare(
+      `INSERT OR IGNORE INTO daily_challenges (date, slot, seed, game_type)
+       VALUES (?, ?, ?, ?)`
+    ).bind(today, slot, seed, gameType).run();
+  }
 }
 
 async function computeSeed(date: string, hmacKey: string): Promise<string> {
@@ -37,41 +47,54 @@ async function computeSeed(date: string, hmacKey: string): Promise<string> {
 export async function handleGetSeeds(userId: string, env: Env): Promise<Response> {
   const today = new Date().toISOString().split('T')[0];
 
-  // Get or create today's challenge
-  let challenge = await env.DB.prepare(
-    'SELECT id, seed, game_type FROM daily_challenges WHERE date = ?'
-  ).bind(today).first<{ id: number; seed: string; game_type: string }>();
+  let challenges = await env.DB.prepare(
+    'SELECT id, seed, game_type FROM daily_challenges WHERE date = ? ORDER BY slot ASC'
+  ).bind(today).all<{ id: number; seed: string; game_type: string }>();
 
-  if (!challenge) {
+  if (!challenges.results.length) {
     await generateDailyChallenge(env);
-    challenge = await env.DB.prepare(
-      'SELECT id, seed, game_type FROM daily_challenges WHERE date = ?'
-    ).bind(today).first<{ id: number; seed: string; game_type: string }>();
+    challenges = await env.DB.prepare(
+      'SELECT id, seed, game_type FROM daily_challenges WHERE date = ? ORDER BY slot ASC'
+    ).bind(today).all<{ id: number; seed: string; game_type: string }>();
 
-    if (!challenge) {
-      return errorResponse(500, 'Failed to create daily challenge');
+    if (!challenges.results.length) {
+      return errorResponse(500, 'Failed to create daily challenges');
     }
   }
 
-  // Check if user already completed today's challenge
-  const userChallenge = await env.DB.prepare(
-    'SELECT time_seconds FROM user_challenges WHERE user_id = ? AND challenge_id = ?'
-  ).bind(userId, challenge.id).first<{ time_seconds: number }>();
+  const ids = challenges.results.map(c => c.id);
+  const placeholders = ids.map(() => '?').join(',');
+
+  const userChallenges = await env.DB.prepare(
+    `SELECT challenge_id, time_seconds FROM user_challenges
+     WHERE user_id = ? AND challenge_id IN (${placeholders})`
+  ).bind(userId, ...ids).all<{ challenge_id: number; time_seconds: number }>();
+
+  const completedIds = new Set(userChallenges.results.map(uc => uc.challenge_id));
+  const times = new Map(userChallenges.results.map(uc => [uc.challenge_id, uc.time_seconds]));
 
   const streak = await env.DB.prepare(
-    'SELECT current_streak, longest_streak FROM streaks WHERE user_id = ?'
-  ).bind(userId).first<{ current_streak: number; longest_streak: number }>();
+    'SELECT current_streak, longest_streak, last_completed_date FROM streaks WHERE user_id = ?'
+  ).bind(userId).first<{ current_streak: number; longest_streak: number; last_completed_date: string }>();
+
+  const effective = getEffectiveStreak(streak?.current_streak ?? 0, streak?.last_completed_date ?? null);
+  const endTime = getStreakEndTime();
 
   return jsonResponse({
     date: today,
-    seedId: challenge.id,
-    seed: challenge.seed,
-    gameType: challenge.game_type,
-    dailyCompleted: !!userChallenge,
-    totalTimeSeconds: userChallenge?.time_seconds || null,
+    challenges: challenges.results.map(c => ({
+      seedId: c.id,
+      seed: c.seed,
+      gameType: c.game_type,
+      completed: completedIds.has(c.id),
+      totalTimeSeconds: times.get(c.id) ?? null,
+    })),
+    dailyCompleted: userChallenges.results.length > 0,
     streak: {
-      current: streak?.current_streak || 0,
-      longest: streak?.longest_streak || 0,
+      current: streak?.current_streak ?? 0,
+      longest: streak?.longest_streak ?? 0,
+      effective,
+      endTime,
     },
   });
 }
@@ -80,6 +103,28 @@ export function handleGetConfig(env: Env): Response {
   return jsonResponse({
     gameTypes: getGameTypes(env),
   });
+}
+
+function getYesterday(dateStr: string): string {
+  const date = new Date(dateStr + 'T00:00:00Z');
+  date.setUTCDate(date.getUTCDate() - 1);
+  return date.toISOString().split('T')[0];
+}
+
+function getEffectiveStreak(currentStreak: number, lastCompletedDate: string | null): number {
+  if (!lastCompletedDate) return 0;
+  const today = new Date().toISOString().split('T')[0];
+  const yesterday = getYesterday(today);
+  if (lastCompletedDate === today || lastCompletedDate === yesterday) {
+    return currentStreak;
+  }
+  return 0;
+}
+
+function getStreakEndTime(): string {
+  const now = new Date();
+  now.setUTCHours(23, 59, 59, 999);
+  return now.toISOString();
 }
 
 function simpleHash(str: string): number {

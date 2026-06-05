@@ -3,7 +3,7 @@ import { verifyGoogleToken } from './auth';
 import { handleGetSeeds, handleGetConfig } from './seeds';
 import { handleSubmitDaily, handleDeleteCompletions } from './completions';
 import { handleGetStreaks } from './streaks';
-import { handleGetLeaderboard, handleGetMyRank } from './leaderboard';
+import { handleGetLeaderboard, handleGetMyRank, handleGetTodayLeaderboards } from './leaderboard';
 import {
   jsonResponse, errorResponse, unauthorizedResponse,
   getAuthUser, createSessionToken,
@@ -110,6 +110,11 @@ export async function routeRequest(request: Request, env: Env): Promise<Response
     // GET /api/streaks — get user streaks
     if (method === 'GET' && path === '/api/streaks') {
       return handleGetStreaks(user.id, env);
+    }
+
+    // GET /api/leaderboard/today — all 3 today's leaderboards
+    if (method === 'GET' && path === '/api/leaderboard/today') {
+      return handleGetTodayLeaderboards(env);
     }
 
     // GET /api/leaderboard/:challengeId — get leaderboard for a challenge

@@ -13,21 +13,22 @@ namespace Gamio.Core.Services
 
         private bool _isLoading;
 
-        public static void LoadScene(string sceneName, System.Action onCompleted = null)
+        public static void LoadScene(string sceneName, bool showOverlay = true, System.Action onCompleted = null)
         {
             CreateInstance();
             if (_instance._isLoading) return;
             
-            _instance.StartCoroutine(_instance.LoadSceneRoutine(sceneName, onCompleted));
+            _instance.StartCoroutine(_instance.LoadSceneRoutine(sceneName, showOverlay, onCompleted));
         }
 
-        private IEnumerator LoadSceneRoutine(string sceneName, System.Action onCompleted)
+        private IEnumerator LoadSceneRoutine(string sceneName, bool showOverlay, System.Action onCompleted)
         {
             _isLoading = true;
             _overlay.gameObject.SetActive(true);
 
             // 1. Smooth Fade In
-            yield return _overlay.DOFade(1f, _fadeDuration).WaitForCompletion();
+            if (showOverlay)
+                yield return _overlay.DOFade(1f, _fadeDuration).WaitForCompletion();
 
             // 2. Kill local UI tweens right before destroying the active scene layout
             DOTween.KillAll(); 
@@ -38,7 +39,8 @@ namespace Gamio.Core.Services
                 yield return null;
 
             // 4. Smooth Fade Out
-            yield return _overlay.DOFade(0f, _fadeDuration).WaitForCompletion();
+            if (showOverlay)
+                yield return _overlay.DOFade(0f, _fadeDuration).WaitForCompletion();
             
             _overlay.gameObject.SetActive(false);
             _isLoading = false;

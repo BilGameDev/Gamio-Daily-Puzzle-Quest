@@ -20,6 +20,7 @@ namespace Gamio.Games.LineConnect
 
         public event Action OnSolved;
         public event Action OnVisualsChanged;
+        public event Action<int, List<(int r, int c)>> OnPathConnected;
 
         public LineConnectGridController(LineConnectPuzzle puzzleData)
         {
@@ -65,6 +66,29 @@ namespace Gamio.Games.LineConnect
                         puzzle.RemoveColor(existingId);
                     activePath.Add((row, col));
                 }
+
+                if (targetCell.IsEndpoint && targetCell.ColorId == activeColorId && activePath.Count >= 2)
+                {
+                    var first = activePath[0];
+                    if (first.r != row || first.c != col)
+                    {
+                        var connectedPath = new List<(int r, int c)>(activePath);
+                        foreach (var (pr, pc) in connectedPath)
+                            puzzle.AssignCell(pr, pc, activeColorId);
+                        activePath.Clear();
+                        isDragging = false;
+                        OnVisualsChanged?.Invoke();
+                        OnPathConnected?.Invoke(activeColorId, connectedPath);
+                        bool isFull = puzzle.IsSolved();
+                        if (isFull)
+                        {
+                            solved = true;
+                            OnSolved?.Invoke();
+                        }
+                        return;
+                    }
+                }
+
                 OnVisualsChanged?.Invoke();
             }
         }
@@ -109,6 +133,7 @@ namespace Gamio.Games.LineConnect
         {
             OnSolved = null;
             OnVisualsChanged = null;
+            OnPathConnected = null;
         }
     }
 }

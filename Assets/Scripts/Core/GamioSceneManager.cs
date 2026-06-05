@@ -62,7 +62,7 @@ public class GamioSceneManager : MonoBehaviour
 
     private void LoadHomeScene()
     {
-        SceneLoader.LoadScene(homeScene);
+        SceneLoader.LoadScene(homeScene, false);
     }
 
     private void LoginFailed(string error)

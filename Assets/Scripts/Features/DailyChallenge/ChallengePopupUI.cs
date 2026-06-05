@@ -17,15 +17,13 @@ namespace Gamio.Features.DailyChallenge
         [SerializeField] private TextMeshProUGUI beginButtonLabel;
         [SerializeField] private Button closeButton;
         [SerializeField] private Transform gameIconHolder;
-        [SerializeField] private GameIcons[] gameIcons;
 
         private string gameType;
-        private float totalTime;
 
         public event Action OnBeginRequested;
         public event Action OnCloseRequested;
 
-        public static ChallengePopupUI Show(Transform parent, string gameType, float totalTime)
+        public static ChallengePopupUI Show(Transform parent, string gameType)
         {
             var prefab = Resources.Load<ChallengePopupUI>("Popups/ChallengePopupCanvas");
             if (prefab == null)
@@ -35,7 +33,6 @@ namespace Gamio.Features.DailyChallenge
             }
             var popup = Instantiate(prefab, parent);
             popup.gameType = gameType;
-            popup.totalTime = totalTime;
             popup.Initialize();
             popup.AnimateIn();
             return popup;
@@ -50,8 +47,10 @@ namespace Gamio.Features.DailyChallenge
             {
                 panelGroup.alpha = 0f;
                 panelGroup.transform.localScale = Vector3.one * 0.92f;
-                gameIconHolder.localScale = Vector3.zero;
             }
+
+            if (gameIconHolder != null)
+                gameIconHolder.localScale = Vector3.zero;
 
             if (beginButton != null)
             {
@@ -65,17 +64,12 @@ namespace Gamio.Features.DailyChallenge
 
         private void Initialize()
         {
-            if (gameTypeText != null)
-                gameTypeText.text = gameType;
+            // if (gameTypeText != null)
+            //     gameTypeText.text = gameType;
 
-            foreach (var item in gameIcons)
-            {
-                if (item.gameType.Equals(gameType, StringComparison.OrdinalIgnoreCase))
-                {
-                    Instantiate(item.gameIcon, gameIconHolder);
-                    return;
-                }
-            }
+            // var gameIcon = GamioAppContext.Get<GamesLibrary>()?.GetGameIcon(gameType);
+            // if (gameIcon != null && gameIconHolder != null)
+            //     Instantiate(gameIcon, gameIconHolder);
         }
 
         public void AnimateIn()
@@ -158,12 +152,5 @@ namespace Gamio.Features.DailyChallenge
             DOTween.Kill(this);
             StopAllCoroutines();
         }
-    }
-
-    [Serializable]
-    struct GameIcons
-    {
-        public string gameType;
-        public GameObject gameIcon;
     }
 }

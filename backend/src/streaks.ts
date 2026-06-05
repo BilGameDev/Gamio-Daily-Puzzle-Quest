@@ -21,11 +21,38 @@ export async function handleGetStreaks(userId: string, env: Env): Promise<Respon
 
   const completionDates = new Set(recentCompletions.results.map(r => r.date));
 
+  const effective = getEffectiveStreak(streak?.current_streak ?? 0, streak?.last_completed_date ?? null);
+  const endTime = getStreakEndTime();
+
   return jsonResponse({
-    current: streak?.current_streak || 0,
-    longest: streak?.longest_streak || 0,
-    lastCompletedDate: streak?.last_completed_date || null,
+    current: streak?.current_streak ?? 0,
+    longest: streak?.longest_streak ?? 0,
+    effective,
+    endTime,
+    lastCompletedDate: streak?.last_completed_date ?? null,
     recentCompletions: recentCompletions.results,
     completionDates: Array.from(completionDates).sort().reverse(),
   });
+}
+
+function getYesterday(dateStr: string): string {
+  const date = new Date(dateStr + 'T00:00:00Z');
+  date.setUTCDate(date.getUTCDate() - 1);
+  return date.toISOString().split('T')[0];
+}
+
+function getEffectiveStreak(currentStreak: number, lastCompletedDate: string | null): number {
+  if (!lastCompletedDate) return 0;
+  const today = new Date().toISOString().split('T')[0];
+  const yesterday = getYesterday(today);
+  if (lastCompletedDate === today || lastCompletedDate === yesterday) {
+    return currentStreak;
+  }
+  return 0;
+}
+
+function getStreakEndTime(): string {
+  const now = new Date();
+  now.setUTCHours(23, 59, 59, 999);
+  return now.toISOString();
 }

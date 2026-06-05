@@ -13,12 +13,14 @@ public class GamioManager : MonoBehaviour
     public string ChallengeSeed => challengeSeed;
     public int ChallengeId => challengeId;
     public bool StreakPending => streakPending;
+    public ChallengeInfo[] Challenges => challenges;
     private StreakInfo streakInfo;
     private bool dailyCompleted;
     private bool challengeActive;
     private string challengeSeed;
     private int challengeId;
     private bool streakPending;
+    private ChallengeInfo[] challenges;
 
     CloudAPIService cloudAPIService;
     ILoginEvents loginEvents;
@@ -75,6 +77,14 @@ public class GamioManager : MonoBehaviour
         dailyCompleted = completed;
     }
 
+    public void SelectChallenge(int index)
+    {
+        if (challenges == null || index < 0 || index >= challenges.Length) return;
+        var challenge = challenges[index];
+        challengeSeed = challenge.seed;
+        challengeId = challenge.seedId;
+    }
+
     public async void FetchData()
     {
         try
@@ -84,17 +94,13 @@ public class GamioManager : MonoBehaviour
 
             var (seeds, streaks) = await UniTask.WhenAll(seedsTask, streaksTask);
 
-            // Update local state once data is confirmed
+            challenges = seeds.challenges;
             dailyCompleted = seeds.dailyCompleted;
             streakInfo = seeds.streak;
-            challengeSeed = seeds.seed;
-            challengeId = seeds.seedId;
 
-            // Trigger your internal events
             cloudDataEvents.SeedFetched(seeds);
             cloudDataEvents.StreakFetched(streaks);
 
-            // Handle offline syncing if applicable
             if (offlineQueue != null && offlineQueue.PendingCount > 0)
             {
                 await offlineQueue.SyncAll();
@@ -104,7 +110,6 @@ public class GamioManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            // Centralized error handling
             Debug.LogError($"[Bootstrapper] Failed to fetch data: {e.Message}");
         }
     }

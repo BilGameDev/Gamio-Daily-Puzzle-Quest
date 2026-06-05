@@ -45,6 +45,8 @@ namespace Gamio.Core.Services
 
         public async UniTask<LeaderboardResponse> GetLeaderboard(int seedId) => await GetAsync<LeaderboardResponse>($"/api/leaderboard/{seedId}");
 
+        public async UniTask<TodayLeaderboardsResponse> GetTodayLeaderboards() => await GetAsync<TodayLeaderboardsResponse>("/api/leaderboard/today");
+
         public async UniTask<MyRankResponse> GetMyRank() => await GetAsync<MyRankResponse>("/api/leaderboard/me");
 
         public async UniTask<UsernameResult> UpdateUsername(string username)

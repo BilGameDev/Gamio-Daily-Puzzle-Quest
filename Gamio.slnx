@@ -1,6 +1,8 @@
 ﻿<Solution>
   <Project Path="UniTask.csproj" />
+  <Project Path="LeanCommon.csproj" />
   <Project Path="UniTask.Linq.csproj" />
+  <Project Path="LeanTransition.csproj" />
   <Project Path="Gamio.Games.Sudoku.csproj" />
   <Project Path="Lofelt.NiceVibrations.Demo.csproj" />
   <Project Path="Gamio.Games.Arrows.csproj" />
@@ -14,8 +16,10 @@
   <Project Path="UniTask.Addressables.csproj" />
   <Project Path="Gamio.Utils.csproj" />
   <Project Path="GooglePlugin.csproj" />
+  <Project Path="CW.Common.csproj" />
   <Project Path="DOTween.Modules.csproj" />
   <Project Path="UnlimitedScrollUI.csproj" />
+  <Project Path="LeanGUI.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Gamio.Games.Kings.csproj" />
   <Project Path="UniTask.TextMeshPro.csproj" />
@@ -28,5 +32,6 @@
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="UniTask.Editor.csproj" />
   <Project Path="UniTask.DOTween.csproj" />
+  <Project Path="LeanTransition.Editor.csproj" />
   <Project Path="Lofelt.NiceVibrations.Editor.csproj" />
 </Solution>

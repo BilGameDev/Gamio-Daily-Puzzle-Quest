@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System.Collections.Generic;
 
 namespace Gamio.Games.LineConnect
 {
@@ -13,6 +14,7 @@ namespace Gamio.Games.LineConnect
         [Header("References")]
         [SerializeField] private GridLayoutGroup gridLayout;
         [SerializeField] private LineConnectCellItem cellPrefab;
+        [SerializeField] private LineConnectCellItem endpointPrefab;
         [Header("Layout")]
         [SerializeField] private Vector2 cellSize = new Vector2(100, 110); // fallback only
 
@@ -56,6 +58,7 @@ namespace Gamio.Games.LineConnect
             size = grid.Puzzle.GridSize;
             grid.OnSolved += HandleSolved;
             grid.OnVisualsChanged += RefreshAll;
+            grid.OnPathConnected += OnPathConnected;
             hintRevealCount = 0;
             showSolution = false;
             BuildGrid();
@@ -109,7 +112,8 @@ namespace Gamio.Games.LineConnect
                 for (int c = 0; c < size; c++)
                 {
                     var cellData = grid.Puzzle.Cells[r, c];
-                    var cell = Instantiate(cellPrefab, gridLayout.transform);
+                    var prefab = cellData.IsEndpoint && endpointPrefab != null ? endpointPrefab : cellPrefab;
+                    var cell = Instantiate(prefab, gridLayout.transform);
                     cell.Init(r, c, cellData.ColorId, cellData.IsEndpoint);
                     cell.OnPointerDownEvent += OnCellDown;
                     cell.OnPointerEnterEvent += OnCellEnter;
@@ -214,6 +218,23 @@ namespace Gamio.Games.LineConnect
             return hinted;
         }
 
+        private void OnPathConnected(int colorId, List<(int r, int c)> path)
+        {
+            float delay = 0;
+            foreach (var (r, c) in path)
+            {
+                int row = r, col = c;
+                DOVirtual.DelayedCall(delay, () =>
+                {
+                    cells[row, col].transform.DOKill();
+                    cells[row, col].transform.localScale = Vector3.one;
+                    cells[row, col].transform.DOPunchScale(Vector3.one * 0.25f, 0.35f, 4, 0.5f)
+                        .SetEase(Ease.OutQuad);
+                });
+                delay += 0.03f;
+            }
+        }
+
         private void HandleSolved()
         {
             HapticsHelper.PlayPreset(HapticPatterns.PresetType.Success);
@@ -252,6 +273,7 @@ namespace Gamio.Games.LineConnect
             {
                 grid.OnSolved -= HandleSolved;
                 grid.OnVisualsChanged -= RefreshAll;
+                grid.OnPathConnected -= OnPathConnected;
             }
         }
 
