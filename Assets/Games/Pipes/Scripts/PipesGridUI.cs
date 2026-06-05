@@ -30,8 +30,6 @@ namespace Gamio.Games.Pipes
         {
             base.OnEnable();
             PipesGame.OnControllerCreated += OnControllerCreated;
-            if (PipesGame.CurrentController != null)
-                Setup(PipesGame.CurrentController);
         }
 
         protected override void OnDisable()

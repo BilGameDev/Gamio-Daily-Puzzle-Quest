@@ -39,8 +39,8 @@ namespace Gamio.Games.Sudoku
         {
             base.Start();
 
-            if (SudokuGame.Instance != null && SudokuGame.TutorialDeferred)
-                Begin();
+            if (SudokuGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => SudokuGame.Instance != null));
         }
 
         public override void Begin()

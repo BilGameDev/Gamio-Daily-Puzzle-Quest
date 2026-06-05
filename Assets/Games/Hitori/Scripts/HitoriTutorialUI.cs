@@ -30,8 +30,8 @@ namespace Gamio.Games.Hitori
         protected override void Start()
         {
             base.Start();
-            if (HitoriGame.Instance != null && HitoriGame.TutorialDeferred)
-                Begin();
+            if (HitoriGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => HitoriGame.Instance != null));
         }
 
         public override void Begin()

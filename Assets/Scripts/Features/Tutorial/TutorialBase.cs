@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Gamio.Core;
@@ -142,6 +143,13 @@ namespace Gamio.Features.Tutorial
 
         public virtual void Begin() { }
         public virtual void Finish() { }
+
+        protected IEnumerator BeginWhenReady(System.Func<bool> isReady)
+        {
+            while (!isReady())
+                yield return null;
+            Begin();
+        }
 
         protected void End()
         {

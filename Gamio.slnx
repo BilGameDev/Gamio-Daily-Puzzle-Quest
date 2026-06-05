@@ -29,8 +29,8 @@
   <Project Path="Gamio.Games.Pipes.csproj" />
   <Project Path="UnlimitedScrollUIEditor.csproj" />
   <Project Path="UnlimitedScrollUIExample.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="UniTask.Editor.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="UniTask.DOTween.csproj" />
   <Project Path="LeanTransition.Editor.csproj" />
   <Project Path="Lofelt.NiceVibrations.Editor.csproj" />

@@ -26,8 +26,7 @@ namespace Gamio.Games.Arrows
         protected override void OnEnable()
         {
             base.OnEnable();
-            if (ArrowsGame.CurrentController != null)
-                Setup(ArrowsGame.CurrentController);
+            ArrowsGame.OnControllerCreated += OnControllerCreated;
         }
 
         protected override void OnDisable()

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Games.Shikaku::Gamio.Games.Shikaku.ShikakuGameSettingsSO
   easy:
     gridSize: 7
-    cellSize: {x: 90, y: 90}
+    cellSize: {x: 110, y: 110}
   medium:
     gridSize: 8
-    cellSize: {x: 80, y: 80}
+    cellSize: {x: 100, y: 100}
   hard:
     gridSize: 10
-    cellSize: {x: 65, y: 65}
+    cellSize: {x: 90, y: 90}

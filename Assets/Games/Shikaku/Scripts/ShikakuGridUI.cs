@@ -48,8 +48,6 @@ namespace Gamio.Games.Shikaku
         {
             base.OnEnable();
             ShikakuGame.OnControllerCreated += OnControllerCreated;
-            if (ShikakuGame.CurrentController != null)
-                Setup(ShikakuGame.CurrentController);
         }
 
         protected override void OnDisable()
@@ -174,6 +172,17 @@ namespace Gamio.Games.Shikaku
         private void OnCellDown(int row, int col)
         {
             HapticsHelper.PlaySoftImpact();
+
+            var tapRect = new ShikakuRect { Row = row, Col = col, Height = 1, Width = 1 };
+            grid.Puzzle.RemoveRectsOverlapping(tapRect, removedBuffer);
+            if (removedBuffer.Count > 0)
+            {
+                for (int i = 0; i < removedBuffer.Count; i++)
+                    RemovePlacedOverlayAt(removedBuffer[i]);
+                RefreshVisuals();
+                return;
+            }
+
             currentDragColor = Color.HSVToRGB(UnityEngine.Random.value, 0.28f, 0.92f);
             grid.StartDrag(row, col);
             grid.RemoveOverlappingDuringDrag(removedBuffer);
@@ -407,7 +416,7 @@ namespace Gamio.Games.Shikaku
             var targetSize = new Vector2(w, h);
 
             var dragColor = currentDragColor;
-            dragColor.a = 0.75f;
+            dragColor.a = 1f;
 
             if (!selectionOverlay.gameObject.activeSelf)
             {
@@ -419,12 +428,13 @@ namespace Gamio.Games.Shikaku
                 if (overlayImg != null)
                 {
                     overlayImg.color = dragColor;
-                    overlayImg.DOFade(0.75f, 0.15f).From(0f);
+                    overlayImg.DOFade(1f, 0.15f).From(0f);
                 }
             }
             else
             {
                 selectionOverlay.DOKill();
+                selectionOverlay.localScale = Vector3.one;
                 selectionOverlay.DOSizeDelta(targetSize, 0.15f).SetEase(Ease.OutQuad);
                 selectionOverlay.DOAnchorPos(targetPos, 0.15f).SetEase(Ease.OutQuad);
                 if (overlayImg != null)

@@ -37,8 +37,8 @@ namespace Gamio.Games.WordSearch
         protected override void Start()
         {
             base.Start();
-            if (WordSearchGame.Instance != null && WordSearchGame.TutorialDeferred)
-                Begin();
+            if (WordSearchGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => WordSearchGame.Instance != null));
         }
 
         private void SkipTutorial() => Finish();

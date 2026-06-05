@@ -10,6 +10,8 @@ namespace Gamio.Core
 {
     public class GameUI : MonoBehaviour
     {
+        [SerializeField] protected float delayBeforeShowingUI = 1f;
+
         [SerializeField] Stopwatch stopwatch;
         [SerializeField] TextMeshProUGUI timerObject;
         [SerializeField] protected bool launchOnStart = true;
@@ -61,6 +63,8 @@ namespace Gamio.Core
         }
         IEnumerator RunGame(IGame game, string seed, Difficulty difficulty)
         {
+            yield return new WaitForSeconds(delayBeforeShowingUI);
+
             if (gamioManager.ChallengeActive)
                 yield return CountdownUI.Show(transform);
 

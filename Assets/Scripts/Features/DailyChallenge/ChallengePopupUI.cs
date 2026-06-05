@@ -64,12 +64,12 @@ namespace Gamio.Features.DailyChallenge
 
         private void Initialize()
         {
-            // if (gameTypeText != null)
-            //     gameTypeText.text = gameType;
+            if (gameTypeText != null)
+                gameTypeText.text = gameType;
 
-            // var gameIcon = GamioAppContext.Get<GamesLibrary>()?.GetGameIcon(gameType);
-            // if (gameIcon != null && gameIconHolder != null)
-            //     Instantiate(gameIcon, gameIconHolder);
+            var gameIcon = GamioAppContext.Get<GamesLibrary>()?.GetGameIcon(gameType);
+            if (gameIcon != null && gameIconHolder != null)
+                Instantiate(gameIcon, gameIconHolder);
         }
 
         public void AnimateIn()

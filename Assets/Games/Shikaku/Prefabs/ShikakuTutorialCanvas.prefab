@@ -128,7 +128,7 @@ MonoBehaviour:
   gridLayout: {fileID: 868468780393613717}
   cellPrefab: {fileID: 6239408109168841205, guid: 3f5aacef747faf744ad74b4428af46cd, type: 3}
   selectionOverlay: {fileID: 7046152002002432047}
-  cellSize: {x: 100, y: 110}
+  cellSize: {x: 150, y: 150}
   cellColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
 --- !u!1 &592875726354610766
 GameObject:
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20125782, g: 0.20125782, b: 0.20125782, a: 0.8980392}
+  m_Color: {r: 0.20125782, g: 0.20125782, b: 0.20125782, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 120, y: 130}
-  m_Spacing: {x: 4, y: 4}
+  m_Spacing: {x: 6, y: 6}
   m_Constraint: 0
   m_ConstraintCount: 7
 --- !u!114 &7745901026064859105
@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
+  m_Color: {r: 0.35686275, g: 0.16470589, b: 0.14901961, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

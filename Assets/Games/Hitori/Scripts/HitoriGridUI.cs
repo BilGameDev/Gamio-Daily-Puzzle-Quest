@@ -28,8 +28,6 @@ namespace Gamio.Games.Hitori
         {
             base.OnEnable();
             HitoriGame.OnControllerCreated += OnControllerCreated;
-            if (HitoriGame.CurrentController != null)
-                Setup(HitoriGame.CurrentController);
         }
 
         protected override void OnDisable()

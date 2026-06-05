@@ -32,8 +32,6 @@ namespace Gamio.Games.WordGrid
         {
             base.OnEnable();
             WordGridGame.OnControllerCreated += OnControllerCreated;
-            if (WordGridGame.CurrentController != null)
-                Setup(WordGridGame.CurrentController);
         }
 
         protected override void OnDisable()

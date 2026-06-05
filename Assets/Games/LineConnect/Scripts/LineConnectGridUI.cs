@@ -30,8 +30,6 @@ namespace Gamio.Games.LineConnect
         {
             base.OnEnable();
             LineConnectGame.OnControllerCreated += OnControllerCreated;
-            if (LineConnectGame.CurrentController != null)
-                Setup(LineConnectGame.CurrentController);
         }
 
         protected override void OnDisable()

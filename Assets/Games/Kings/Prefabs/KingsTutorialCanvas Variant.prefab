@@ -40,9 +40,33 @@ PrefabInstance:
       propertyPath: instructionText
       value: 
       objectReference: {fileID: 8263261082320686692}
+    - target: {fileID: 1120773591527145561, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120773591527145561, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120773591527145561, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.75686276
+      objectReference: {fileID: 0}
     - target: {fileID: 2427869218977186411, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
       propertyPath: m_Name
       value: KingsTutorialCanvas Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270382371228472648, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270382371228472648, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270382371228472648, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6655683139160089438, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
       propertyPath: m_Pivot.x
@@ -122,6 +146,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6655683139160089438, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7385433254953502627, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7385433254953502627, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7385433254953502627, guid: 0e8034d251ed8cc4cbe3983ac8d7c75b, type: 3}
+      propertyPath: m_fontColor.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

@@ -36,8 +36,8 @@ namespace Gamio.Games.WordGrid
         protected override void Start()
         {
             base.Start();
-            if (WordGridGame.Instance != null && WordGridGame.TutorialDeferred)
-                Begin();
+            if (WordGridGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => WordGridGame.Instance != null));
         }
 
         public override void Begin()

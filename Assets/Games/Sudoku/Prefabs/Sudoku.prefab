@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 8711221358665331585}
   - component: {fileID: 6564843736228971338}
   - component: {fileID: 5517570609470516692}
+  - component: {fileID: 6201324083779945784}
   m_Layer: 5
   m_Name: Number grid
   m_TagString: Untagged
@@ -322,7 +323,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 280}
+  m_SizeDelta: {x: 0, y: 250}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8711221358665331585
 CanvasRenderer:
@@ -377,7 +378,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 50
+    m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
   m_StartCorner: 0
@@ -386,6 +387,18 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 30}
   m_Constraint: 2
   m_ConstraintCount: 2
+--- !u!225 &6201324083779945784
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759645890224017622}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1095253030551279103
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,6 +816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4808443608205507254}
   - component: {fileID: 7662298405887996826}
+  - component: {fileID: 3282836618861538296}
   m_Layer: 0
   m_Name: Sudoku
   m_TagString: Untagged
@@ -839,6 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d6beba5476013479b5cf30c15c97b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Sudoku::Gamio.Games.Sudoku.SudokuGridUI
+  delayBeforeShowingUI: 2
   timerObject: {fileID: 1548215111961211222}
   launchOnStart: 1
   testMode: 0
@@ -847,7 +862,7 @@ MonoBehaviour:
   gridLayout: {fileID: 4694307824075790634}
   cellPrefab: {fileID: 6165245922045258557, guid: 6b8c631718dd7ba4e8d95aadba1ca17a, type: 3}
   boxPrefab: {fileID: 2238607642173372635, guid: 73418e903290fd5449b9a8b33788084e, type: 3}
-  selectedColor: {r: 0.7, g: 0.85, b: 1, a: 1}
+  selectedColor: {r: 0.24261296, g: 0.5471698, b: 0.24261296, a: 1}
   normalCellColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
   numberButtons:
   - {fileID: 6895271634550769625}
@@ -860,6 +875,36 @@ MonoBehaviour:
   - {fileID: 6441426986787654452}
   - {fileID: 7108641876035380362}
   - {fileID: 756340420383354146}
+--- !u!114 &3282836618861538296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371220074437495284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 1
+  targets:
+  - {fileID: 0}
+  - {fileID: 4691493447761503567}
+  - {fileID: 716128130350264593}
+  - {fileID: 6201324083779945784}
+  - {fileID: 7397979908810341370}
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 1
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &1408148524265339175
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,10 +1382,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 50
+    m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 20
+  m_ChildAlignment: 1
+  m_Spacing: 50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -1803,8 +1848,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1821,13 +1866,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.25
+  m_fontSize: 36.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 40
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -2414,6 +2459,7 @@ GameObject:
   - component: {fileID: 2360326996118217083}
   - component: {fileID: 1607148652410420992}
   - component: {fileID: 2072015746853159490}
+  - component: {fileID: 4691493447761503567}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -2505,6 +2551,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &4691493447761503567
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416933922184676763}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5741959154295730756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,7 +2575,7 @@ GameObject:
   - component: {fileID: 4694307824075790634}
   - component: {fileID: 7916329103510618562}
   - component: {fileID: 7412500472764202640}
-  - component: {fileID: 2760512592059224777}
+  - component: {fileID: 716128130350264593}
   m_Layer: 5
   m_Name: SudokuLayout
   m_TagString: Untagged
@@ -2542,7 +2600,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 869.29346}
+  m_SizeDelta: {x: 0, y: 815.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4694307824075790634
 MonoBehaviour:
@@ -2606,26 +2664,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2760512592059224777
-MonoBehaviour:
+--- !u!225 &716128130350264593
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5741959154295730756}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: 960
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5948653289855030357
 GameObject:
   m_ObjectHideFlags: 0
@@ -3138,6 +3188,7 @@ GameObject:
   - component: {fileID: 2756671326964426658}
   - component: {fileID: 6649656934552101993}
   - component: {fileID: 978969183728950382}
+  - component: {fileID: 8783445733290641588}
   m_Layer: 0
   m_Name: RulesPanel
   m_TagString: Untagged
@@ -3223,6 +3274,31 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8783445733290641588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6539939077618455486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 0
+  targets: []
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 0
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &6792550072618586531
 GameObject:
   m_ObjectHideFlags: 0
@@ -4081,9 +4157,9 @@ GameObject:
   - component: {fileID: 7274881754092166673}
   - component: {fileID: 3487431992636767051}
   - component: {fileID: 4890019235668122154}
-  - component: {fileID: 31379628482359550}
   - component: {fileID: 4400858053496595095}
   - component: {fileID: 4781966961802454312}
+  - component: {fileID: 7397979908810341370}
   m_Layer: 0
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -4110,7 +4186,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 455.469}
+  m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3487431992636767051
 CanvasRenderer:
@@ -4150,26 +4226,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &31379628482359550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8089027029009244581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: 475.86523
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
 --- !u!114 &4400858053496595095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4185,7 +4241,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 50
     m_Right: 50
-    m_Top: 100
+    m_Top: 20
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 50
@@ -4210,6 +4266,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
   resetButton: {fileID: 1548030109858803166}
   hintButton: {fileID: 6714219921438602073}
+--- !u!225 &7397979908810341370
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089027029009244581}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8256880247456727432
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,8 +4491,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

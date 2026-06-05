@@ -287,6 +287,14 @@ namespace Gamio.Games.Kings
                 }
             }
 
+            if (solution != null)
+            {
+                for (int r = 0; r < GridSize; r++)
+                    for (int c = 0; c < GridSize; c++)
+                        if ((playerState[r, c] == KingsCellState.King) != solution[r, c])
+                            return false;
+            }
+
             return true;
         }
 

@@ -77,7 +77,7 @@ namespace Gamio.Features.HomeHub
                 if (iconPrefab != null)
                     Instantiate(iconPrefab, cell.transform);
 
-                var label = cell.GetComponentInChildren<TextMeshProUGUI>();
+                var label = cell.GetComponentInChildren<TextMeshProUGUI>(true);
                 if (label != null)
                     label.text = challenge.gameType;
 

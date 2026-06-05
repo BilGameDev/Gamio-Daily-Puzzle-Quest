@@ -35,8 +35,6 @@ namespace Gamio.Games.WordSearch
         {
             base.OnEnable();
             WordSearchGame.OnControllerCreated += OnControllerCreated;
-            if (WordSearchGame.CurrentController != null)
-                Setup(WordSearchGame.CurrentController);
         }
 
         protected override void OnDisable()

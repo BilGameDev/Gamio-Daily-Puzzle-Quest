@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
 public class CanvasFader : MonoBehaviour
 {
+    public static CanvasFader instance { get; private set; }
     [SerializeField] private bool playOnStart;
 
     [Header("Fade Settings")]
@@ -22,8 +24,13 @@ public class CanvasFader : MonoBehaviour
     [SerializeField] private Ease scaleInEase = Ease.OutBack;
     [SerializeField] private Ease scaleOutEase = Ease.InCubic;
 
+    private string fadeId;
+
     void Awake()
     {
+        instance = this;
+        fadeId = "CanvasFader_" + GetInstanceID();
+
         if (targets.Count == 0)
             GetComponentsInChildren(true, targets);
 
@@ -48,7 +55,7 @@ public class CanvasFader : MonoBehaviour
 
     public void PlayIn()
     {
-        DOTween.Kill(this);
+        DOTween.Kill(fadeId);
         for (int i = 0; i < targets.Count; i++)
         {
             var cg = targets[i];
@@ -58,43 +65,59 @@ public class CanvasFader : MonoBehaviour
             cg.gameObject.SetActive(true);
             cg.blocksRaycasts = false;
 
-            cg.DOFade(1f, inDuration).SetDelay(delay).SetEase(inEase).SetId(this)
+            cg.DOFade(1f, inDuration).SetDelay(delay).SetEase(inEase).SetId(fadeId)
                 .OnComplete(() => cg.blocksRaycasts = true);
 
             if (useScale && cg.transform is RectTransform rt)
             {
                 rt.localScale = Vector3.one * inStartScale;
-                rt.DOScale(1f, inDuration).SetDelay(delay).SetEase(scaleInEase).SetId(this);
+                rt.DOScale(1f, inDuration).SetDelay(delay).SetEase(scaleInEase).SetId(fadeId);
             }
         }
     }
 
-    public void PlayOut()
+    public void PlayOut(Action onComplete = null)
     {
-        DOTween.Kill(this);
+        DOTween.Kill(fadeId);
+
+        if (targets.Count == 0)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        var seq = DOTween.Sequence().SetId(fadeId);
+        int remaining = targets.Count;
+
         for (int i = 0; i < targets.Count; i++)
         {
             var cg = targets[i];
-            if (cg == null) continue;
-            var delay = i * staggerDelay;
+            if (cg == null) { remaining--; continue; }
 
             cg.blocksRaycasts = false;
 
-            cg.DOFade(0f, outDuration).SetDelay(delay).SetEase(outEase).SetId(this)
-                .OnComplete(() => cg.gameObject.SetActive(false));
+            seq.Insert(i * staggerDelay, cg.DOFade(0f, outDuration).SetEase(outEase));
 
             if (useScale && cg.transform is RectTransform rt)
-                rt.DOScale(Vector3.one * outEndScale, outDuration).SetDelay(delay).SetEase(scaleOutEase).SetId(this);
+                seq.Insert(i * staggerDelay, rt.DOScale(Vector3.one * outEndScale, outDuration).SetEase(scaleOutEase));
         }
+
+        seq.OnComplete(() =>
+        {
+            foreach (var cg in targets)
+                if (cg != null) cg.gameObject.SetActive(false);
+            onComplete?.Invoke();
+        });
     }
 
     public void Stop()
     {
-        DOTween.Kill(this);
+        DOTween.Kill(fadeId);
     }
 
     void OnDisable()
     {
-        DOTween.Kill(this);
+        instance = null;
+        DOTween.Kill(fadeId);
     }
 }

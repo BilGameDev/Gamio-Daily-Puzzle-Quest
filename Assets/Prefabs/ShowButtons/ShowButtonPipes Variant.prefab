@@ -8,10 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1818556838105808381, guid: c94de19bf65a4be43ba5ae33965a93d2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818556838105808381, guid: c94de19bf65a4be43ba5ae33965a93d2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818556838105808381, guid: c94de19bf65a4be43ba5ae33965a93d2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5372549
+      objectReference: {fileID: 0}
     - target: {fileID: 3848973788571365138, guid: c94de19bf65a4be43ba5ae33965a93d2, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 1191c29ca8b2c424888a12bcf450a141, type: 3}
+      objectReference: {fileID: 2800000, guid: fed6d7aa06b9c55478243a8743c1cde9, type: 3}
     - target: {fileID: 4560356139781293980, guid: c94de19bf65a4be43ba5ae33965a93d2, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0.00001001358

@@ -79,7 +79,6 @@ namespace Gamio.Core.Services
             PlayerPrefs.Save();
 
             cloudApiService.SetSessionToken(sessionToken);
-            Debug.Log("Verified " + sessionToken);
             loginEvents?.AuthSuccess();
         }
 

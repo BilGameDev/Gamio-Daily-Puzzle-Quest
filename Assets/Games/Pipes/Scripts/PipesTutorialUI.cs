@@ -31,8 +31,8 @@ namespace Gamio.Games.Pipes
        protected override void Start()
         {
             base.Start();
-            if (PipesGame.Instance != null && PipesGame.TutorialDeferred)
-                Begin();
+            if (PipesGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => PipesGame.Instance != null));
         }
 
         public override void Begin()
@@ -242,8 +242,9 @@ namespace Gamio.Games.Pipes
                     {
                         tutorialController.TapCell(row, col);
                         cell.PlayTapAnimation();
-                        RefreshAll();
-                        if (tutorialController != null)
+                        if (!tutorialController.IsSolved)
+                            RefreshAll();
+                        if (tutorialController != null && !tutorialController.IsSolved)
                             tutorialController.Check();
                     };
                     cells[r, c] = cell;

@@ -207,61 +207,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4176868486653391548, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176868486653391548, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176868486653391548, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176868486653391548, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4557209307256729353, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7797374948142650660, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
       propertyPath: m_Name
       value: TopBarCanvasGame Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 8564926386936440425, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8564926386936440425, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8564926386936440425, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8564926386936440425, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -305,7 +253,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.08176088, g: 0.08176088, b: 0.08176088, a: 0}
+  m_BackGroundColor: {r: 1, g: 0.4117647, b: 0.38039216, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -712,10 +660,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6420928801076140293, guid: 0e12dc74901c62d4b80dc1497800d0f7, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6869749293305806883, guid: 0e12dc74901c62d4b80dc1497800d0f7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -804,6 +748,18 @@ PrefabInstance:
     - target: {fileID: 4923371762476633373, guid: 6d679fd2695840c4d80df5fab9ff631d, type: 3}
       propertyPath: m_Name
       value: WordSearchTutorialCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588065023722501397, guid: 6d679fd2695840c4d80df5fab9ff631d, type: 3}
+      propertyPath: m_Color.b
+      value: 0.38039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588065023722501397, guid: 6d679fd2695840c4d80df5fab9ff631d, type: 3}
+      propertyPath: m_Color.g
+      value: 0.4117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7588065023722501397, guid: 6d679fd2695840c4d80df5fab9ff631d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8970089872785405234, guid: 6d679fd2695840c4d80df5fab9ff631d, type: 3}
       propertyPath: m_Pivot.x

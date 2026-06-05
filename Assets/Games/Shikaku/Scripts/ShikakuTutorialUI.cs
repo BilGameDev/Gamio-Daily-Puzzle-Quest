@@ -36,8 +36,8 @@ namespace Gamio.Games.Shikaku
         protected override void Start()
         {
             base.Start();
-            if (ShikakuGame.Instance != null && ShikakuGame.TutorialDeferred)
-                Begin();
+            if (ShikakuGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => ShikakuGame.Instance != null));
         }
 
         public override void Begin()

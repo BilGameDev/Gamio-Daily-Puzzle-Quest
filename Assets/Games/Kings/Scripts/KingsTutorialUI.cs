@@ -18,6 +18,7 @@ namespace Gamio.Games.Kings
         private KingsCellItem[,] cells;
         private int kingsPlaced;
         private bool advancing;
+        private bool holdEnabled;
 
         private const string GameId = "kings";
 
@@ -31,8 +32,8 @@ namespace Gamio.Games.Kings
         protected override void Start()
         {
             base.Start();
-            if (KingsGame.Instance != null && KingsGame.TutorialDeferred)
-                Begin();
+            if (KingsGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => KingsGame.Instance != null));
         }
 
         public override void Begin()
@@ -53,16 +54,25 @@ namespace Gamio.Games.Kings
 
         private void OnCellTap(int r, int c)
         {
-            if (currentController != null && !currentController.IsSolved &&
-                currentController.TapCell(r, c))
-                cells[r, c].PlayTapAnimation();
+            if (currentController != null && !currentController.IsSolved)
+            {
+                if (currentController.TapCell(r, c))
+                    cells[r, c].PlayTapAnimation();
+                else
+                    cells[r, c].PlayInvalidAnimation();
+            }
         }
 
         private void OnCellHold(int r, int c)
         {
-            if (currentController != null && !currentController.IsSolved &&
-                currentController.HoldCell(r, c))
-                cells[r, c].PlayTapAnimation();
+            if (!holdEnabled) return;
+            if (currentController != null && !currentController.IsSolved)
+            {
+                if (currentController.HoldCell(r, c))
+                    cells[r, c].PlayTapAnimation();
+                else
+                    cells[r, c].PlayInvalidAnimation();
+            }
         }
 
         private void OnPlacementDenied(int r, int c, int conflictR, int conflictC)
@@ -75,6 +85,7 @@ namespace Gamio.Games.Kings
         private void StartTapPhase()
         {
             CleanupPhase();
+            holdEnabled = false;
 
             currentController = new KingsGridController(CreatePuzzle(1, 1, null, null));
             currentController.OnCellChanged += OnCellChanged;
@@ -87,7 +98,8 @@ namespace Gamio.Games.Kings
 
         private void OnTapAction(int r, int c)
         {
-            if (currentController.Puzzle.GetState(r, c) != KingsCellState.Null) return;
+            var state = currentController.Puzzle.GetState(r, c);
+            if (state != KingsCellState.Null && state != KingsCellState.King) return;
             currentController.OnCellChanged -= OnCellChanged;
             currentController.OnCellChanged -= OnTapAction;
             currentController.OnPlacementDenied -= OnPlacementDenied;
@@ -98,6 +110,7 @@ namespace Gamio.Games.Kings
         private void StartHoldPhase()
         {
             CleanupPhase();
+            holdEnabled = true;
 
             currentController = new KingsGridController(CreatePuzzle(1, 1, null, null));
             currentController.OnCellChanged += OnCellChanged;

@@ -13,6 +13,7 @@ namespace Gamio.Games.LineConnect
         [SerializeField] private GameObject panel;
         [SerializeField] private GridLayoutGroup gridLayout;
         [SerializeField] private LineConnectCellItem cellPrefab;
+        [SerializeField] private LineConnectCellItem endpointPrefab;
         [Header("Layout")]
         [SerializeField] private Vector2 cellSize = new Vector2(100, 110);
 
@@ -39,8 +40,8 @@ namespace Gamio.Games.LineConnect
         protected override void Start()
         {
             base.Start();
-            if (LineConnectGame.Instance != null && LineConnectGame.TutorialDeferred)
-                Begin();
+            if (LineConnectGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => LineConnectGame.Instance != null));
         }
 
         public override void Begin()
@@ -148,7 +149,8 @@ namespace Gamio.Games.LineConnect
                 for (int c = 0; c < cols; c++)
                 {
                     var cellData = tutorialController.Puzzle.Cells[r, c];
-                    var cell = Instantiate(cellPrefab, gridLayout.transform);
+                    var prefab = cellData.IsEndpoint && endpointPrefab != null ? endpointPrefab : cellPrefab;
+                    var cell = Instantiate(prefab, gridLayout.transform);
                     cell.Init(r, c, cellData.ColorId, cellData.IsEndpoint);
                     cell.OnPointerDownEvent += OnCellDown;
                     cell.OnPointerEnterEvent += OnCellEnter;

@@ -2058,7 +2058,7 @@ MonoBehaviour:
   activeDotColor: {r: 1, g: 1, b: 1, a: 1}
   inactiveDotColor: {r: 1, g: 1, b: 1, a: 0.3}
   panel: {fileID: 356085045805227596}
-  gridLayout: {fileID: 7206448743546846867}
+  gridLayout: {fileID: 7275409422167924368}
   boxPrefab: {fileID: 2238607642173372635, guid: 73418e903290fd5449b9a8b33788084e, type: 3}
   cellPrefab: {fileID: 6165245922045258557, guid: 6b8c631718dd7ba4e8d95aadba1ca17a, type: 3}
   numberButtons:
@@ -2072,8 +2072,8 @@ MonoBehaviour:
   - {fileID: 7766556793497808370}
   - {fileID: 8435538175057395485}
   - {fileID: 3100464924170039797}
-  selectedColor: {r: 0.7, g: 0.85, b: 1, a: 1}
-  normalCellColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+  selectedColor: {r: 0.3775474, g: 1, b: 0.24842751, a: 1}
+  normalCellColor: {r: 1, g: 1, b: 1, a: 1}
   cellSize: {x: 60, y: 60}
 --- !u!1 &5023563101039053045
 GameObject:

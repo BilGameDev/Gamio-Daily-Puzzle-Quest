@@ -33,8 +33,6 @@ namespace Gamio.Games.Sudoku
         {
             base.OnEnable();
             SudokuGame.OnControllerCreated += OnControllerCreated;
-            if (SudokuGame.CurrentController != null)
-                Setup(SudokuGame.CurrentController);
         }
 
         protected override void OnDisable()

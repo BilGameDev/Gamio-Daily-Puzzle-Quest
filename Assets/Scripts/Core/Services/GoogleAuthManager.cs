@@ -170,8 +170,6 @@ namespace Gamio.Services
                     listener = new TcpListener(IPAddress.Loopback, listenPort);
                     listener.Start();
 
-                    Debug.Log($"Listening on http://localhost:{listenPort} for Google redirect...");
-
                     while (true)
                     {
                         using (var client = listener.AcceptTcpClient())
@@ -195,7 +193,6 @@ namespace Gamio.Services
                                 if (param.StartsWith("code="))
                                 {
                                     var code = Uri.UnescapeDataString(param.Substring(5));
-                                    Debug.Log("Received Google OAuth code: " + code);
 
                                     // Send success response
                                     string response = "<html><body><h2>Login successful! You can return to the app.</h2></body></html>";

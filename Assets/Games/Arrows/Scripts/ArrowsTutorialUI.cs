@@ -35,8 +35,8 @@ namespace Gamio.Games.Arrows
         protected override void Start()
         {
             base.Start();
-            if (ArrowsGame.Instance != null && ArrowsGame.TutorialDeferred)
-                Begin();
+            if (ArrowsGame.TutorialDeferred)
+                StartCoroutine(BeginWhenReady(() => ArrowsGame.Instance != null));
         }
 
         public override void Begin()

@@ -53,7 +53,7 @@ public class ButtonScaler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void StopAll()
     {
-        DOTween.KillAll(this);
+        transform.DOKill();
     }
 
     void OnDisable() => StopAll();

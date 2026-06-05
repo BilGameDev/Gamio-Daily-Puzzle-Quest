@@ -432,6 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782cb2e229c63cd48b556cd05951f681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.WordSearch::Gamio.Games.WordSearch.WordSearchGridUI
+  delayBeforeShowingUI: 1
   timerObject: {fileID: 9176034828648672956}
   launchOnStart: 1
   testMode: 0
@@ -1526,8 +1527,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100.00001}
-  m_SizeDelta: {x: 0, y: -199.99998}
+  m_AnchoredPosition: {x: 0, y: -75}
+  m_SizeDelta: {x: 0, y: -150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8020674752463232894
 CanvasRenderer:
@@ -1582,7 +1583,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 50
+    m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0

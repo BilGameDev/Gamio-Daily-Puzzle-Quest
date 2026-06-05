@@ -29,8 +29,6 @@ namespace Gamio.Games.Kings
         {
             base.OnEnable();
             KingsGame.OnControllerCreated += OnControllerCreated;
-            if (KingsGame.CurrentController != null)
-                OnControllerCreated(KingsGame.CurrentController);
         }
 
         protected override void OnDisable()
