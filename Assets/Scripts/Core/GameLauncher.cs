@@ -15,6 +15,8 @@ namespace Gamio.Root
 
         Camera mainCamera;
 
+        const string ReplayCountKey = "GamioReplayCount";
+
         void Start()
         {
             mainCamera = Camera.main;
@@ -39,19 +41,50 @@ namespace Gamio.Root
 
         public void LaunchGame()
         {
+            var adService = GamioAppContext.Get<IRewardedAdService>();
+            var count = PlayerPrefs.GetInt(ReplayCountKey, 0);
+            if (count % 2 == 1 && adService != null && adService.IsAdReady)
+            {
+                uIEvents?.RequestAdGate(
+                    onProceed: () =>
+                    {
+                        adService.ShowRewardedAd(() =>
+                        {
+                            IncrementCount();
+                            ProceedToGame();
+                        });
+                    },
+                    onCancel: null
+                );
+            }
+            else
+            {
+                ProceedToGame();
+            }
+        }
+
+        void ProceedToGame()
+        {
             var fader = CanvasFader.instance;
             if (fader != null)
                 fader.PlayOut(() => LoadGameScene());
             else
                 LoadGameScene();
         }
-        
+
         void LoadGameScene()
         {
-            mainCamera.DOColor(thisGameButton.targetGraphic.color, 1f).OnComplete(() =>
+            mainCamera.DOColor(thisGameButton.targetGraphic.color, .5f).OnComplete(() =>
             {
                 uIEvents?.RequestGameScene(gamesLibrary.GetGameScene(game));
             });
+        }
+
+        static void IncrementCount()
+        {
+            var count = PlayerPrefs.GetInt(ReplayCountKey, 0) + 1;
+            PlayerPrefs.SetInt(ReplayCountKey, count);
+            PlayerPrefs.Save();
         }
     }
 }

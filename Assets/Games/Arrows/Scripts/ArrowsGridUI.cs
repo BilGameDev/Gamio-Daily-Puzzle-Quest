@@ -97,7 +97,6 @@ namespace Gamio.Games.Arrows
 
         private void OnTileRemoved(int row, int col)
         {
-            HapticsHelper.PlayEmphasis(0.5f, 0.4f);
             var cellItem = cells[row, col];
             var dir = cellItem.Direction;
 
@@ -122,12 +121,10 @@ namespace Gamio.Games.Arrows
 
             cellItem.RectTransform.DOAnchorPos(cellItem.RectTransform.anchoredPosition + slideDir * distance, dur)
                 .SetEase(ease)
-                .OnPlay(() => HapticsHelper.PlayEmphasis(0.1f, 0.2f))
                 .OnComplete(() =>
                 {
                     cellItem.SetVisible(false);
                     cellItem.RectTransform.anchoredPosition = Vector2.zero;
-                    HapticsHelper.PlayEmphasis(0.3f, 0.5f);
                     grid.NotifyAnimationComplete();
                 });
         }
@@ -166,9 +163,8 @@ namespace Gamio.Games.Arrows
                     if (cell != null && cell.IsVisible() && grid.Puzzle.HasTile(r, c))
                     {
                         cell.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
-                            .SetDelay(delay).SetEase(Ease.OutQuad)
-                            .OnPlay(() => HapticsHelper.PlayEmphasis(0.2f, 0.4f));
-                        delay += 0.015f;
+                            .SetDelay(delay).SetEase(Ease.OutQuad);
+                            delay += 0.015f;
                     }
                 }
             }

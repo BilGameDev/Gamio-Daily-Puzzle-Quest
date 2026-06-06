@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 4588965511881471594}
   - component: {fileID: 3223644909324914798}
   - component: {fileID: 7177201483350074694}
+  - component: {fileID: 6757287254998963161}
   m_Layer: 0
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -894,6 +895,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
   resetButton: {fileID: 2766479693951507285}
   hintButton: {fileID: 8452593931250068557}
+--- !u!225 &6757287254998963161
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631047111363745167}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2968820987411809526
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,6 +919,7 @@ GameObject:
   - component: {fileID: 806217714177308505}
   - component: {fileID: 2511194671181506437}
   - component: {fileID: 2885748145614886465}
+  - component: {fileID: 7226735628081163505}
   m_Layer: 0
   m_Name: RulesPanel
   m_TagString: Untagged
@@ -991,6 +1005,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &7226735628081163505
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2968820987411809526}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3027513026378350632
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,6 +1166,7 @@ GameObject:
   - component: {fileID: 3959538732157717734}
   - component: {fileID: 8381591338430004737}
   - component: {fileID: 367800857360208599}
+  - component: {fileID: 590043562445520920}
   m_Layer: 0
   m_Name: GridPanel
   m_TagString: Untagged
@@ -1218,6 +1245,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &590043562445520920
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350215200263625198}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4924911987019798234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,6 +1405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1338060814401761944}
   - component: {fileID: 7240486441131014799}
+  - component: {fileID: 6535148474118601042}
   m_Layer: 0
   m_Name: KingsGame
   m_TagString: Untagged
@@ -1412,6 +1452,35 @@ MonoBehaviour:
   cellPrefab: {fileID: 3361239565904301973, guid: 2f3bbe4d09ca2ad48abdbe643d8bc3cc, type: 3}
   desiredCellSize: {x: 120, y: 130}
   maxCellSize: {x: 200, y: 220}
+--- !u!114 &6535148474118601042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945334629848348742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 1
+  targets:
+  - {fileID: 1723275623859421095}
+  - {fileID: 7226735628081163505}
+  - {fileID: 590043562445520920}
+  - {fileID: 6757287254998963161}
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 1
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &5293473016522163529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,6 +1642,7 @@ GameObject:
   - component: {fileID: 1160501271608978456}
   - component: {fileID: 1358560791487212376}
   - component: {fileID: 4714691209326330421}
+  - component: {fileID: 1723275623859421095}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -1664,6 +1734,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &1723275623859421095
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6957370206246838883}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7769381556286521612
 GameObject:
   m_ObjectHideFlags: 0

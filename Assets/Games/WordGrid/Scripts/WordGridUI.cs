@@ -140,7 +140,6 @@ namespace Gamio.Games.WordGrid
                 return;
             }
 
-            HapticsHelper.PlayEmphasis(0.5f, 0.5f);
             isAnimating = true;
             if (submitButton != null)
                 submitButton.interactable = false;
@@ -158,8 +157,7 @@ namespace Gamio.Games.WordGrid
 
                 DOVirtual.DelayedCall(delay, () =>
                 {
-                    cell.transform.DOPunchScale(Vector3.one * 0.15f, 0.2f, 2, 0.5f)
-                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.25f + idx * 0.05f, 0.4f));
+                    cell.transform.DOPunchScale(Vector3.one * 0.15f, 0.2f, 2, 0.5f);
                     cell.SetState(state);
                 });
                 delay += 0.15f;
@@ -194,8 +192,7 @@ namespace Gamio.Games.WordGrid
                     cell.transform.DOKill();
                     cell.transform.localScale = Vector3.one;
                     cell.transform.DOPunchScale(Vector3.one * 0.3f, 0.4f, 6, 0.5f)
-                        .SetEase(Ease.OutQuad)
-                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.3f + idx * 0.1f, 0.5f));
+                        .SetEase(Ease.OutQuad);
                 });
                 delay += 0.1f;
             }

@@ -14,18 +14,21 @@ public class GamioManager : MonoBehaviour
     public int ChallengeId => challengeId;
     public bool StreakPending => streakPending;
     public ChallengeInfo[] Challenges => challenges;
+    public IGame CurrentGame => currentGame;
     private StreakInfo streakInfo;
     private bool dailyCompleted;
     private bool challengeActive;
     private string challengeSeed;
     private int challengeId;
     private bool streakPending;
+    private IGame currentGame;
     private ChallengeInfo[] challenges;
 
     CloudAPIService cloudAPIService;
     ILoginEvents loginEvents;
     OfflineQueue offlineQueue;
     ICloudDataEvents cloudDataEvents;
+    IUIEvents uiEvents;
 
     void Awake()
     {
@@ -38,6 +41,7 @@ public class GamioManager : MonoBehaviour
         cloudAPIService = GamioAppContext.Get<CloudAPIService>();
         offlineQueue = GamioAppContext.Get<OfflineQueue>();
         cloudDataEvents = GamioAppContext.Get<ICloudDataEvents>();
+        uiEvents = GamioAppContext.Get<IUIEvents>();
 
         if (loginEvents != null)
         {
@@ -46,6 +50,8 @@ public class GamioManager : MonoBehaviour
     }
     void OnDisable()
     {
+        GamioAppContext.Clear();
+        
         if (loginEvents != null)
         {
             loginEvents.OnAuthSuccess -= FetchData;
@@ -75,6 +81,12 @@ public class GamioManager : MonoBehaviour
     public void SetDailyCompleted(bool completed)
     {
         dailyCompleted = completed;
+    }
+
+    public void SetCurrentGame(IGame game)
+    {
+        currentGame = game;
+        uiEvents?.LaunchGame(game);
     }
 
     public void SelectChallenge(int index)

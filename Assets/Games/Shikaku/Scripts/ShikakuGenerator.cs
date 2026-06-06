@@ -13,11 +13,11 @@ namespace Gamio.Games.Shikaku
             seed = s;
         }
 
-        public ShikakuPuzzle Generate(int gridSize)
+        public ShikakuPuzzle Generate(int gridSize, int minRectSize = 1, int maxRectSize = 5)
         {
             rng = new Random(seed.GetHashCode());
             var rects = new List<ShikakuRect>();
-            PartitionGrid(0, 0, gridSize, gridSize, rects);
+            PartitionGrid(0, 0, gridSize, gridSize, rects, minRectSize, maxRectSize);
 
             var cells = new ShikakuCell[gridSize, gridSize];
             for (var r = 0; r < gridSize; r++)
@@ -44,11 +44,9 @@ namespace Gamio.Games.Shikaku
             return new ShikakuPuzzle(cells, rects.AsReadOnly());
         }
 
-        private void PartitionGrid(int row, int col, int height, int width, List<ShikakuRect> rects)
+        private void PartitionGrid(int row, int col, int height, int width, List<ShikakuRect> rects, int minSize = 1, int maxSize = 5)
         {
             var area = height * width;
-            var minSize = 1;
-            var maxSize = 5;
 
             if (area <= maxSize || (height <= maxSize && width <= maxSize))
             {

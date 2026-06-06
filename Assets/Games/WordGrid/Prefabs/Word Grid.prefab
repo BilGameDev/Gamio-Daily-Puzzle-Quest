@@ -627,6 +627,7 @@ GameObject:
   - component: {fileID: 5147934905176436345}
   - component: {fileID: 6829712225506916858}
   - component: {fileID: 2438719658728059711}
+  - component: {fileID: 2958093137979947240}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -718,6 +719,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &2958093137979947240
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074073071248606900}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2541261087344278908
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,6 +743,7 @@ GameObject:
   - component: {fileID: 4708416969153755970}
   - component: {fileID: 5686807288263468377}
   - component: {fileID: 4603268782839671428}
+  - component: {fileID: 7522258877054864269}
   m_Layer: 0
   m_Name: RulesPanel
   m_TagString: Untagged
@@ -816,6 +830,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &7522258877054864269
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2541261087344278908}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2951480684991903733
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,6 +853,7 @@ GameObject:
   - component: {fileID: 882133668090288034}
   - component: {fileID: 4340424855421739205}
   - component: {fileID: 3661751720301655094}
+  - component: {fileID: 5817629143820643301}
   m_Layer: 5
   m_Name: WordGridLayout
   m_TagString: Untagged
@@ -901,6 +928,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &5817629143820643301
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951480684991903733}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3343945125814140703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,6 +2003,7 @@ GameObject:
   - component: {fileID: 1671592760352806464}
   - component: {fileID: 7789709954973451195}
   - component: {fileID: 9118852506417911752}
+  - component: {fileID: 6032596851428364550}
   m_Layer: 0
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -2070,6 +2110,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
   resetButton: {fileID: 1663228246913700950}
   hintButton: {fileID: 0}
+--- !u!225 &6032596851428364550
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7628151120503121681}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8275309255672499453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2080,6 +2132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3160115008572883801}
   - component: {fileID: 4263247430039621647}
+  - component: {fileID: 3053983724939191772}
   m_Layer: 0
   m_Name: Word Grid
   m_TagString: Untagged
@@ -2128,6 +2181,35 @@ MonoBehaviour:
   letterPrefab: {fileID: 8604425551081417350, guid: 4b32bd94e0ee99d4a910cc1759f32ce0, type: 3}
   submitButton: {fileID: 8916492167960497943}
   attemptsText: {fileID: 4009517283084774725}
+--- !u!114 &3053983724939191772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8275309255672499453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 1
+  targets:
+  - {fileID: 2958093137979947240}
+  - {fileID: 7522258877054864269}
+  - {fileID: 5817629143820643301}
+  - {fileID: 6032596851428364550}
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 1
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &8523390017992397913
 GameObject:
   m_ObjectHideFlags: 0

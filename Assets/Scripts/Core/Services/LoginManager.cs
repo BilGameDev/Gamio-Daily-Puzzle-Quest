@@ -10,13 +10,14 @@ public class LoginManager : MonoBehaviour
 {
     GoogleAuthManager googleAuthManager;
     private GoogleSignInConfiguration configuration;
-    string webClientId = "236896011039-t6m1garuf6n2lntb8gugl8lll2i6qcqf.apps.googleusercontent.com";
+    string webClientId;
     private ILoginEvents loginEvents;
     private AuthService authService;
 
     private void Awake()
     {
         googleAuthManager = GamioAppContext.Get<GoogleAuthManager>();
+        webClientId = GameSecretsLoader.Load().googleWebClientId;
         configuration = new GoogleSignInConfiguration
         {
             WebClientId = webClientId,

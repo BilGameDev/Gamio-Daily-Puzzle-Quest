@@ -253,8 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Gamio.Core::Gamio.Core.Services.SceneLoader
   _overlay: {fileID: 3162014889795427992}
-  _loadingText: {fileID: 3574596600941185163}
-  _minDisplayTime: 2
+  _fadeDuration: 0.25
 --- !u!1 &5410499043352601858
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.19607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -410,7 +409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  _animationAsset: {fileID: -6750239444755058063, guid: a1ecd6f4d08c189468a922d304a1ad8c, type: 3}
+  _animationAsset: {fileID: -6750239444755058063, guid: 933cc77ae1b0d8a438b06bee63306a9d, type: 3}
   _autoPlay: 2
   _loop: 1
   _width: 512

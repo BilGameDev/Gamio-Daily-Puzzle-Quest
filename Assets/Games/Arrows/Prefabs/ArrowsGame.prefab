@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1884139883141290308}
   - component: {fileID: 4960799704003819166}
   - component: {fileID: 3164568618416709668}
+  - component: {fileID: 1242667523377335766}
   m_Layer: 0
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -140,6 +141,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
   resetButton: {fileID: 2480327512641565267}
   hintButton: {fileID: 5014788842011794310}
+--- !u!225 &1242667523377335766
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772426053002000586}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1020759583076780894
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2992149748427061232}
   - component: {fileID: 4373046204628444551}
+  - component: {fileID: 3619433871287983702}
   m_Layer: 0
   m_Name: ArrowsGame
   m_TagString: Untagged
@@ -324,6 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d838dd04536a754ea159d68b919081a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.Arrows::Gamio.Games.Arrows.ArrowsGridUI
+  delayBeforeShowingUI: 1
   timerObject: {fileID: 2865870427253915082}
   launchOnStart: 1
   testMode: 0
@@ -331,6 +346,35 @@ MonoBehaviour:
   testSeed: 1234
   gridLayout: {fileID: 1368334881018709184}
   cellPrefab: {fileID: 963348210160214424, guid: f9a0d2fcba6fd3b4ea927208f4880aa3, type: 3}
+--- !u!114 &3619433871287983702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184233727369771769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 1
+  targets:
+  - {fileID: 6105912347061386421}
+  - {fileID: 4098844622921498003}
+  - {fileID: 8843461910396384374}
+  - {fileID: 1242667523377335766}
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 1
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &1630523583294461660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,6 +1155,7 @@ GameObject:
   - component: {fileID: 4365370194235964919}
   - component: {fileID: 6734559811542337227}
   - component: {fileID: 4530030792687225256}
+  - component: {fileID: 6105912347061386421}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -1202,6 +1247,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &6105912347061386421
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032324295222848657}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5260352692518862098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,6 +1408,7 @@ GameObject:
   - component: {fileID: 588347722723571568}
   - component: {fileID: 6853309059140602332}
   - component: {fileID: 4584696392658865959}
+  - component: {fileID: 4098844622921498003}
   m_Layer: 0
   m_Name: RulesPanel
   m_TagString: Untagged
@@ -1436,6 +1494,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &4098844622921498003
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5838493162862825432}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6243456963168554251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,6 +1861,7 @@ GameObject:
   - component: {fileID: 7116012169677118745}
   - component: {fileID: 3676530262686922476}
   - component: {fileID: 1368334881018709184}
+  - component: {fileID: 8843461910396384374}
   m_Layer: 0
   m_Name: GridPanel
   m_TagString: Untagged
@@ -1866,6 +1937,18 @@ MonoBehaviour:
   constraintCount: 5
   cellSize: {x: 100, y: 100}
   spacing: {x: 0, y: 0}
+--- !u!225 &8843461910396384374
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8668608478871133641}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &4669308634932598778
 PrefabInstance:
   m_ObjectHideFlags: 0

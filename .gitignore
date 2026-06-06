@@ -105,3 +105,19 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# --- Secrets & Credentials ---
+# Local secrets JSON (not committed, included in builds via Resources)
+/[Aa]ssets/Resources/secrets.json
+/[Aa]ssets/Resources/secrets.json.meta
+
+# Google OAuth client_secret JSON file
+/[Aa]ssets/Settings/client_secret_*.json
+/[Aa]ssets/Settings/client_secret_*.json.meta
+
+# AdMob settings with App ID (set locally, not in repo)
+/[Aa]ssets/GoogleMobileAds/Resources/GoogleMobileAdsSettings.asset
+/[Aa]ssets/GoogleMobileAds/Resources/GoogleMobileAdsSettings.asset.meta
+
+# Backend production secrets (use wrangler secret put)
+backend/wrangler.toml

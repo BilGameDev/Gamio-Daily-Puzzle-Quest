@@ -3230,6 +3230,8 @@ MonoBehaviour:
   _autoScroll: 0
   _autoScrollInterval: 3
   _tapToSelect: 1
+  _swipeToChange: 0
+  _swipeThreshold: 50
 --- !u!1001 &3143864392940851977
 PrefabInstance:
   m_ObjectHideFlags: 0

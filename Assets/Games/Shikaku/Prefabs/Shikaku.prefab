@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 7536041814405715107}
   - component: {fileID: 7005146602038126877}
   - component: {fileID: 9070950524182298594}
+  - component: {fileID: 4659859061395515982}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -209,6 +210,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &4659859061395515982
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858852864679157341}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2106484988043573584
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,6 +520,7 @@ GameObject:
   - component: {fileID: 1449019290694334489}
   - component: {fileID: 4308787120766980469}
   - component: {fileID: 8742196522734271656}
+  - component: {fileID: 6464686698102113385}
   m_Layer: 0
   m_Name: RulesPanel
   m_TagString: Untagged
@@ -592,6 +606,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &6464686698102113385
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643874536568884890}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3642416981470960239
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +826,7 @@ GameObject:
   - component: {fileID: 4778245272121736730}
   - component: {fileID: 8952157792762115210}
   - component: {fileID: 4990743472173902242}
+  - component: {fileID: 7605028901348697371}
   m_Layer: 0
   m_Name: GridPanel
   m_TagString: Untagged
@@ -878,6 +905,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &7605028901348697371
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385492200720773353}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4588800862102139890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,6 +1527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5005488946138789272}
   - component: {fileID: 3826471469528569506}
+  - component: {fileID: 7369258725472503421}
   m_Layer: 0
   m_Name: Shikaku
   m_TagString: Untagged
@@ -1534,6 +1574,35 @@ MonoBehaviour:
   cellPrefab: {fileID: 6239408109168841205, guid: dceb4293cfc3fe84c9a8090127071525, type: 3}
   selectionOverlay: {fileID: 8877655933216585241}
   cellColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+--- !u!114 &7369258725472503421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7398925952253346404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 1
+  targets:
+  - {fileID: 4659859061395515982}
+  - {fileID: 6464686698102113385}
+  - {fileID: 7605028901348697371}
+  - {fileID: 8886285374865689848}
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 1
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &7999870004041000684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1617,7 @@ GameObject:
   - component: {fileID: 1017546012901678640}
   - component: {fileID: 6406056119465584199}
   - component: {fileID: 7312273667986036649}
+  - component: {fileID: 8886285374865689848}
   m_Layer: 0
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -1674,6 +1744,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
   resetButton: {fileID: 491572462774342023}
   hintButton: {fileID: 6708840553844487368}
+--- !u!225 &8886285374865689848
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7999870004041000684}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8582373961961200552
 GameObject:
   m_ObjectHideFlags: 0

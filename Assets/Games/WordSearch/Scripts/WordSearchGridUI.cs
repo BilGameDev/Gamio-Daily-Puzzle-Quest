@@ -105,7 +105,6 @@ namespace Gamio.Games.WordSearch
 
         private void OnCellDown(int row, int col)
         {
-            HapticsHelper.PlaySoftImpact();
             grid.StartDrag(row, col);
             RefreshHighlights();
         }
@@ -121,12 +120,12 @@ namespace Gamio.Games.WordSearch
         {
             if (!grid.IsDragging) return;
             grid.EndDrag();
+            HapticsHelper.PlaySoftImpact();
             RefreshHighlights();
         }
 
         private void HandleWordFound(string word)
         {
-            HapticsHelper.PlayEmphasis(0.6f, 0.7f);
             for (int i = 0; i < grid.Puzzle.Placements.Count; i++)
             {
                 if (grid.Puzzle.Placements[i].Word == word)
@@ -159,8 +158,7 @@ namespace Gamio.Games.WordSearch
                     cell.transform.DOKill();
                     cell.transform.localScale = Vector3.one;
                     cell.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
-                        .SetDelay(delay).SetEase(Ease.OutQuad)
-                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.15f + (r + c) % 3 * 0.1f, 0.3f));
+                        .SetDelay(delay).SetEase(Ease.OutQuad);
                     delay += 0.02f;
                 }
         }

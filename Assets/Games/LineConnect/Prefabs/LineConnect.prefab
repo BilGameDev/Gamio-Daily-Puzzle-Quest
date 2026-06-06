@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 611565203769585371}
   - component: {fileID: 5007268813623302779}
   - component: {fileID: 4594640570436655700}
+  - component: {fileID: 2541723181797003764}
   m_Layer: 0
   m_Name: RulesPanel
   m_TagString: Untagged
@@ -234,6 +235,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &2541723181797003764
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207439690016726787}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1270866300490811094
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9089508394228985774}
   - component: {fileID: 1697897621421247112}
+  - component: {fileID: 5847783044968133089}
   m_Layer: 0
   m_Name: LineConnect
   m_TagString: Untagged
@@ -623,15 +637,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a27bed1f474374493e576bd68dcab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gamio.Games.LineConnect::Gamio.Games.LineConnect.LineConnectGridUI
+  delayBeforeShowingUI: 1
   timerObject: {fileID: 7729493188364670544}
   launchOnStart: 1
   testMode: 0
-  testDifficulty: 0
+  testDifficulty: 2
   testSeed: 1234
   gridLayout: {fileID: 3970096791977798124}
   cellPrefab: {fileID: 1839685432956231823, guid: 3808dbb53dc231d4a9a09cf8d9bee2e0, type: 3}
   endpointPrefab: {fileID: 1839685432956231823, guid: 621a9296794ddfc469520c515f9819b7, type: 3}
   cellSize: {x: 100, y: 110}
+--- !u!114 &5847783044968133089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2984301445872661939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 1
+  targets:
+  - {fileID: 5306614406064779191}
+  - {fileID: 2541723181797003764}
+  - {fileID: 443020512140353578}
+  - {fileID: 7862444955045627169}
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 1
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &3056117042322996149
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,8 +887,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1020,6 +1064,7 @@ GameObject:
   - component: {fileID: 8474941619740016095}
   - component: {fileID: 3970096791977798124}
   - component: {fileID: 7788382223443084294}
+  - component: {fileID: 443020512140353578}
   m_Layer: 0
   m_Name: GridPanel
   m_TagString: Untagged
@@ -1098,6 +1143,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &443020512140353578
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6451555708789940203}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7276083928981241721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,7 +1250,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 50
+    m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
@@ -1218,6 +1275,7 @@ GameObject:
   - component: {fileID: 2364146611605349022}
   - component: {fileID: 4891498599077823322}
   - component: {fileID: 1790946155666133853}
+  - component: {fileID: 7862444955045627169}
   m_Layer: 0
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -1344,6 +1402,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
   resetButton: {fileID: 5150624210722394067}
   hintButton: {fileID: 7629795251079409339}
+--- !u!225 &7862444955045627169
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7552068136174395209}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7888381445296024323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,8 +1626,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1631,6 +1701,7 @@ GameObject:
   - component: {fileID: 1129030334577195787}
   - component: {fileID: 2369800890519909015}
   - component: {fileID: 8994659537570941635}
+  - component: {fileID: 5306614406064779191}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -1722,6 +1793,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &5306614406064779191
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129133372798918136}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &9197921333721356293
 GameObject:
   m_ObjectHideFlags: 0

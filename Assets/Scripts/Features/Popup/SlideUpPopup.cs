@@ -24,7 +24,7 @@ namespace Gamio.Features.Popup
                 mainCurrentPosition = rect.anchoredPosition;
                 rect.gameObject.SetActive(true);
                 rect.anchoredPosition = new Vector2(mainCurrentPosition.x, -3000);
-                rect.DOAnchorPos(mainCurrentPosition, 0.2f).SetEase(Ease.OutCubic);
+                rect.DOAnchorPos(mainCurrentPosition, 0.6f).SetEase(Ease.OutCubic);
             }
         }
 
@@ -34,7 +34,7 @@ namespace Gamio.Features.Popup
             if (overlayGroup != null)
                 seq.Join(overlayGroup.DOFade(0f, 0.15f));
             if (panelGroup != null)
-                seq.Join(((RectTransform)panelGroup.transform).DOAnchorPosY(-3000, 0.2f).SetEase(Ease.InCubic));
+                seq.Join(((RectTransform)panelGroup.transform).DOAnchorPosY(-3000, 0.6f).SetEase(Ease.InCubic));
             seq.OnComplete(() =>
             {
                 if (this != null)

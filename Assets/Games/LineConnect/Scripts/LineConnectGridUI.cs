@@ -125,7 +125,6 @@ namespace Gamio.Games.LineConnect
 
         private void OnCellDown(int row, int col)
         {
-            HapticsHelper.PlaySoftImpact();
             grid.StartDrag(row, col);
         }
 
@@ -138,6 +137,7 @@ namespace Gamio.Games.LineConnect
         private void OnCellUp()
         {
             grid.EndDrag();
+            HapticsHelper.PlaySoftImpact();
         }
 
         private void RefreshAll()
@@ -245,8 +245,7 @@ namespace Gamio.Games.LineConnect
                     cells[r, c].transform.DOKill();
                     cells[r, c].transform.localScale = Vector3.one;
                     cells[r, c].transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 4, 0.5f)
-                        .SetDelay(delay).SetEase(Ease.OutQuad)
-                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.2f + (row + col) % 3 * 0.1f, 0.4f));
+                        .SetDelay(delay).SetEase(Ease.OutQuad);
                     delay += 0.015f;
                 }
         }

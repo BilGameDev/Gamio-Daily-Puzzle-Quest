@@ -145,8 +145,7 @@ namespace Gamio.Games.Sudoku
                     if (cells[r, c] != null)
                     {
                         cells[r, c].transform.DOPunchScale(Vector3.one * 0.08f, 0.4f, 2, 0.3f)
-                            .SetDelay(delay).SetEase(Ease.OutQuad)
-                            .OnPlay(() => HapticsHelper.PlayEmphasis(0.15f, 0.3f));
+                            .SetDelay(delay).SetEase(Ease.OutQuad);
                     }
                     delay += 0.02f;
                 }

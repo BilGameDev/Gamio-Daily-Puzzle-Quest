@@ -25,7 +25,18 @@ namespace Gamio.Services
         [Header("Google OAuth Credentials")]
         public string clientId;
         public string clientSecret;
-        public string redirectUri = "http://localhost:3000"; // Must match Google OAuth config
+        public string redirectUri = "http://localhost:3000";
+
+        void LoadSecrets()
+        {
+            var secrets = Gamio.Core.Services.GameSecretsLoader.Load();
+            if (string.IsNullOrEmpty(clientId))
+                clientId = secrets.googleWebClientId;
+            if (string.IsNullOrEmpty(clientSecret))
+                clientSecret = secrets.googleClientSecret;
+            if (redirectUri == "http://localhost:3000")
+                redirectUri = secrets.googleRedirectUri;
+        }
 
         private string authCode;
 
@@ -45,6 +56,7 @@ namespace Gamio.Services
         void Awake()
         {
             GamioAppContext.Register(this);
+            LoadSecrets();
         }
 
         public void AutoLogin()

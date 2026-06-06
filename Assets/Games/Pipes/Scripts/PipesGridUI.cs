@@ -94,7 +94,6 @@ namespace Gamio.Games.Pipes
         private void OnCellClick(int row, int col)
         {
             HapticsHelper.PlaySoftImpact();
-            HapticsHelper.PlayEmphasis(0.3f, 0.6f);
             grid.TapCell(row, col);
             cells[row, col].PlayTapAnimation();
             RefreshAll();
@@ -117,7 +116,6 @@ namespace Gamio.Games.Pipes
                 {
                     int row = r, col = c;
                     cells[r, c].PlaySolvedAnimation(delay);
-                    DOVirtual.DelayedCall(delay, () => HapticsHelper.PlayEmphasis(0.2f + (row + col) % 3 * 0.1f, 0.4f));
                     delay += 0.03f;
                 }
         }

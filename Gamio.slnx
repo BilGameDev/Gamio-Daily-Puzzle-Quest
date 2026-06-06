@@ -22,12 +22,14 @@
   <Project Path="LeanGUI.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Gamio.Games.Kings.csproj" />
+  <Project Path="GoogleMobileAds.Editor.csproj" />
   <Project Path="UniTask.TextMeshPro.csproj" />
   <Project Path="Gamio.Core.csproj" />
   <Project Path="MaterialSymbols.csproj" />
   <Project Path="Gamio.Games.WordSearch.csproj" />
   <Project Path="Gamio.Games.Pipes.csproj" />
   <Project Path="UnlimitedScrollUIEditor.csproj" />
+  <Project Path="Gamio.Ads.csproj" />
   <Project Path="UnlimitedScrollUIExample.csproj" />
   <Project Path="UniTask.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />

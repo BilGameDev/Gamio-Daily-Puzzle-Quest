@@ -8,13 +8,12 @@ namespace Gamio.Core.Services
 {
     public class CloudAPIService
     {
-        private const string DefaultBaseUrl = "https://gamio-api.viridianbil.workers.dev";
         private string _baseUrl;
         private string _sessionToken;
 
         public CloudAPIService(string baseUrl = null)
         {
-            _baseUrl = baseUrl ?? DefaultBaseUrl;
+            _baseUrl = baseUrl ?? GameSecretsLoader.Load().backendApiUrl;
         }
 
         public void SetSessionToken(string token) => _sessionToken = token;

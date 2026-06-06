@@ -28,7 +28,7 @@ namespace Gamio.Core
         {
             game.Initialize();
             stopwatch = new Stopwatch();
-            timerObject.gameObject.SetActive(false);
+            timerObject.transform.parent.gameObject.SetActive(false);
 
             if (testMode || gamioManager == null)
             {
@@ -48,7 +48,7 @@ namespace Gamio.Core
 
                     game.OnSolved += Solved;
 
-                    timerObject.gameObject.SetActive(true);
+                    timerObject.transform.parent.gameObject.SetActive(true);
 
                     StartCoroutine(RunGame(game, gamioManager.ChallengeSeed, Difficulty.Hard));
                 }
@@ -58,14 +58,13 @@ namespace Gamio.Core
                 }
             }
 
-            SolvedHandler solvedHandler = new GameObject("SolvedHandler").AddComponent<SolvedHandler>();
-            solvedHandler.Setup(game);
+            gamioManager?.SetCurrentGame(game);
         }
         IEnumerator RunGame(IGame game, string seed, Difficulty difficulty)
         {
             yield return new WaitForSeconds(delayBeforeShowingUI);
 
-            if (gamioManager.ChallengeActive)
+            if (gamioManager != null && gamioManager.ChallengeActive)
                 yield return CountdownUI.Show(transform);
 
             stopwatch.Start();

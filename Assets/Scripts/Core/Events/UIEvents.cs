@@ -1,4 +1,5 @@
 using System;
+using Gamio.Core;
 using Google;
 
 public interface IUIEvents : IDisposable
@@ -11,6 +12,8 @@ public interface IUIEvents : IDisposable
     event Action OnChallengeRequested;
     event Action<float> OnChallengeSolved;
     event Action<string> OnGameSceneRequested;
+    event Action<IGame> OnGameLaunched;
+    event Action<Action, Action> OnAdGateRequested;
 
     void RequestTutorial();
     void RequestSkipTutorial();
@@ -20,6 +23,8 @@ public interface IUIEvents : IDisposable
     void RequestChallenge();
     void SolvedChallenge(float solveTime);
     void RequestGameScene(string gameScene);
+    void LaunchGame(IGame game);
+    void RequestAdGate(Action onProceed, Action onCancel);
 }
 
 public class UIEvents : IUIEvents
@@ -32,6 +37,8 @@ public class UIEvents : IUIEvents
     public event Action OnChallengeRequested;
     public event Action<float> OnChallengeSolved;
     public event Action<string> OnGameSceneRequested;
+    public event Action<IGame> OnGameLaunched;
+    public event Action<Action, Action> OnAdGateRequested;
 
     public void RequestTutorial() => OnTutorialRequested?.Invoke();
     public void RequestSkipTutorial() => OnSkipTutorialRequested?.Invoke();
@@ -41,6 +48,8 @@ public class UIEvents : IUIEvents
     public void RequestChallenge() => OnChallengeRequested?.Invoke();
     public void SolvedChallenge(float solveTime) => OnChallengeSolved?.Invoke(solveTime);
     public void RequestGameScene(string gameScene) => OnGameSceneRequested?.Invoke(gameScene);
+    public void LaunchGame(IGame game) => OnGameLaunched?.Invoke(game);
+    public void RequestAdGate(Action onProceed, Action onCancel) => OnAdGateRequested?.Invoke(onProceed, onCancel);
 
     public void Dispose()
     {

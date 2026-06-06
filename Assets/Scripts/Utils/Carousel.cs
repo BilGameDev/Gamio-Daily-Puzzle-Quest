@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Gamio.Features.UI
 {
     [ExecuteAlways]
-    public class Carousel : LayoutGroup
+    public class Carousel : LayoutGroup, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private float _spacing = 350f;
         [SerializeField] private Vector3 _centerScale = Vector3.one;
@@ -19,12 +20,16 @@ namespace Gamio.Features.UI
         [SerializeField] private bool _autoScroll;
         [SerializeField] private float _autoScrollInterval = 3f;
         [SerializeField] private bool _tapToSelect;
+        [SerializeField] private bool _swipeToChange;
+        [SerializeField] private float _swipeThreshold = 50f;
 
         private readonly Dictionary<RectTransform, CanvasGroup> _cache = new();
         private readonly Dictionary<RectTransform, SlotPos> _targetSlots = new();
         private int _currentIndex;
         private bool _layoutApplied;
         private bool _isTransitioning;
+        private Vector2 _dragStartPos;
+        private bool _isDraggingSwipe;
 
         public int CurrentIndex => _currentIndex;
         public int ItemCount => rectChildren.Count;
@@ -145,6 +150,28 @@ namespace Gamio.Features.UI
 
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => GoTo(index));
+            }
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (!_swipeToChange || !isActiveAndEnabled) return;
+            _dragStartPos = eventData.position;
+            _isDraggingSwipe = true;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (!_swipeToChange || !_isDraggingSwipe) return;
+            _isDraggingSwipe = false;
+
+            var delta = eventData.position.x - _dragStartPos.x;
+            if (Mathf.Abs(delta) >= _swipeThreshold)
+            {
+                if (delta < 0)
+                    Next();
+                else
+                    Previous();
             }
         }
 

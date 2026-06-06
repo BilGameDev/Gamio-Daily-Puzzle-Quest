@@ -298,6 +298,7 @@ GameObject:
   - component: {fileID: 8767716702336756606}
   - component: {fileID: 8985301116011406733}
   - component: {fileID: 6018225417707526260}
+  - component: {fileID: 140487288110184675}
   m_Layer: 5
   m_Name: WordListHolder
   m_TagString: Untagged
@@ -386,6 +387,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &140487288110184675
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328085756457710403}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1404371833366658184
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4548163205199666302}
   - component: {fileID: 8920760263607520703}
+  - component: {fileID: 7536129743120854865}
   m_Layer: 0
   m_Name: Word Search
   m_TagString: Untagged
@@ -445,6 +459,36 @@ MonoBehaviour:
   cellColor: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
   highlightColor: {r: 0.3, g: 0.8, b: 1, a: 0.6}
   foundColor: {r: 0.6, g: 0.9, b: 0.6, a: 0.5}
+--- !u!114 &7536129743120854865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404371833366658184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67dc02388cf7c545a11c8fdcbf0a60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Utils::CanvasFader
+  playOnStart: 1
+  targets:
+  - {fileID: 1895343626536873456}
+  - {fileID: 5073303488580059870}
+  - {fileID: 4921381114139402008}
+  - {fileID: 140487288110184675}
+  - {fileID: 1277210460799856021}
+  inDuration: 0.5
+  outDuration: 0.35
+  staggerDelay: 0.15
+  inEase: 9
+  outEase: 8
+  startHidden: 1
+  useScale: 1
+  inStartScale: 0.92
+  outEndScale: 0.92
+  scaleInEase: 27
+  scaleOutEase: 8
 --- !u!1 &2106900831742820784
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,6 +879,7 @@ GameObject:
   - component: {fileID: 7549300030582780533}
   - component: {fileID: 6894644459240709841}
   - component: {fileID: 8764875195813067286}
+  - component: {fileID: 1277210460799856021}
   m_Layer: 0
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -961,6 +1006,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Features::Gamio.Features.UI.BottomBarController
   resetButton: {fileID: 2884801962043195746}
   hintButton: {fileID: 718952699477816829}
+--- !u!225 &1277210460799856021
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038967784964979773}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5296697730123970482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1179,7 @@ GameObject:
   - component: {fileID: 8755719668598371621}
   - component: {fileID: 1436183302354716051}
   - component: {fileID: 6690647775038947280}
+  - component: {fileID: 1895343626536873456}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -1213,6 +1271,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &1895343626536873456
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5351950568577837585}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5613367943464395342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,6 +1870,7 @@ GameObject:
   - component: {fileID: 3808046027271350681}
   - component: {fileID: 8493576650576413756}
   - component: {fileID: 697674536340445062}
+  - component: {fileID: 5073303488580059870}
   m_Layer: 0
   m_Name: RulesPanel
   m_TagString: Untagged
@@ -1885,6 +1956,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &5073303488580059870
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8269405740967254484}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8302036401306321180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1980,7 @@ GameObject:
   - component: {fileID: 7592787109473546931}
   - component: {fileID: 1177260606791100866}
   - component: {fileID: 5576942653756011710}
+  - component: {fileID: 4921381114139402008}
   m_Layer: 0
   m_Name: GridPanel
   m_TagString: Untagged
@@ -1975,6 +2059,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &4921381114139402008
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8302036401306321180}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1756115239568475276
 PrefabInstance:
   m_ObjectHideFlags: 0

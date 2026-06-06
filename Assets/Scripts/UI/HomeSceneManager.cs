@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using Gamio.Core;
 using Gamio.Core.Services;
 using Gamio.Features.Leaderboard;
+using Gamio.Features.Popup;
 using Gamio.Features.UI;
 using TMPro;
 using UnityEngine;
@@ -48,12 +50,28 @@ namespace Gamio.Features.HomeHub
             cloudDataEvents = GamioAppContext.Get<ICloudDataEvents>();
             if (cloudDataEvents != null)
                 cloudDataEvents.OnSeedFetched += OnSeedFetched;
+
+            uiEvents = GamioAppContext.Get<IUIEvents>();
+            if (uiEvents != null)
+                uiEvents.OnAdGateRequested += HandleAdGate;
         }
 
         void OnDisable()
         {
             if (cloudDataEvents != null)
                 cloudDataEvents.OnSeedFetched -= OnSeedFetched;
+
+            if (uiEvents != null)
+                uiEvents.OnAdGateRequested -= HandleAdGate;
+        }
+
+        void HandleAdGate(Action onProceed, Action onCancel)
+        {
+            PopupUI.Show("Play", "Watch an ad to play?",
+                onConfirm: onProceed,
+                onCancel: onCancel,
+                confirmLabel: "Watch Ad",
+                cancelLabel: "Cancel");
         }
 
         void OnSeedFetched(SeedResponse response)

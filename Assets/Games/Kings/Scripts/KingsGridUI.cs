@@ -99,7 +99,6 @@ namespace Gamio.Games.Kings
             HapticsHelper.PlaySoftImpact();
             if (grid.TapCell(row, col))
             {
-                HapticsHelper.PlayEmphasis(0.3f, 0.5f);
                 cells[row, col].PlayTapAnimation();
             }
         }
@@ -109,7 +108,6 @@ namespace Gamio.Games.Kings
             if (grid.IsSolved) return;
             if (grid.HoldCell(row, col))
             {
-                HapticsHelper.PlayEmphasis(0.5f, 0.7f);
                 cells[row, col].PlayTapAnimation();
             }
         }
@@ -139,7 +137,6 @@ namespace Gamio.Games.Kings
                 {
                     int row = r, col = c;
                     cells[r, c].PlaySolvedAnimation(delay);
-                    DOVirtual.DelayedCall(delay, () => HapticsHelper.PlayEmphasis(0.2f + (row + col) % 3 * 0.1f, 0.4f));
                     delay += 0.03f;
                 }
             }

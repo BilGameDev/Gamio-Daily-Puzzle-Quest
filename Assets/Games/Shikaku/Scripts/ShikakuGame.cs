@@ -64,7 +64,7 @@ namespace Gamio.Games.Shikaku
 
             var config = ActiveSettings.GetConfig(CurrentDifficulty);
             var generator = new ShikakuGenerator(CurrentSeed);
-            puzzle = generator.Generate(config.gridSize);
+            puzzle = generator.Generate(config.gridSize, config.minRectSize, config.maxRectSize);
 
             SetupController(puzzle);
         }

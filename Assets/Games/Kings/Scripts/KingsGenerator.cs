@@ -27,15 +27,9 @@ namespace Gamio.Games.Kings
                 for (int c = 0; c < gridSize; c++)
                     cells[r, c] = new KingsCell { Row = r, Col = c, SectionIndex = regionIds[r, c] };
 
-            var solution = SolveKings(regionIds, gridSize);
-            var solutionGrid = new bool[gridSize, gridSize];
-            for (int i = 0; i < gridSize; i++)
-            {
-                var (sr, sc) = solution[i];
-                solutionGrid[sr, sc] = true;
-            }
+            SolveKings(regionIds, gridSize);
 
-            return new KingsPuzzle(gridSize, cells, regionCount, solutionGrid);
+            return new KingsPuzzle(gridSize, cells, regionCount, null);
         }
 
         private int[,] GenerateRegions(int size, int regionCount)

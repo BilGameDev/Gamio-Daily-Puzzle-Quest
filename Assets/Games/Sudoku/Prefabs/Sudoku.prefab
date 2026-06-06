@@ -889,7 +889,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Utils::CanvasFader
   playOnStart: 1
   targets:
-  - {fileID: 0}
   - {fileID: 4691493447761503567}
   - {fileID: 716128130350264593}
   - {fileID: 6201324083779945784}
@@ -1866,7 +1865,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.55
+  m_fontSize: 34.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

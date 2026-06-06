@@ -15,9 +15,15 @@ MonoBehaviour:
   easy:
     gridSize: 7
     cellSize: {x: 110, y: 110}
+    minRectSize: 2
+    maxRectSize: 15
   medium:
     gridSize: 8
     cellSize: {x: 100, y: 100}
+    minRectSize: 2
+    maxRectSize: 15
   hard:
     gridSize: 10
-    cellSize: {x: 90, y: 90}
+    cellSize: {x: 70, y: 70}
+    minRectSize: 2
+    maxRectSize: 10

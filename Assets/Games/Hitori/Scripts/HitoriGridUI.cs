@@ -96,8 +96,7 @@ namespace Gamio.Games.Hitori
                     cell.transform.DOKill();
                     cell.transform.localScale = Vector3.one;
                     cell.transform.DOPunchScale(Vector3.one * 0.25f, 0.4f, 6, 0.5f)
-                        .SetDelay(delay).SetEase(Ease.OutQuad)
-                        .OnPlay(() => HapticsHelper.PlayEmphasis(0.2f, 0.4f));
+                        .SetDelay(delay).SetEase(Ease.OutQuad);
                     delay += 0.03f;
                 }
             }

@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
+  m_Color: {r: 1, g: 0.5882353, b: 0.30980393, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -785,7 +785,7 @@ MonoBehaviour:
   panel: {fileID: 3291662371107624203}
   gridLayout: {fileID: 4192328531724128205}
   cellPrefab: {fileID: 963348210160214424, guid: f9a0d2fcba6fd3b4ea927208f4880aa3, type: 3}
-  cellSize: {x: 110, y: 110}
+  cellSize: {x: 220, y: 230}
 --- !u!1 &5977649242434424967
 GameObject:
   m_ObjectHideFlags: 0
