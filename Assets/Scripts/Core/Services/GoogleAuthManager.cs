@@ -23,9 +23,9 @@ namespace Gamio.Services
         private TcpListener listener;
 
         [Header("Google OAuth Credentials")]
-        public string clientId;
-        public string clientSecret;
-        public string redirectUri = "http://localhost:3000";
+        string clientId;
+        string clientSecret;
+         string redirectUri = "http://localhost:3000";
 
         void LoadSecrets()
         {

@@ -7,9 +7,9 @@ namespace Gamio.Core.Services
     {
         public string googleWebClientId = "";
         public string googleClientSecret = "";
-        public string googleRedirectUri = "http://localhost:3000";
-        public string backendApiUrl = "https://gamio-api.viridianbil.workers.dev";
-        public string admobRewardedAdUnitId = "ca-app-pub-5838098451531956/6274858792";
+        public string googleRedirectUri = "";
+        public string backendApiUrl = "";
+        public string admobRewardedAdUnitId = "";
     }
 
     public static class GameSecretsLoader
