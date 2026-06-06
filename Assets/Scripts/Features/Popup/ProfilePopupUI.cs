@@ -35,6 +35,7 @@ namespace Gamio.Features.Popup
         [SerializeField] private Button logoutButton;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button creditsButton;
+        [SerializeField] private Button privacyButton;
         [SerializeField] private LeanToggle hapticsToggle;
 
         private string currentSeed;
@@ -89,6 +90,9 @@ namespace Gamio.Features.Popup
                 updateUsernameButton.onClick.AddListener(OnUpdateUsernameClicked);
             
             creditsButton.onClick.AddListener(OnCreditsClicked);
+
+            if (privacyButton != null)
+                privacyButton.onClick.AddListener(OnPrivacyClicked);
 
             currentSeed = AvatarService.GetSavedSeed();
             StartCoroutine(LoadAvatarTexture(currentSeed));
@@ -194,6 +198,11 @@ namespace Gamio.Features.Popup
             }
         }
 
+        private void OnPrivacyClicked()
+        {
+            GamioAppContext.Get<IUIEvents>()?.RequestPrivacy();
+        }
+
          private void OnCreditsClicked()
         {
             CreditsPopupUI.Show();
@@ -217,6 +226,8 @@ namespace Gamio.Features.Popup
             closeButton.onClick.RemoveAllListeners();
             updateUsernameButton?.onClick.RemoveAllListeners();
             creditsButton.onClick.RemoveAllListeners();
+            if (privacyButton != null)
+                privacyButton.onClick.RemoveAllListeners();
 
             base.Close();
         }

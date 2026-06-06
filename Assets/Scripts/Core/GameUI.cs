@@ -115,6 +115,20 @@ namespace Gamio.Core
         }
 
         protected virtual void ResetPuzzle() { }
-        protected virtual void OnHint() { }
+
+        private void OnHint()
+        {
+            var adService = GamioAppContext.Get<IRewardedAdService>();
+            if (adService != null && adService.IsAdReady)
+            {
+                adService.ShowRewardedAd(OnHintGranted);
+            }
+            else
+            {
+                uIEvents?.RequestNotification("Hint", "Ad not available.\nCheck your internet connection or disable ad blocker.");
+            }
+        }
+
+        protected virtual void OnHintGranted() { }
     }
 }

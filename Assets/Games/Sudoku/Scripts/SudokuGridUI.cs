@@ -169,7 +169,7 @@ namespace Gamio.Games.Sudoku
             RefreshVisuals();
         }
 
-        protected override void OnHint()
+        protected override void OnHintGranted()
         {
             showSolution = false;
             hintRevealCount++;

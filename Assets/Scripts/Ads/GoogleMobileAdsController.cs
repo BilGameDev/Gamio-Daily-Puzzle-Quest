@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gamio.Core;
 using UnityEngine;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
@@ -20,7 +21,7 @@ namespace GoogleMobileAds.Samples
 #if UNITY_IPHONE
             "96e23e80653bb28980d3f40beb58915c",
 #elif UNITY_ANDROID
-            "702815ACFC14FF222DA1DC767672A573"
+            "2422B7F946C5CEE98E81584DEE454F1F"
 #endif
         };
 
@@ -43,10 +44,12 @@ namespace GoogleMobileAds.Samples
 
             // Configure your RequestConfiguration with Child Directed Treatment
             // and the Test Device Ids.
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             MobileAds.SetRequestConfiguration(new RequestConfiguration
             {
                 TestDeviceIds = TestDeviceIds
             });
+#endif
 
             // If we can request ads, we should initialize the Google Mobile Ads Unity plugin.
             if (_consentController.CanRequestAds)
@@ -126,6 +129,7 @@ namespace GoogleMobileAds.Samples
 
                 Debug.Log("Google Mobile Ads initialization complete.");
                 _isInitialized = true;
+                GMASDK.NotifyInitialized();
 
                 // Google Mobile Ads events are raised off the Unity Main thread. If you need to
                 // access UnityEngine objects after initialization,

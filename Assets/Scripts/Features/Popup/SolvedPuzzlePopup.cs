@@ -37,7 +37,8 @@ namespace Gamio.Features.Popup
         private void Setup(string puzzleName, string sceneName)
         {
             replaySceneName = sceneName;
-            requiresAd = CheckRequiresAd();
+            var adService = GamioAppContext.Get<IRewardedAdService>();
+            requiresAd = CheckRequiresAd() && adService != null && adService.IsAdReady;
 
             if (puzzleNameText != null)
                 puzzleNameText.text = puzzleName;

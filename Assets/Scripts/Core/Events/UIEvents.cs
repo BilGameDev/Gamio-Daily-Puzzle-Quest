@@ -14,6 +14,8 @@ public interface IUIEvents : IDisposable
     event Action<string> OnGameSceneRequested;
     event Action<IGame> OnGameLaunched;
     event Action<Action, Action> OnAdGateRequested;
+    event Action OnPrivacyRequested;
+    event Action<string, string> OnNotificationRequested;
 
     void RequestTutorial();
     void RequestSkipTutorial();
@@ -25,6 +27,8 @@ public interface IUIEvents : IDisposable
     void RequestGameScene(string gameScene);
     void LaunchGame(IGame game);
     void RequestAdGate(Action onProceed, Action onCancel);
+    void RequestPrivacy();
+    void RequestNotification(string title, string message);
 }
 
 public class UIEvents : IUIEvents
@@ -39,6 +43,8 @@ public class UIEvents : IUIEvents
     public event Action<string> OnGameSceneRequested;
     public event Action<IGame> OnGameLaunched;
     public event Action<Action, Action> OnAdGateRequested;
+    public event Action OnPrivacyRequested;
+    public event Action<string, string> OnNotificationRequested;
 
     public void RequestTutorial() => OnTutorialRequested?.Invoke();
     public void RequestSkipTutorial() => OnSkipTutorialRequested?.Invoke();
@@ -50,6 +56,8 @@ public class UIEvents : IUIEvents
     public void RequestGameScene(string gameScene) => OnGameSceneRequested?.Invoke(gameScene);
     public void LaunchGame(IGame game) => OnGameLaunched?.Invoke(game);
     public void RequestAdGate(Action onProceed, Action onCancel) => OnAdGateRequested?.Invoke(onProceed, onCancel);
+    public void RequestPrivacy() => OnPrivacyRequested?.Invoke();
+    public void RequestNotification(string title, string message) => OnNotificationRequested?.Invoke(title, message);
 
     public void Dispose()
     {
@@ -60,5 +68,7 @@ public class UIEvents : IUIEvents
         OnHintRequested = null;
         OnChallengeRequested = null;
         OnGameSceneRequested = null;
+        OnPrivacyRequested = null;
+        OnNotificationRequested = null;
     }
 }

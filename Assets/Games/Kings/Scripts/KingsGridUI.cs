@@ -162,7 +162,7 @@ namespace Gamio.Games.Kings
             RefreshAll();
         }
 
-        protected override void OnHint()
+        protected override void OnHintGranted()
         {
             if (grid == null || grid.IsSolved) return;
             showSolution = false;

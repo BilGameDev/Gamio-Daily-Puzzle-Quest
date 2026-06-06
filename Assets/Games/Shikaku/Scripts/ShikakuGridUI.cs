@@ -266,7 +266,7 @@ namespace Gamio.Games.Shikaku
             RefreshVisuals();
         }
 
-        protected override void OnHint()
+        protected override void OnHintGranted()
         {
             if (grid == null) return;
             var rects = grid.Puzzle.SolutionRects;

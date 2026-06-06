@@ -62,7 +62,7 @@ namespace Gamio.Games.LineConnect
             BuildGrid();
         }
 
-        protected override void OnHint()
+        protected override void OnHintGranted()
         {
             if (grid == null || grid.IsSolved) return;
             showSolution = false;

@@ -1,4 +1,5 @@
 using Gamio.Core;
+using Gamio.Features.Popup;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,11 +24,21 @@ namespace Gamio.Features.UI
 
                 if (hintButton != null)
                     hintButton.onClick.AddListener(() => uIEvents.RequestHint());
+
+                uIEvents.OnNotificationRequested += ShowNotification;
             }
+        }
+
+        private void ShowNotification(string title, string message)
+        {
+            PopupUI.Show(title, message, confirmLabel: "OK");
         }
 
         private void OnDestroy()
         {
+            if (uIEvents != null)
+                uIEvents.OnNotificationRequested -= ShowNotification;
+
             if (resetButton != null)
                 resetButton.onClick.RemoveAllListeners();
 

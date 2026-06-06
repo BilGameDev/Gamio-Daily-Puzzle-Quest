@@ -647,9 +647,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Gamio.Core::Gamio.Services.GoogleAuthManager
   loginOnStart: 0
   listenPort: 3000
-  clientId: 236896011039-t6m1garuf6n2lntb8gugl8lll2i6qcqf.apps.googleusercontent.com
-  clientSecret: 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
-  redirectUri: http://localhost:3000
 --- !u!114 &1045674287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -964,6 +961,7 @@ GameObject:
   - component: {fileID: 2110456567}
   - component: {fileID: 2110456569}
   - component: {fileID: 2110456568}
+  - component: {fileID: 2110456570}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -1012,6 +1010,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoogleMobileAds.Samples.GoogleMobileAdsController
   _consentController: {fileID: 2110456568}
+--- !u!114 &2110456570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110456566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934f6cd83d3b8104baf35b6dfbedf12e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gamio.Core::Gamio.Ads.RewardedAdManager
 --- !u!1001 &1643656648577218501
 PrefabInstance:
   m_ObjectHideFlags: 0

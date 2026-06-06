@@ -2,6 +2,7 @@ using Gamio.Core;
 using Gamio.Core.Services;
 using GoogleMobileAds.Api;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gamio.Ads
@@ -12,13 +13,17 @@ namespace Gamio.Ads
         private Action _onRewarded;
         private bool _isLoading;
 
+        private const string TestAdUnitId = "ca-app-pub-3940256099942544/5224354917";
+
         private string AdUnitId
         {
             get
             {
+                if (Debug.isDebugBuild)
+                    return TestAdUnitId;
                 var id = GameSecretsLoader.Load().admobRewardedAdUnitId;
 #if UNITY_ANDROID
-                return string.IsNullOrEmpty(id) ? "ca-app-pub-5838098451531956/6274858792" : id;
+                return string.IsNullOrEmpty(id) ? TestAdUnitId : id;
 #else
                 return "unused";
 #endif
@@ -34,6 +39,10 @@ namespace Gamio.Ads
             {
                 if (_instance == null)
                 {
+                    _instance = FindFirstObjectByType<RewardedAdManager>();
+                }
+                if (_instance == null)
+                {
                     var go = new GameObject("[RewardedAdManager]");
                     _instance = go.AddComponent<RewardedAdManager>();
                     DontDestroyOnLoad(go);
@@ -44,12 +53,33 @@ namespace Gamio.Ads
 
         private void Awake()
         {
-            GamioAppContext.Register<IRewardedAdService>(this);
+            if (_instance == null)
+                _instance = this;
         }
 
         private void Start()
         {
-            LoadAd();
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            MobileAds.SetRequestConfiguration(new RequestConfiguration
+            {
+                TestDeviceIds = new List<string>
+                {
+                    AdRequest.TestDeviceSimulator,
+#if UNITY_ANDROID
+                    "2422B7F946C5CEE98E81584DEE454F1F"
+#endif
+                }
+            });
+#endif
+
+            if (GMASDK.IsInitialized)
+            {
+                LoadAd();
+            }
+            else
+            {
+                GMASDK.OnInitialized += LoadAd;
+            }
         }
 
         private void OnDestroy()
@@ -78,23 +108,36 @@ namespace Gamio.Ads
 
         private void RegisterHandlers(RewardedAd ad)
         {
+            ad.OnAdFullScreenContentOpened += () =>
+            {
+            };
             ad.OnAdFullScreenContentClosed += () =>
             {
-                _rewardedAd = null;
+                CleanupAd();
                 LoadAd();
             };
             ad.OnAdFullScreenContentFailed += (AdError error) =>
             {
-                _rewardedAd = null;
+                CleanupAd();
                 _onRewarded = null;
                 LoadAd();
             };
+        }
+
+        private void CleanupAd()
+        {
+            if (_rewardedAd != null)
+            {
+                _rewardedAd.Destroy();
+                _rewardedAd = null;
+            }
         }
 
         public void ShowRewardedAd(Action onRewarded)
         {
             if (!IsAdReady)
             {
+                Debug.Log("[RewardedAdManager] Ad not ready, proceeding without ad");
                 onRewarded?.Invoke();
                 return;
             }

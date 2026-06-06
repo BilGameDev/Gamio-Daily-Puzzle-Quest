@@ -1,18 +1,31 @@
+using Gamio.Core;
 using Gamio.Features.Popup;
 using GoogleMobileAds.Common;
 using GoogleMobileAds.Ump.Api;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GoogleMobileAds.Samples
 {
     public class GoogleMobileAdsConsentController : MonoBehaviour
     {
         public bool CanRequestAds => ConsentInformation.CanRequestAds();
+        IUIEvents uiEvents;
+        Action onPrivacyHandler;
 
-        [SerializeField, Tooltip("Button to show user consent and privacy settings.")]
-        private Button _privacyButton;
+        void OnEnable()
+        {
+            uiEvents = GamioAppContext.Get<IUIEvents>();
+            onPrivacyHandler = () => ShowPrivacyOptionsForm();
+            if (uiEvents != null)
+                uiEvents.OnPrivacyRequested += onPrivacyHandler;
+        }
+
+        void OnDisable()
+        {
+            if (uiEvents != null && onPrivacyHandler != null)
+                uiEvents.OnPrivacyRequested -= onPrivacyHandler;
+        }
 
         public void GatherConsent(Action<string> onComplete)
         {
@@ -34,8 +47,6 @@ namespace GoogleMobileAds.Samples
 
             ConsentInformation.Update(requestParameters, (FormError updateError) =>
             {
-                UpdatePrivacyButton();
-
                 if (updateError != null)
                 {
                     onComplete(updateError.Message);
@@ -50,58 +61,24 @@ namespace GoogleMobileAds.Samples
 
                 ConsentForm.LoadAndShowConsentFormIfRequired((FormError showError) =>
                 {
-                    UpdatePrivacyButton();
                     if (showError != null)
-                    {
                         onComplete?.Invoke(showError.Message);
-                    }
                     else
-                    {
                         onComplete?.Invoke(null);
-                    }
                 });
             });
         }
 
-        public void ShowPrivacyOptionsForm(Action<string> onComplete)
+        public void ShowPrivacyOptionsForm(Action<string> onComplete = null)
         {
             Debug.Log("Showing privacy options form.");
 
-            onComplete = (onComplete == null)
-                ? ShowError
-                : onComplete + ShowError;
-
+            onComplete = onComplete ?? ShowError;
             ConsentForm.ShowPrivacyOptionsForm((FormError showError) =>
             {
-                UpdatePrivacyButton();
                 if (showError != null)
-                {
                     onComplete?.Invoke(showError.Message);
-                }
-                else
-                {
-                    onComplete?.Invoke(null);
-                }
             });
-        }
-
-        public void ResetConsentInformation()
-        {
-            ConsentInformation.Reset();
-            UpdatePrivacyButton();
-        }
-
-        void UpdatePrivacyButton()
-        {
-            if (_privacyButton != null)
-            {
-                MobileAdsEventExecutor.ExecuteInUpdate(() =>
-                {
-                    _privacyButton.interactable =
-                        ConsentInformation.PrivacyOptionsRequirementStatus ==
-                            PrivacyOptionsRequirementStatus.Required;
-                });
-            }
         }
 
         void ShowError(string message)

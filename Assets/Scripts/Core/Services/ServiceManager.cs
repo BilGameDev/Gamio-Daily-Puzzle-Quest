@@ -1,9 +1,10 @@
 using Gamio.Core.Services;
+using Gamio.Ads;
 using UnityEngine;
 
 namespace Gamio.Core
 {
-    [DefaultExecutionOrder(-100)] // Make sure it runs before other managers
+    [DefaultExecutionOrder(-100)]
     public class ServiceManager : MonoBehaviour
     {
         CloudAPIService cloudAPIService;
@@ -18,6 +19,7 @@ namespace Gamio.Core
             GamioAppContext.Register(new AuthService(cloudAPIService, loginEvents));
             GamioAppContext.Register(new OfflineQueue(cloudAPIService));
             GamioAppContext.Register(new ConnectivityService());
+            GamioAppContext.Register<IRewardedAdService>(RewardedAdManager.Instance);
         }
     }
 }

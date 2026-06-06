@@ -13,11 +13,11 @@ namespace Gamio.Games.Shikaku
             seed = s;
         }
 
-        public ShikakuPuzzle Generate(int gridSize, int minRectSize = 1, int maxRectSize = 5)
+        public ShikakuPuzzle Generate(int gridSize, int minArea = 1, int maxArea = 5)
         {
             rng = new Random(seed.GetHashCode());
             var rects = new List<ShikakuRect>();
-            PartitionGrid(0, 0, gridSize, gridSize, rects, minRectSize, maxRectSize);
+            PartitionGrid(0, 0, gridSize, gridSize, rects, minArea, maxArea);
 
             var cells = new ShikakuCell[gridSize, gridSize];
             for (var r = 0; r < gridSize; r++)
@@ -44,11 +44,11 @@ namespace Gamio.Games.Shikaku
             return new ShikakuPuzzle(cells, rects.AsReadOnly());
         }
 
-        private void PartitionGrid(int row, int col, int height, int width, List<ShikakuRect> rects, int minSize = 1, int maxSize = 5)
+        private void PartitionGrid(int row, int col, int height, int width, List<ShikakuRect> rects, int minArea, int maxArea)
         {
             var area = height * width;
 
-            if (area <= maxSize || (height <= maxSize && width <= maxSize))
+            if (area <= maxArea)
             {
                 rects.Add(new ShikakuRect
                 {
@@ -63,40 +63,31 @@ namespace Gamio.Games.Shikaku
             }
 
             bool splitHorizontal;
-            int splitPos;
-
-            if (height <= minSize * 2)
-            {
+            if (height <= 1)
                 splitHorizontal = false;
-            }
-            else if (width <= minSize * 2)
-            {
+            else if (width <= 1)
                 splitHorizontal = true;
-            }
             else
-            {
                 splitHorizontal = rng.Next(2) == 0;
-            }
 
+            int splitPos;
             if (splitHorizontal)
             {
-                var minSplit = Math.Max(minSize, height / 4);
-                var maxSplit = Math.Min(height - minSize, height * 3 / 4);
+                var minSplit = Math.Max(1, (minArea + width - 1) / width);
+                var maxSplit = height - minSplit;
+                if (minSplit > maxSplit) { minSplit = height / 2; maxSplit = height / 2; }
                 splitPos = rng.Next(minSplit, maxSplit + 1);
-                if (splitPos <= 0 || splitPos >= height) splitPos = height / 2;
-
-                PartitionGrid(row, col, splitPos, width, rects);
-                PartitionGrid(row + splitPos, col, height - splitPos, width, rects);
+                PartitionGrid(row, col, splitPos, width, rects, minArea, maxArea);
+                PartitionGrid(row + splitPos, col, height - splitPos, width, rects, minArea, maxArea);
             }
             else
             {
-                var minSplit = Math.Max(minSize, width / 4);
-                var maxSplit = Math.Min(width - minSize, width * 3 / 4);
+                var minSplit = Math.Max(1, (minArea + height - 1) / height);
+                var maxSplit = width - minSplit;
+                if (minSplit > maxSplit) { minSplit = width / 2; maxSplit = width / 2; }
                 splitPos = rng.Next(minSplit, maxSplit + 1);
-                if (splitPos <= 0 || splitPos >= width) splitPos = width / 2;
-
-                PartitionGrid(row, col, height, splitPos, rects);
-                PartitionGrid(row, col + splitPos, height, width - splitPos, rects);
+                PartitionGrid(row, col, height, splitPos, rects, minArea, maxArea);
+                PartitionGrid(row, col + splitPos, height, width - splitPos, rects, minArea, maxArea);
             }
         }
     }
