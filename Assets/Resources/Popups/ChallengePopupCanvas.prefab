@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+  m_Color: {r: 0.65882355, g: 0.28627452, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -738,23 +738,6 @@ MonoBehaviour:
   beginButtonLabel: {fileID: 7009800798587278874}
   closeButton: {fileID: 8470695991634354008}
   gameIconHolder: {fileID: 8532162760396835145}
-  gameIcons:
-  - gameType: shikaku
-    gameIcon: {fileID: 8022319818527168583, guid: b433b9e8d0452954995fea21088276cf, type: 3}
-  - gameType: wordGrid
-    gameIcon: {fileID: 5588821136657079952, guid: 23bc3a4175350204a90050008a91f2a9, type: 3}
-  - gameType: wordSearch
-    gameIcon: {fileID: 8932919892080107704, guid: 33d1d84198b019d4c86aa9b1f392d7b3, type: 3}
-  - gameType: sudoku
-    gameIcon: {fileID: 5424537613445546080, guid: 5ca019913c47cae4d890e28f65218453, type: 3}
-  - gameType: pipes
-    gameIcon: {fileID: 205009167880923247, guid: bbf627a6ab4903143926b4554f66ca17, type: 3}
-  - gameType: lineConnect
-    gameIcon: {fileID: 2789179814846601997, guid: 1a945ac59f83f1e4d8d5466505a9fdf1, type: 3}
-  - gameType: arrows
-    gameIcon: {fileID: 1234894477985655781, guid: e7a459d89e38309429ea6acd055f1460, type: 3}
-  - gameType: kings
-    gameIcon: {fileID: 247829583790510023, guid: 873ec02970ce02544a4d7bc68542484c, type: 3}
 --- !u!1 &5096220889376091144
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+  m_Color: {r: 0.6603774, g: 0.28801864, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
