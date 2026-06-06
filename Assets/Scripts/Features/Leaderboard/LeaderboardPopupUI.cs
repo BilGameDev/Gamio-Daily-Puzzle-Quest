@@ -226,6 +226,7 @@ namespace Gamio.Features.Leaderboard
             DOTween.Kill(this);
             currentSlotIndex = index;
             PopulateSlot();
+            ShowButtons();
             UpdateTabHighlight();
         }
 
@@ -265,7 +266,11 @@ namespace Gamio.Features.Leaderboard
         {
             bool empty = entries == null || entries.Length == 0;
             if (emptyStateText != null) emptyStateText.SetActive(empty);
-            if (scroller != null) scroller.gameObject.SetActive(!empty);
+            if (scroller != null)
+            {
+                scroller.Clear();
+                scroller.gameObject.SetActive(!empty);
+            }
 
             if (empty)
             {

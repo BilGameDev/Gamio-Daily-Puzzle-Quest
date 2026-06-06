@@ -38,7 +38,7 @@ export async function routeRequest(request: Request, env: Env): Promise<Response
       const { sub, email, name, picture } = payload;
       const userId = `user_${sub.substring(0, 12)}`;
 
-      const displayName = name || 'Player';
+      const displayName = name || `Player${Math.floor(10000 + Math.random() * 90000)}`;
       await env.DB.prepare(
         `INSERT INTO users (id, google_sub, email, display_name, username, avatar_url)
          VALUES (?, ?, ?, ?, ?, ?)

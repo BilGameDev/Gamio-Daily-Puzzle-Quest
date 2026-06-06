@@ -39,7 +39,7 @@ namespace Gamio.Features.HomeHub
             if (leaderBoardButton != null)
                 leaderBoardButton.onClick.AddListener(OnLeaderboardClicked);
 
-            RefreshUI();
+            UpdateButtonForFocusedChallenge();
 
             if (gamioManager.Challenges != null && gamioManager.Challenges.Length > 0)
                 PopulateCarousel();
@@ -104,32 +104,44 @@ namespace Gamio.Features.HomeHub
                 if (label != null && !item.EnabledObjects.Contains(label.gameObject))
                     item.EnabledObjects.Add(label.gameObject);
             }
+
+            carousel.OnIndexChanged -= OnCarouselIndexChanged;
+            carousel.OnIndexChanged += OnCarouselIndexChanged;
+            UpdateButtonForFocusedChallenge();
+        }
+
+        void OnCarouselIndexChanged(int index)
+        {
+            UpdateButtonForFocusedChallenge();
         }
 
         void ShowChallengePopup()
         {
-            if (gamioManager.DailyCompleted) return;
             if (carousel == null) return;
 
             var index = carousel.CurrentIndex;
             var challenges = gamioManager.Challenges;
             if (challenges == null || index < 0 || index >= challenges.Length) return;
+            if (challenges[index].completed) return;
 
             gamioManager.SelectChallenge(index);
             uiEvents?.RequestChallenge();
         }
 
-        private void RefreshUI()
+        private void UpdateButtonForFocusedChallenge()
         {
-            if (challengeButton != null && challengeButtonLabel != null)
-            {
-                bool completed = gamioManager.DailyCompleted;
-                challengeButton.interactable = !completed;
-                challengeButtonLabel.text = completed ? "New challenge tomorrow" : "Begin Challenge";
-                var colors = challengeButton.colors;
-                colors.normalColor = completed ? challengeCompletedColor : challengeAvailableColor;
-                challengeButton.colors = colors;
-            }
+            if (challengeButton == null || challengeButtonLabel == null) return;
+
+            var challenges = gamioManager.Challenges;
+            bool completed = challenges != null && carousel != null
+                && carousel.CurrentIndex >= 0 && carousel.CurrentIndex < challenges.Length
+                && challenges[carousel.CurrentIndex].completed;
+
+            challengeButton.interactable = !completed;
+            challengeButtonLabel.text = completed ? "Quest Completed" : "Begin Quest";
+            var colors = challengeButton.colors;
+            colors.normalColor = completed ? challengeCompletedColor : challengeAvailableColor;
+            challengeButton.colors = colors;
         }
 
         private void OnLeaderboardClicked()
@@ -147,6 +159,8 @@ namespace Gamio.Features.HomeHub
 
         void OnDestroy()
         {
+            if (carousel != null)
+                carousel.OnIndexChanged -= OnCarouselIndexChanged;
             challengeButton.onClick.RemoveAllListeners();
             if (leaderBoardButton != null)
                 leaderBoardButton.onClick.RemoveAllListeners();

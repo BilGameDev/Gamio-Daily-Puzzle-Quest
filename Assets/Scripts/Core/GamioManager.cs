@@ -83,6 +83,19 @@ public class GamioManager : MonoBehaviour
         dailyCompleted = completed;
     }
 
+    public void SetChallengeCompleted(int seedId)
+    {
+        if (challenges == null) return;
+        for (int i = 0; i < challenges.Length; i++)
+        {
+            if (challenges[i].seedId == seedId)
+            {
+                challenges[i].completed = true;
+                break;
+            }
+        }
+    }
+
     public void SetCurrentGame(IGame game)
     {
         currentGame = game;

@@ -99,11 +99,13 @@ namespace Gamio.Root
 
         void OnChallengeSolved(float solveTime)
         {
-            gamioManager.SetStreakPending(true);
-            _ = SubmitDaily(solveTime);
+            bool firstCompletionToday = !gamioManager.DailyCompleted;
+            if (firstCompletionToday)
+                gamioManager.SetStreakPending(true);
+            _ = SubmitDaily(solveTime, firstCompletionToday);
         }
 
-        async Task SubmitDaily(float solveTime)
+        async Task SubmitDaily(float solveTime, bool firstCompletionToday)
         {
             await Task.Delay(2000);
 
@@ -112,6 +114,9 @@ namespace Gamio.Root
                 var dailySublit = await cloudAPIService.SubmitDaily(gamioManager.ChallengeId, solveTime);
                 if (dailySublit.success)
                 {
+                    if (firstCompletionToday)
+                        gamioManager.SetDailyCompleted(true);
+
                     await LeaderboardPopupUI.Show(
                 new LeaderboardManager(cloudAPIService,
                 GamioAppContext.Get<AuthService>()),
@@ -119,7 +124,7 @@ namespace Gamio.Root
                 gamioManager.ChallengeId);
 
                     gamioManager.SetStreak(dailySublit.streak);
-                    gamioManager.SetDailyCompleted(true);
+                    gamioManager.SetChallengeCompleted(gamioManager.ChallengeId);
                 }
             }
             catch (Exception error)

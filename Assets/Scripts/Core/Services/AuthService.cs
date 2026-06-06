@@ -76,6 +76,7 @@ namespace Gamio.Core.Services
             PlayerPrefs.SetString(SessionTokenKey, sessionToken);
             PlayerPrefs.SetString(UserIdKey, userId);
             PlayerPrefs.SetString(UsernameKey, Username);
+            PlayerPrefs.SetString(DisplayNameKey, DisplayName);
             PlayerPrefs.Save();
 
             cloudApiService.SetSessionToken(sessionToken);
@@ -100,6 +101,7 @@ namespace Gamio.Core.Services
             sessionToken = PlayerPrefs.GetString(SessionTokenKey, "");
             userId = PlayerPrefs.GetString(UserIdKey, "");
             Username = PlayerPrefs.GetString(UsernameKey, "");
+            DisplayName = PlayerPrefs.GetString(DisplayNameKey, "Player");
 
             return !string.IsNullOrEmpty(sessionToken);
         }

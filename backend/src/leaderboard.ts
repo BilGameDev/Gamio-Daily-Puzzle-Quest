@@ -16,9 +16,11 @@ export async function handleGetTodayLeaderboards(env: Env): Promise<Response> {
          COALESCE(NULLIF(u.username, ''), u.display_name) AS displayName,
          u.avatar_url AS avatarUrl,
          uc.time_seconds AS timeSeconds,
+         COALESCE(s.current_streak, 0) AS streakCount,
          uc.completed_at AS completedAt
        FROM user_challenges uc
        JOIN users u ON u.id = uc.user_id
+       LEFT JOIN streaks s ON s.user_id = u.id
        WHERE uc.challenge_id = ?
        ORDER BY uc.time_seconds ASC
        LIMIT 100`
@@ -27,6 +29,7 @@ export async function handleGetTodayLeaderboards(env: Env): Promise<Response> {
       displayName: string;
       avatarUrl: string | null;
       timeSeconds: number;
+      streakCount: number;
       completedAt: string;
     }>();
 
@@ -42,27 +45,28 @@ export async function handleGetTodayLeaderboards(env: Env): Promise<Response> {
 }
 
 export async function handleGetLeaderboard(challengeId: number, env: Env): Promise<Response> {
-  const entries = await env.DB.prepare(
-    `SELECT
-       u.id AS userId,
-       COALESCE(NULLIF(u.username, ''), u.display_name) AS displayName,
-       u.avatar_url AS avatarUrl,
-       uc.time_seconds AS timeSeconds,
-       0 AS streakCount,
-       uc.completed_at AS completedAt
-     FROM user_challenges uc
-     JOIN users u ON u.id = uc.user_id
-     WHERE uc.challenge_id = ?
-     ORDER BY uc.time_seconds ASC
-     LIMIT 100`
-  ).bind(challengeId).all<{
-    userId: string;
-    displayName: string;
-    avatarUrl: string | null;
-    timeSeconds: number;
-    streakCount: number;
-    completedAt: string;
-  }>();
+    const entries = await env.DB.prepare(
+      `SELECT
+         u.id AS userId,
+         COALESCE(NULLIF(u.username, ''), u.display_name) AS displayName,
+         u.avatar_url AS avatarUrl,
+         uc.time_seconds AS timeSeconds,
+         COALESCE(s.current_streak, 0) AS streakCount,
+         uc.completed_at AS completedAt
+       FROM user_challenges uc
+       JOIN users u ON u.id = uc.user_id
+       LEFT JOIN streaks s ON s.user_id = u.id
+       WHERE uc.challenge_id = ?
+       ORDER BY uc.time_seconds ASC
+       LIMIT 100`
+    ).bind(challengeId).all<{
+      userId: string;
+      displayName: string;
+      avatarUrl: string | null;
+      timeSeconds: number;
+      streakCount: number;
+      completedAt: string;
+    }>();
 
   const ranked = entries.results.map((entry, idx) => ({
     rank: idx + 1,
@@ -90,12 +94,14 @@ export async function handleGetMyRank(userId: string, env: Env): Promise<Respons
   const rankings = [];
   for (const challenge of challenges.results) {
     const myEntry = await env.DB.prepare(
-      `SELECT time_seconds, completed_at
-       FROM user_challenges
-       WHERE user_id = ? AND challenge_id = ?`
+      `SELECT uc.time_seconds, uc.completed_at, COALESCE(s.current_streak, 0) AS streakCount
+       FROM user_challenges uc
+       LEFT JOIN streaks s ON s.user_id = uc.user_id
+       WHERE uc.user_id = ? AND uc.challenge_id = ?`
     ).bind(userId, challenge.id).first<{
       time_seconds: number;
       completed_at: string;
+      streakCount: number;
     }>();
 
     if (!myEntry) continue;
@@ -116,7 +122,7 @@ export async function handleGetMyRank(userId: string, env: Env): Promise<Respons
       rank,
       totalParticipants: totalResult?.count || 0,
       timeSeconds: myEntry.time_seconds,
-      streakCount: 0,
+      streakCount: myEntry.streakCount,
       completedAt: myEntry.completed_at,
     });
   }

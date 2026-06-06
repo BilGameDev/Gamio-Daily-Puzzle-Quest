@@ -42,7 +42,7 @@ namespace Gamio.Core
                     {
                         stopwatch.Stop();
 
-                        uIEvents.SolvedChallenge(stopwatch.Elapsed.Seconds);
+                        uIEvents.SolvedChallenge((float)stopwatch.Elapsed.TotalSeconds);
                         game.OnSolved -= Solved;
                     }
 

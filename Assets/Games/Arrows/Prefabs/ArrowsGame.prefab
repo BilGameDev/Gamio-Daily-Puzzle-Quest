@@ -1933,7 +1933,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   constraintCount: 5
   cellSize: {x: 100, y: 100}
   spacing: {x: 0, y: 0}
