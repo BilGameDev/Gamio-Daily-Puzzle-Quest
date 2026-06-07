@@ -1,6 +1,6 @@
-# Gamio
+# Gamio - Daily Puzzle Quest
 
-A daily puzzle game collection for mobile. Each day brings three randomly selected puzzles with a shared seed — solve them, compete on the leaderboard, and keep your streak alive.
+A daily puzzle game collection for mobile. Each day brings three randomly selected puzzles with a shared seed, solve them, compete on the leaderboard, and keep your streak alive.
 
 <div style="display: flex; flex-wrap: wrap; gap: 8px;">
   <img width="200" alt="Screenshot_20260607_225449_Gamio" src="https://github.com/user-attachments/assets/d43a3ca5-b1f6-406f-aa50-13f984130e7e" />
