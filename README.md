@@ -2,10 +2,12 @@
 
 A daily puzzle game collection for mobile. Each day brings three randomly selected puzzles with a shared seed — solve them, compete on the leaderboard, and keep your streak alive.
 
-<img width="1080" height="2340" alt="Screenshot_20260607_225449_Gamio" src="https://github.com/user-attachments/assets/d43a3ca5-b1f6-406f-aa50-13f984130e7e" />
-<img width="1080" height="2340" alt="Screenshot_20260607_225507_Gamio" src="https://github.com/user-attachments/assets/8ebf494f-10a7-4e8d-a8d5-e6418a441963" />
-<img width="1080" height="2340" alt="Screenshot_20260607_225610_Gamio" src="https://github.com/user-attachments/assets/1ec129cd-fa34-4ea3-8dee-de6d15f90a7c" />
-<img width="1080" height="2340" alt="Screenshot_20260607_225547_Gamio" src="https://github.com/user-attachments/assets/62674f5d-1eab-4b6c-be10-aeae6f8fcd90" />
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+  <img width="200" alt="Screenshot_20260607_225449_Gamio" src="https://github.com/user-attachments/assets/d43a3ca5-b1f6-406f-aa50-13f984130e7e" />
+  <img width="200" alt="Screenshot_20260607_225507_Gamio" src="https://github.com/user-attachments/assets/8ebf494f-10a7-4e8d-a8d5-e6418a441963" />
+  <img width="200" alt="Screenshot_20260607_225610_Gamio" src="https://github.com/user-attachments/assets/1ec129cd-fa34-4ea3-8dee-de6d15f90a7c" />
+  <img width="200" alt="Screenshot_20260607_225547_Gamio" src="https://github.com/user-attachments/assets/62674f5d-1eab-4b6c-be10-aeae6f8fcd90" />
+</div>
 
 ## Games
 
