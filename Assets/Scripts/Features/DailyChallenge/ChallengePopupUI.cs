@@ -26,11 +26,13 @@ namespace Gamio.Features.DailyChallenge
         public static ChallengePopupUI Show(Transform parent, string gameType)
         {
             var prefab = Resources.Load<ChallengePopupUI>("Popups/ChallengePopupCanvas");
+            
             if (prefab == null)
             {
                 Debug.LogError("ChallengePopupUI prefab not found at Resources/Popups/ChallengePopupCanvas");
                 return null;
             }
+
             var popup = Instantiate(prefab, parent);
             popup.gameType = gameType;
             popup.Initialize();
@@ -59,7 +61,10 @@ namespace Gamio.Features.DailyChallenge
             }
 
             if (closeButton != null)
+            {
+                closeButton.gameObject.SetActive(false);
                 closeButton.onClick.AddListener(Dismiss);
+            }
         }
 
         private void Initialize()
@@ -98,8 +103,6 @@ namespace Gamio.Features.DailyChallenge
                 yield return seq.WaitForCompletion();
             }
 
-            yield return new WaitForSeconds(0.1f);
-
             ShowBeginButton();
         }
 
@@ -114,6 +117,14 @@ namespace Gamio.Features.DailyChallenge
 
                 if (beginButtonLabel != null)
                     beginButtonLabel.text = "Begin Challenge";
+            }
+
+            if (closeButton != null)
+            {
+                closeButton.gameObject.SetActive(true);
+                closeButton.transform.localScale = Vector3.zero;
+                closeButton.transform.DOScale(1f, 0.4f).SetEase(Ease.OutBack);
+                closeButton.interactable = true;
             }
         }
 
