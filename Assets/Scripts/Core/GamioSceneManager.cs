@@ -1,6 +1,5 @@
 using Gamio.Core;
 using Gamio.Core.Services;
-using Google;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -60,6 +59,11 @@ public class GamioSceneManager : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        GamioAppContext.Register(this);
+    }
+
     private void LoadHomeScene()
     {
         SceneLoader.LoadScene(homeScene, false);
@@ -89,4 +93,5 @@ public class GamioSceneManager : MonoBehaviour
     }
 
     string GetActiveScene() => SceneManager.GetActiveScene().path;
+    public bool IsHomeScene() => SceneManager.GetActiveScene().path == homeScene;
 }

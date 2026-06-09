@@ -41,7 +41,7 @@ namespace Gamio.Features.Popup
 
         IEnumerator DelayedPopup()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1.5f);
             var sceneName = SceneManager.GetActiveScene().name;
             SolvedPuzzlePopup.Show(game.DisplayName, sceneName);
         }

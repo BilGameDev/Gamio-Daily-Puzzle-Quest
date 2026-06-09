@@ -7,6 +7,7 @@ using Gamio.Features.Popup;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Gamio.Features.UI
@@ -36,6 +37,7 @@ namespace Gamio.Features.UI
         [SerializeField] private string cancelLabel = "No";
 
         GamioManager gamioManager;
+        GamioSceneManager gamioSceneManager;
         IUIEvents uIEvents;
 
         private void Awake()
@@ -69,6 +71,7 @@ namespace Gamio.Features.UI
         {
             gamioManager = GamioAppContext.Get<GamioManager>();
             uIEvents = GamioAppContext.Get<IUIEvents>();
+            gamioSceneManager = GamioAppContext.Get<GamioSceneManager>();
 
             RefreshUI();
         }
@@ -90,7 +93,7 @@ namespace Gamio.Features.UI
             if (noStreakGraphic != null)
                 noStreakGraphic.SetActive(streak == 0);
 
-            if (gamioManager != null)
+            if (gamioManager != null && gamioSceneManager != null && !gamioSceneManager.IsHomeScene())
             {
                 tutorialButton.gameObject.SetActive(!gamioManager.ChallengeActive);
             }

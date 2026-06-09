@@ -396,6 +396,10 @@ namespace Gamio.Features.Leaderboard
                     StreakOverlay.Show(gamioManager.StreakInfo.current, GamioAppContext.Get<IUIEvents>().RequestBack);
                     gamioManager.SetStreakPending(false);
                 }
+                else
+                {
+                    GamioAppContext.Get<IUIEvents>()?.RequestBack();
+                }
                 Destroy(gameObject);
             });
         }

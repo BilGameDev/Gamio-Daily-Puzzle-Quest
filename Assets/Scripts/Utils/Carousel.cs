@@ -293,7 +293,8 @@ namespace Gamio.Features.UI
             _currentIndex = Mathf.Clamp(_currentIndex, 0, Mathf.Max(0, rectChildren.Count - 1));
             for (int i = 0; i < rectChildren.Count; i++)
             {
-                if (rectChildren[i].TryGetComponent(out CarouselItem item))
+                var child = rectChildren[i];
+                if (child != null && child.TryGetComponent(out CarouselItem item))
                     item.Index = i;
             }
         }

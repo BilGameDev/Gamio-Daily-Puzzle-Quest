@@ -15,6 +15,8 @@ public class GamioManager : MonoBehaviour
     public bool StreakPending => streakPending;
     public ChallengeInfo[] Challenges => challenges;
     public IGame CurrentGame => currentGame;
+    public string CurrentScene => currentScene;
+
     private StreakInfo streakInfo;
     private bool dailyCompleted;
     private bool challengeActive;
@@ -23,6 +25,7 @@ public class GamioManager : MonoBehaviour
     private bool streakPending;
     private IGame currentGame;
     private ChallengeInfo[] challenges;
+    private string currentScene;
 
     CloudAPIService cloudAPIService;
     ILoginEvents loginEvents;
@@ -81,6 +84,11 @@ public class GamioManager : MonoBehaviour
     public void SetDailyCompleted(bool completed)
     {
         dailyCompleted = completed;
+    }
+    
+    public void SetCurrentScene(string sceneName)
+    {
+        currentScene = sceneName;
     }
 
     public void SetChallengeCompleted(int seedId)

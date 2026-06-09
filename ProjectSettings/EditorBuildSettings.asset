@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Games/Arrows/Arrows.unity
     guid: 2762db21d29f4d2458feb5ca882de383
-  - enabled: 1
+  - enabled: 0
     path: Assets/Games/Hitori/Hitori.unity
     guid: 4196702b538c41e44b5735fbc03063b9
   - enabled: 1
