@@ -134,6 +134,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -141,10 +154,10 @@ TextureImporter:
       name: ic_launcher_foreground_0
       rect:
         serializedVersion: 2
-        x: 31
-        y: 46
-        width: 16
-        height: 16
+        x: 35
+        y: 47
+        width: 13
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +176,10 @@ TextureImporter:
       name: ic_launcher_foreground_1
       rect:
         serializedVersion: 2
-        x: 46
-        y: 46
-        width: 16
-        height: 16
+        x: 47
+        y: 47
+        width: 14
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,10 +198,10 @@ TextureImporter:
       name: ic_launcher_foreground_2
       rect:
         serializedVersion: 2
-        x: 61
-        y: 61
-        width: 16
-        height: 16
+        x: 60
+        y: 60
+        width: 13
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +220,10 @@ TextureImporter:
       name: ic_launcher_foreground_3
       rect:
         serializedVersion: 2
-        x: 61
-        y: 46
-        width: 16
-        height: 16
+        x: 60
+        y: 47
+        width: 13
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,10 +242,10 @@ TextureImporter:
       name: ic_launcher_foreground_4
       rect:
         serializedVersion: 2
-        x: 46
-        y: 31
-        width: 16
-        height: 16
+        x: 47
+        y: 35
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
