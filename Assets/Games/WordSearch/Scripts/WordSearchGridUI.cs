@@ -189,25 +189,24 @@ namespace Gamio.Games.WordSearch
 
                     if (isHintCell)
                     {
-                        cells[r, c].SetHighlight(true, new Color(1f, 0.8f, 0.2f, 0.5f));
+                        cells[r, c].SetHighlightImmediate(true, new Color(1f, 0.8f, 0.2f, 0.5f));
                     }
                     else if (showSolution)
                     {
-                        bool inPlacement = idx >= 0;
-                        cells[r, c].SetHighlight(true, new Color(0.3f, 1f, 0.3f, 0.4f));
-                    }
-                    else if (grid.Puzzle.IsCellFound(r, c))
-                    {
-                        cells[r, c].SetFound(foundColor);
+                        cells[r, c].SetHighlightImmediate(true, new Color(0.3f, 1f, 0.3f, 0.4f));
                     }
                     else if (grid.IsDragging && IsCellInDragPath(r, c))
                     {
                         bool valid = IsValidDragLine();
-                        cells[r, c].SetHighlight(true, valid ? highlightColor : new Color(1f, 0.3f, 0.3f, 0.5f));
+                        cells[r, c].SetHighlightImmediate(true, valid ? highlightColor : new Color(1f, 0.3f, 0.3f, 0.5f));
+                    }
+                    else if (grid.Puzzle.IsCellFound(r, c))
+                    {
+                        cells[r, c].SetHighlightImmediate(true, foundColor);
                     }
                     else
                     {
-                        cells[r, c].SetHighlight(false, cellColor);
+                        cells[r, c].SetHighlightImmediate(false, cellColor);
                     }
                 }
             }

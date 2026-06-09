@@ -50,7 +50,7 @@ namespace Gamio.Games.Sudoku
             puzzle.SetValue(selectedRow, selectedCol, number);
             OnCellChanged?.Invoke();
 
-            if (number > 0 && !puzzle.IsCorrect(selectedRow, selectedCol))
+            if (number > 0 && puzzle.HasConflict(selectedRow, selectedCol, number))
             {
                 OnWrongNumber?.Invoke(selectedRow, selectedCol);
             }

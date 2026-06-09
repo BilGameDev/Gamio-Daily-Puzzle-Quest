@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using Gamio.Features;
 using Lofelt.NiceVibrations;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.Networking;
 using DG.Tweening;
 using TMPro;
 using Gamio.Core;
@@ -124,25 +126,59 @@ namespace Gamio.Games.WordGrid
             if (isAnimating) return;
             if (!grid.Puzzle.IsFullyFilled())
             {
-                float delay = 0;
-                for (int i = 0; i < wordLength; i++)
-                {
-                    if (!wordCells[i].HasLetter)
-                    {
-                        var cell = wordCells[i];
-                        DOVirtual.DelayedCall(delay, () =>
-                        {
-                            cell.transform.DOShakePosition(0.3f, new Vector3(5, 0, 0), 10, 90, false, false);
-                        });
-                        delay += 0.05f;
-                    }
-                }
+                ShakeEmptyCells();
                 return;
             }
 
             isAnimating = true;
             if (submitButton != null)
                 submitButton.interactable = false;
+            StartCoroutine(CheckWordCoroutine());
+        }
+
+        private void ShakeEmptyCells()
+        {
+            float delay = 0;
+            for (int i = 0; i < wordLength; i++)
+            {
+                if (!wordCells[i].HasLetter)
+                {
+                    var cell = wordCells[i];
+                    DOVirtual.DelayedCall(delay, () =>
+                    {
+                        cell.transform.DOShakePosition(0.3f, new Vector3(5, 0, 0), 10, 90, false, false);
+                    });
+                    delay += 0.05f;
+                }
+            }
+        }
+
+        private IEnumerator CheckWordCoroutine()
+        {
+            string guess = grid.Puzzle.GetCurrentGuess();
+            string url = $"https://api.dictionaryapi.dev/api/v2/entries/en/{guess.ToLowerInvariant()}";
+
+            using var request = UnityWebRequest.Get(url);
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                float delay = 0;
+                for (int i = 0; i < wordLength; i++)
+                {
+                    var cell = wordCells[i];
+                    DOVirtual.DelayedCall(delay, () =>
+                    {
+                        cell.transform.DOShakePosition(0.3f, new Vector3(5, 0, 0), 10, 90, false, false);
+                    });
+                    delay += 0.05f;
+                }
+                isAnimating = false;
+                if (submitButton != null)
+                    submitButton.interactable = true;
+                yield break;
+            }
+
             grid.Submit();
         }
 
@@ -171,7 +207,7 @@ namespace Gamio.Games.WordGrid
                 UpdateAttempts();
                 foreach (var tile in letterTiles)
                 {
-                    if (grid.IsLetterWrong(tile.Letter))
+                    if (grid.IsLetterWrongInAlphabet(tile.Letter))
                         tile.SetWrong(WordGridGame.ActiveSettings.WrongColor);
                 }
             });
@@ -216,7 +252,7 @@ namespace Gamio.Games.WordGrid
             grid.ResetPuzzle();
             foreach (var cell in wordCells)
             {
-                if (cell != null) cell.ResetCell();
+                if (cell != null && !cell.IsLocked) cell.ResetCell();
             }
             if (submitButton != null)
             {

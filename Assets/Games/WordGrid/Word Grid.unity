@@ -566,6 +566,22 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7218116559874869719, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -607,6 +623,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+--- !u!114 &1738220832 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8466514295550275233, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+  m_PrefabInstance: {fileID: 1738220831}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1884479121
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +961,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4263247430039621647, guid: a8fb7675d9ce3d04eb8c98048811a917, type: 3}
+      propertyPath: timerObject
+      value: 
+      objectReference: {fileID: 1738220832}
+    - target: {fileID: 4947185267508904632, guid: a8fb7675d9ce3d04eb8c98048811a917, type: 3}
+      propertyPath: m_text
+      value: 'Guess the hidden word
+
+        Green - correct letter in correct position
+
+        Yellow
+        - correct letter in wrong position
+
+        Red - letter not in the word'
+      objectReference: {fileID: 0}
     - target: {fileID: 4951839722873351861, guid: a8fb7675d9ce3d04eb8c98048811a917, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1023,7 +1065,8 @@ PrefabInstance:
       value: Word Grid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2181600559264743583, guid: a8fb7675d9ce3d04eb8c98048811a917, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8fb7675d9ce3d04eb8c98048811a917, type: 3}

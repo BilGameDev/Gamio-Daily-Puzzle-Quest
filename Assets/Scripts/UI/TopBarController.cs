@@ -89,6 +89,11 @@ namespace Gamio.Features.UI
 
             if (noStreakGraphic != null)
                 noStreakGraphic.SetActive(streak == 0);
+
+            if (gamioManager != null)
+            {
+                tutorialButton.gameObject.SetActive(!gamioManager.ChallengeActive);
+            }
         }
 
         private void OnBackClicked()

@@ -279,6 +279,22 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7218116559874869719, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -320,6 +336,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+--- !u!114 &728971567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8466514295550275233, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+  m_PrefabInstance: {fileID: 728971566}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &826973568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,6 +1134,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7662298405887996826, guid: cd714e214a651064cbccfb40306dbf02, type: 3}
+      propertyPath: timerObject
+      value: 
+      objectReference: {fileID: 728971567}
     - target: {fileID: 7681463210086653454, guid: cd714e214a651064cbccfb40306dbf02, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1176,7 +1207,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9026029792049969485, guid: cd714e214a651064cbccfb40306dbf02, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd714e214a651064cbccfb40306dbf02, type: 3}

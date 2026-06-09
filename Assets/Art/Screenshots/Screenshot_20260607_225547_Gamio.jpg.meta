@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 3fa3c6033e26ab44b93aa1048d50ccb5
+guid: 661de34ac9ca3f34f981e42ffb67b96f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 10859639704645410
-    second: Logo White_0
-  - first:
-      213: -1324524247022702520
-    second: Logo White_1
-  - first:
-      213: 5993335024211090133
-    second: Logo White_2
-  - first:
-      213: -250435433799130659
-    second: Logo White_3
+      213: 1458045271540008802
+    second: Screenshot_20260607_225547_Gamio_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -148,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Logo White_0
+      name: Screenshot_20260607_225547_Gamio_0
       rect:
         serializedVersion: 2
-        x: 171
-        y: 250
-        width: 285
-        height: 492
+        x: 0
+        y: 0
+        width: 1080
+        height: 2340
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,74 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 22febf6e8c4962000800000000000000
-      internalID: 10859639704645410
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Logo White_1
-      rect:
-        serializedVersion: 2
-        x: 422
-        y: 260
-        width: 117
-        height: 411
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 840f1d707385e9de0800000000000000
-      internalID: -1324524247022702520
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Logo White_2
-      rect:
-        serializedVersion: 2
-        x: 539
-        y: 260
-        width: 117
-        height: 410
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5da5202537a9c2350800000000000000
-      internalID: 5993335024211090133
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Logo White_3
-      rect:
-        serializedVersion: 2
-        x: 622
-        y: 251
-        width: 285
-        height: 491
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dd16b31cc46468cf0800000000000000
-      internalID: -250435433799130659
+      spriteID: 267849c03740c3410800000000000000
+      internalID: 1458045271540008802
       vertices: []
       indices: 
       edges: []
@@ -249,10 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Logo White_0: 10859639704645410
-      Logo White_1: -1324524247022702520
-      Logo White_2: 5993335024211090133
-      Logo White_3: -250435433799130659
+      Screenshot_20260607_225547_Gamio_0: 1458045271540008802
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

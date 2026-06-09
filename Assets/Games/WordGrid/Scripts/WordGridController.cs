@@ -69,7 +69,7 @@ namespace Gamio.Games.WordGrid
             solved = false;
             wrongLetters.Clear();
             usedLetters.Clear();
-            puzzle.Reset();
+            puzzle.Reset(false);
         }
 
         public bool Submit()
@@ -141,6 +141,23 @@ namespace Gamio.Games.WordGrid
         public bool IsLetterWrong(char letter)
         {
             return wrongLetters.Contains(char.ToUpperInvariant(letter));
+        }
+
+        public bool IsLetterWrongInAlphabet(char letter)
+        {
+            if (!wrongLetters.Contains(letter)) return false;
+
+            int targetCount = 0;
+            int foundCount = 0;
+            for (int i = 0; i < puzzle.WordLength; i++)
+            {
+                if (puzzle.TargetWord[i] == letter) targetCount++;
+                if ((puzzle.Cells[i].State == TileState.Correct || puzzle.Cells[i].State == TileState.WrongPosition)
+                    && puzzle.Cells[i].PlacedLetter == letter)
+                    foundCount++;
+            }
+
+            return foundCount >= targetCount;
         }
 
         public bool IsLetterUsed(char letter)

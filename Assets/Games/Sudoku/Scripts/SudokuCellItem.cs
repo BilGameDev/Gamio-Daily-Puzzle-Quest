@@ -63,12 +63,13 @@ namespace Gamio.Games.Sudoku
         public void PlayViolationAnimation()
         {
             StopViolationAnimation();
+            var originalColor = Image.color;
             Image.color = Color.red;
             violationSeq = DOTween.Sequence();
             violationSeq.Append(Image.DOColor(new Color(0.8f, 0.2f, 0.2f), 0.15f));
             violationSeq.Append(Image.DOColor(Color.red, 0.15f));
             violationSeq.SetLoops(3);
-            violationSeq.OnComplete(() => Image.color = Color.white);
+            violationSeq.OnComplete(() => Image.color = originalColor);
         }
 
         public void StopViolationAnimation()

@@ -57,6 +57,23 @@ namespace Gamio.Games.Sudoku
             return true;
         }
 
+        public bool HasConflict(int row, int col, int number)
+        {
+            for (int c = 0; c < GridCols; c++)
+                if (c != col && Cells[row, c].Value == number)
+                    return true;
+            for (int r = 0; r < GridRows; r++)
+                if (r != row && Cells[r, col].Value == number)
+                    return true;
+            int boxR = row / BoxSize * BoxSize;
+            int boxC = col / BoxSize * BoxSize;
+            for (int r = boxR; r < boxR + BoxSize; r++)
+                for (int c = boxC; c < boxC + BoxSize; c++)
+                    if ((r != row || c != col) && Cells[r, c].Value == number)
+                        return true;
+            return false;
+        }
+
         public bool IsCorrect(int row, int col)
         {
             return Cells[row, col].Value == Solution[row, col];

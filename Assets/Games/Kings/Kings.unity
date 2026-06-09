@@ -275,6 +275,22 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7167155166473256993, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7218116559874869719, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -316,6 +332,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+--- !u!114 &10860135 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8466514295550275233, guid: 8a217645975bf8049817d1f12c0f2177, type: 3}
+  m_PrefabInstance: {fileID: 10860134}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &215544462
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +973,10 @@ PrefabInstance:
       propertyPath: testMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7240486441131014799, guid: 09872d565b47b664a85f605e1d892ae5, type: 3}
+      propertyPath: timerObject
+      value: 
+      objectReference: {fileID: 10860135}
     - target: {fileID: 8658234173158167297, guid: 09872d565b47b664a85f605e1d892ae5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

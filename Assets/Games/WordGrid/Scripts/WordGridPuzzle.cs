@@ -42,10 +42,11 @@ namespace Gamio.Games.WordGrid
             return true;
         }
 
-        public void Reset()
+        public void Reset(bool preserveCorrect = false)
         {
             for (int i = 0; i < WordLength; i++)
             {
+                if (preserveCorrect && Cells[i].State == TileState.Correct) continue;
                 Cells[i].PlacedLetter = null;
                 Cells[i].State = TileState.Empty;
             }

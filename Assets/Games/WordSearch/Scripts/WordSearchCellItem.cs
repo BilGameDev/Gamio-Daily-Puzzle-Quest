@@ -58,6 +58,13 @@ namespace Gamio.Games.WordSearch
                 image.color = color;
         }
 
+        public void SetHighlightImmediate(bool highlighted, Color color)
+        {
+            if (image == null) return;
+            colorTween?.Kill();
+            image.color = highlighted ? color : defaultTileColor;
+        }
+
         public void SetHighlight(bool highlighted, Color color)
         {
             if (image == null) return;
