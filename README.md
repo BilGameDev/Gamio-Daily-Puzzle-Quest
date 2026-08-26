@@ -1,4 +1,4 @@
-# Gamio - Daily Puzzle Quest
+# Ludic - Daily Puzzle Quest
 
 A daily puzzle game collection for mobile. Each day brings three randomly selected puzzles with a shared seed, solve them, compete on the leaderboard, and keep your streak alive.
 
